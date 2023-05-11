@@ -1,5 +1,7 @@
 package app.taskplanner.view.noteview;
+import app.taskplanner.model.DataModel;
 import app.taskplanner.model.Note;
+import app.taskplanner.view.ViewController;
 import app.taskplanner.view.ViewHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,11 +12,12 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyEvent;
 
-public class NoteController extends com.example.taskplanner.view.ViewController {
+import java.util.List;
 
-        private ViewHandler viewHandler;
-        private Note note;
-        private int noteId; //(potem w notatce bedzie jej id)
+public class NoteController implements ViewController {
+
+        ViewHandler viewHandler;
+        DataModel dataModel;
         @FXML
         private MenuItem closeNoSave;
 
@@ -31,16 +34,16 @@ public class NoteController extends com.example.taskplanner.view.ViewController 
         private Label statusMessage;
 
 
-//        @FXML
-//        void closeWithoutSaving(ActionEvent event) {
-//            viewHandler.closeNote(noteId);
-//        }
-//
-//        @FXML
-//        void listOtherNotes(ActionEvent event) {
-//                List<String> otherNotes = viewHandler.listNotes();
-//                otherNotes.remove("");//tytul tej notatki
-//        }
+        @FXML
+        void closeWithoutSaving(ActionEvent event) {
+            viewHandler.closeNote(this);
+        }
+
+        @FXML
+        void listOtherNotes(ActionEvent event) {
+                List<Note> otherNotes = dataModel.getNotes();
+//                otherNotes.remove();//tytul tej notatki
+        }
 
         @FXML
         void saveAndClose(ActionEvent event) {
@@ -63,10 +66,14 @@ public class NoteController extends com.example.taskplanner.view.ViewController 
                 //do sth
             }
         }
-//        public void init(ViewHandler viewHandler, VMFactory vmFactory) {
+    @Override
+    public void init(ViewHandler viewHandler,DataModel dataModel) {
+        this.viewHandler = viewHandler;
+        this.dataModel = dataModel;
 
-//        }
-        public int getId(){
-            return noteId; //czyli po id czy tytulach
-        }
     }
+//        public int getId(){
+//            return noteId; //czyli po id czy tytulach
+//        }
+
+}

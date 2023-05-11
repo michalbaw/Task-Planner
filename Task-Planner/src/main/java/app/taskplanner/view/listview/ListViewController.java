@@ -1,4 +1,6 @@
 package app.taskplanner.view.listview;
+import app.taskplanner.model.DataModel;
+import app.taskplanner.view.ViewController;
 import app.taskplanner.view.ViewHandler;
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
@@ -11,9 +13,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
-public class ListViewController extends com.example.taskplanner.view.ViewController {
+public class ListViewController implements ViewController {
     private ObservableList<String> titles;
     private ViewHandler viewHandler;
+    private DataModel dataModel;
     @FXML
     private ListView<String> listOfNotes;
     @FXML
@@ -27,18 +30,19 @@ public class ListViewController extends com.example.taskplanner.view.ViewControl
 
     @FXML
     void createNewNote(MouseEvent event) {
-        titles.add(viewHandler.addNote(newTitle.getText()));
+//        titles.add(dataModel.addNote(newTitle.getText()));
     }
 
     @FXML
     void deleteSelectedNotes(MouseEvent event) {
-        int selectedId =
-        viewHandler.removeNote(listOfNotes.getSelectionModel().getSelectedItems());
+//        dataModel.removeNote();
         listOfNotes.refresh();
     }
-    void init(ViewHandler viewHandler){
+    @Override
+    public void init(ViewHandler viewHandler,DataModel dataModel){
         this.viewHandler = viewHandler;
-        titles = viewHandler.getNoteTitles();
+        this.dataModel = dataModel;
         listOfNotes.setItems(titles);
     }
+
 }

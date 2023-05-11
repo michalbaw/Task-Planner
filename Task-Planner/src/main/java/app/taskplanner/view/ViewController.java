@@ -1,8 +1,7 @@
-package com.example.taskplanner.view;
+package app.taskplanner.view;
 
-public class ViewController {
-    public void init(/*cos tutaj wypada wpisac*/)
-    {
+import app.taskplanner.model.DataModel;
 
-    }
+public interface ViewController {
+    public void init(ViewHandler viewHandler, DataModel dataModel);
 }

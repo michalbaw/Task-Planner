@@ -1,34 +1,36 @@
 package app.taskplanner.view;
 
+import app.taskplanner.viewmodel.VMFactory;
+import app.taskplanner.model.DataModel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ViewHandler {
-//    private VMFactory vmFactory;
+    private VMFactory vmFactory;
+    private DataModel dataModel;
     private Stage primaryStage;
-//
+
     private List<Stage> noteStages;
-//    public ViewHandler(VMFactory vmFactory){
-//        this.vmFactory = vmFactory;
-//        this.primaryStage = new Stage();
-//    }
+    public ViewHandler(VMFactory vmFactory){
+        this.vmFactory = vmFactory;
+        this.primaryStage = new Stage();
+    }
 
     public void start(){
-        openView("listView");
+        openPrimaryView("listView");
     }
-    public void openView(String viewName)  {
+    public void openPrimaryView(String viewName)  {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource(/*sciezka do klasy z odpowiednim view*/));
             Parent root = loader.load();
-            com.example.taskplanner.view.ViewController vc = loader.getController();
-            vc.init(/*params*/);
+            ViewController vc = loader.getController();
+            vc.init(this,dataModel);
             Scene listScene = new Scene(root);
             primaryStage.setScene(listScene);
         }
@@ -56,10 +58,5 @@ public class ViewHandler {
             if(s.getTitle().equals(""))//tytul notatki
                 s.close();
         }
-    }
-    public List<String> listNotes()
-    {
-        //lista tytulow od noteview?
-        return new ArrayList<>();
     }
 }

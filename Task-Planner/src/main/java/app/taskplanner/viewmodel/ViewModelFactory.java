@@ -6,12 +6,12 @@ import java.io.IOException;
 
 public class ViewModelFactory {
 
-    private final TaskPlannerViewModel taskPlannerViewModel;
+//    private final TaskPlannerViewModel taskPlannerViewModel;
     public ViewModelFactory(ModelFactory modelFactory) throws IOException, ClassNotFoundException {
-        taskPlannerViewModel = new TaskPlannerViewModel(modelFactory.getDataModel());
+//        taskPlannerViewModel = new TaskPlannerViewModel(modelFactory.getDataModel());
     }
 
-    public TaskPlannerViewModel getTaskPlannerViewModel() {
-        return taskPlannerViewModel;
-    }
+//    public TaskPlannerViewModel getTaskPlannerViewModel() {
+//        return taskPlannerViewModel;
+//    }
 }

@@ -15,6 +15,7 @@ public class StartApp extends Application {
         ModelFactory mf = new ModelFactory();
         ViewModelFactory viewModelFactory = new ViewModelFactory(mf);
         ViewHandler viewModelHandler = new ViewHandler(viewModelFactory);
+        System.out.println("auu");
         viewModelHandler.start();
     }
     public static void main(String[] args) {

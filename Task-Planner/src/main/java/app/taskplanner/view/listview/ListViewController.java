@@ -1,5 +1,6 @@
 package app.taskplanner.view.listview;
 import app.taskplanner.model.DataModel;
+import app.taskplanner.model.Note;
 import app.taskplanner.view.ViewController;
 import app.taskplanner.view.ViewHandler;
 import javafx.beans.Observable;
@@ -30,18 +31,36 @@ public class ListViewController implements ViewController {
 
     @FXML
     void createNewNote(MouseEvent event) {
-//        titles.add(dataModel.addNote(newTitle.getText()));
+        dataModel.addNote(newTitle.getText());
+        listOfNotes.refresh();
     }
 
     @FXML
     void deleteSelectedNotes(MouseEvent event) {
-//        dataModel.removeNote();
+        List<String> selected = listOfNotes.getSelectionModel().getSelectedItems();
+        for(String title : selected)
+        {
+            Note newNote = viewHandler.noteFromTitle(title);
+            dataModel.removeNote(newNote);
+        }
         listOfNotes.refresh();
     }
+    @FXML
+    void openSelectedNote(MouseEvent event) {
+        List<String> selected = listOfNotes.getSelectionModel().getSelectedItems();
+        for(String title : selected)
+        {
+         Note newNote = viewHandler.noteFromTitle(title);
+         viewHandler.openNote(newNote);
+        }
+    }
+
+
     @Override
     public void init(ViewHandler viewHandler,DataModel dataModel){
         this.viewHandler = viewHandler;
         this.dataModel = dataModel;
+        titles = (ObservableList<String>) viewHandler.listNotes();
         listOfNotes.setItems(titles);
     }
 

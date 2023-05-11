@@ -12,12 +12,14 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyEvent;
 
+import java.io.IOException;
 import java.util.List;
 
 public class NoteController implements ViewController {
 
-        ViewHandler viewHandler;
-        DataModel dataModel;
+        private ViewHandler viewHandler;
+        private DataModel dataModel;
+        private Note currentNote;
         @FXML
         private MenuItem closeNoSave;
 
@@ -36,7 +38,7 @@ public class NoteController implements ViewController {
 
         @FXML
         void closeWithoutSaving(ActionEvent event) {
-            viewHandler.closeNote(this);
+            viewHandler.closeNote(currentNote);
         }
 
         @FXML
@@ -46,10 +48,16 @@ public class NoteController implements ViewController {
         }
 
         @FXML
-        void saveAndClose(ActionEvent event) {
-            this.saveContent(null);
-            this.saveTitle(null);
-//            this.closeWithoutSaving(event);
+        void saveAndClose(ActionEvent event)  {
+//            this.saveContent(null);
+//            this.saveTitle(null);
+            try {
+                dataModel.saveNotes();
+            }
+            catch (IOException e){
+                System.out.println("saving failed");
+            }
+            this.closeWithoutSaving(event);
         }
 
         @FXML
@@ -70,7 +78,10 @@ public class NoteController implements ViewController {
     public void init(ViewHandler viewHandler,DataModel dataModel) {
         this.viewHandler = viewHandler;
         this.dataModel = dataModel;
+    }
 
+    public void setup(Note currentNote){
+            this.currentNote = currentNote;
     }
 //        public int getId(){
 //            return noteId; //czyli po id czy tytulach

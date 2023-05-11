@@ -39,4 +39,17 @@ public class SimpleDataModel implements DataModel{
     public List<Note> getNotes(){
         return noteList;
     }
+
+    @Override
+    public Note addNote (String title){
+        Note noteToAdd = new SimpleNote();
+        noteToAdd.setTitle(title);
+        noteList.add(noteToAdd);
+        return noteToAdd;
+    }
+
+    @Override
+    public void removeNote(Note toRemove){
+        noteList.remove(toRemove);
+    }
 }

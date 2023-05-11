@@ -7,4 +7,6 @@ public interface DataModel {
     void loadNotes(String location) throws IOException;
     void saveNotes() throws IOException;
     List<Note> getNotes();
+    Note addNote (String title);
+    void removeNote (Note toRemove);
 }

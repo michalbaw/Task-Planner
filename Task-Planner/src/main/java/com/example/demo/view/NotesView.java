@@ -1,5 +1,7 @@
 package com.example.demo.view;
 
+import app.taskplanner.model.Note;
+
 import java.util.List;
 
 public class NotesView {

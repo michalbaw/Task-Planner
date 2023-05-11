@@ -1,4 +1,5 @@
 package app.taskplanner.view.noteview;
+import app.taskplanner.model.Note;
 import app.taskplanner.view.ViewHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

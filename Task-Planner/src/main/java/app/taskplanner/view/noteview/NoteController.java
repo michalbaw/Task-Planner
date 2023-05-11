@@ -1,5 +1,6 @@
-package com.example.taskplanner.view.noteview;
-
+package app.taskplanner.view.noteview;
+import app.taskplanner.model.Note;
+import app.taskplanner.view.ViewHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,10 +10,10 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyEvent;
 
-public class NoteController extends com.example.demo.view.ViewController {
+public class NoteController extends com.example.taskplanner.view.ViewController {
 
-        private com.example.demo.view.ViewHandler viewHandler;
-        private model.Note note;
+        private ViewHandler viewHandler;
+        private Note note;
         private int noteId; //(potem w notatce bedzie jej id)
         @FXML
         private MenuItem closeNoSave;

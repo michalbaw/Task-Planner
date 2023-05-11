@@ -1,4 +1,4 @@
-package com.example.taskplanner.view;
+package app.taskplanner.view;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,14 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewHandler {
-    private VMFactory vmFactory;
+//    private VMFactory vmFactory;
     private Stage primaryStage;
-
+//
     private List<Stage> noteStages;
-    public ViewHandler(VMFactory vmFactory){
-        this.vmFactory = vmFactory;
-        this.primaryStage = new Stage();
-    }
+//    public ViewHandler(VMFactory vmFactory){
+//        this.vmFactory = vmFactory;
+//        this.primaryStage = new Stage();
+//    }
 
     public void start(){
         openView("listView");
@@ -27,7 +27,7 @@ public class ViewHandler {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource(/*sciezka do klasy z odpowiednim view*/));
             Parent root = loader.load();
-            ViewController vc = loader.getController();
+            com.example.taskplanner.view.ViewController vc = loader.getController();
             vc.init(/*params*/);
             Scene listScene = new Scene(root);
             primaryStage.setScene(listScene);

@@ -35,5 +35,8 @@ public class SimpleDataModel implements DataModel{
         objectOut.writeObject(noteList);
     }
 
-
+    @Override
+    public List<Note> getNotes(){
+        return noteList;
+    }
 }

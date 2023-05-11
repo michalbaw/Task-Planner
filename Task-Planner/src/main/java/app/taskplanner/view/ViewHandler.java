@@ -1,6 +1,6 @@
 package app.taskplanner.view;
 
-import app.taskplanner.viewmodel.VMFactory;
+import app.taskplanner.viewmodel.ViewModelFactory;
 import app.taskplanner.model.DataModel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -8,16 +8,18 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViewHandler {
-    private VMFactory vmFactory;
+    private ViewModelFactory vmFactory;
     private DataModel dataModel;
+    private ViewModelFactory viewModelFactory;
     private Stage primaryStage;
 
     private List<Stage> noteStages;
-    public ViewHandler(VMFactory vmFactory){
-        this.vmFactory = vmFactory;
+    public ViewHandler(ViewModelFactory vmFactory){
+        this.viewModelFactory = vmFactory;
         this.primaryStage = new Stage();
     }
 
@@ -27,7 +29,7 @@ public class ViewHandler {
     public void openPrimaryView(String viewName)  {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource(/*sciezka do klasy z odpowiednim view*/));
+            //loader.setLocation(getClass().getResource(/*sciezka do klasy z odpowiednim view*/));
             Parent root = loader.load();
             ViewController vc = loader.getController();
             vc.init(this,dataModel);
@@ -41,7 +43,7 @@ public class ViewHandler {
     public void openNote(int noteId){
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource(/*sciezka do klasy z odpowiednim view*/));
+            //loader.setLocation(getClass().getResource(/*sciezka do klasy z odpowiednim view*/));
             Parent root = loader.load();
             Stage noteStage = new Stage();
             noteStage.setTitle("");//tytul notatki
@@ -58,5 +60,10 @@ public class ViewHandler {
             if(s.getTitle().equals(""))//tytul notatki
                 s.close();
         }
+    }
+    public List<String> listNotes()
+    {
+        //lista tytulow od noteview?
+        return new ArrayList<>();
     }
 }

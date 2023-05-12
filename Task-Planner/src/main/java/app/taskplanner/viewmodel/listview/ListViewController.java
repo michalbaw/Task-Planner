@@ -1,18 +1,17 @@
-package app.taskplanner.view.listview;
+package app.taskplanner.viewmodel.listview;
 import app.taskplanner.model.DataModel;
 import app.taskplanner.model.Note;
 import app.taskplanner.view.ViewController;
-import app.taskplanner.view.ViewHandler;
-import javafx.beans.Observable;
+import app.taskplanner.viewmodel.ViewHandler;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
-import javafx.stage.Stage;
-import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+
+import java.util.List;
 
 public class ListViewController implements ViewController {
     private ObservableList<String> titles;

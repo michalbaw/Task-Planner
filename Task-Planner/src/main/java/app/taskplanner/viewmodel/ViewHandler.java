@@ -1,9 +1,9 @@
-package app.taskplanner.view;
+package app.taskplanner.viewmodel;
 
 import app.taskplanner.model.Note;
-import app.taskplanner.view.noteview.NoteController;
-import app.taskplanner.viewmodel.ViewModelFactory;
+import app.taskplanner.view.ViewController;
 import app.taskplanner.model.DataModel;
+import app.taskplanner.viewmodel.noteview.NoteController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -15,24 +15,19 @@ import java.util.List;
 
 public class ViewHandler {
     private DataModel dataModel;
-    private ViewModelFactory viewModelFactory;
     private Stage primaryStage;
 
     private List<StageDescr> noteStages;
-    public ViewHandler(ViewModelFactory vmFactory){
-        this.viewModelFactory = vmFactory;
+    public ViewHandler(DataModel dataModel){
+        this.dataModel = dataModel;
         this.primaryStage = new Stage();
     }
 
     public void start(){
-        openPrimaryView("listView");
+        openPrimaryView();
         noteStages = new ArrayList<>();
     }
-    public void init(DataModel dataModel, ViewModelFactory viewModelFactor){
-        this.dataModel = dataModel;
-        this.viewModelFactory = viewModelFactor;
-    }
-    public void openPrimaryView(String viewName)  {
+    public void openPrimaryView()  {
         try {
             FXMLLoader loader = new FXMLLoader(ViewHandler.class.getResource("list-view.fxml"));
             System.out.println("tutaj");

@@ -1,8 +1,8 @@
-package app.taskplanner.view.noteview;
+package app.taskplanner.viewmodel.noteview;
 import app.taskplanner.model.DataModel;
 import app.taskplanner.model.Note;
 import app.taskplanner.view.ViewController;
-import app.taskplanner.view.ViewHandler;
+import app.taskplanner.viewmodel.ViewHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

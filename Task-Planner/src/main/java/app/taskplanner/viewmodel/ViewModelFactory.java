@@ -1,17 +1,13 @@
 package app.taskplanner.viewmodel;
 
-import app.taskplanner.model.ModelFactory;
-import app.taskplanner.viewmodel.taskplanner.TaskPlannerViewModel;
+import app.taskplanner.model.DataModel;
+
 import java.io.IOException;
 
 public class ViewModelFactory {
 
-//    private final TaskPlannerViewModel taskPlannerViewModel;
-    public ViewModelFactory(ModelFactory modelFactory) throws IOException, ClassNotFoundException {
-//        taskPlannerViewModel = new TaskPlannerViewModel(modelFactory.getDataModel());
+    public ViewModelFactory(DataModel dataModel) throws IOException, ClassNotFoundException {
+        ViewHandler viewModelHandler = new ViewHandler(dataModel);
+        viewModelHandler.start();
     }
-
-//    public TaskPlannerViewModel getTaskPlannerViewModel() {
-//        return taskPlannerViewModel;
-//    }
 }

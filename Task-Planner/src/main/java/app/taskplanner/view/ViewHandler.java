@@ -34,10 +34,8 @@ public class ViewHandler {
     }
     public void openPrimaryView(String viewName)  {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            //wywala sie location
+            FXMLLoader loader = new FXMLLoader(ViewHandler.class.getResource("list-view.fxml"));
             System.out.println("tutaj");
-            loader.setLocation(getClass().getResource("list-view.fxml"));//dlaczego to nie dziala?
             System.out.println(loader.getLocation());//nullptr exception
             Parent root = loader.load();
             ViewController vc = loader.getController();

@@ -36,7 +36,9 @@ public class ViewHandler {
         try {
             FXMLLoader loader = new FXMLLoader();
             //wywala sie location
-            loader.setLocation(getClass().getResource("/src/main/resources/list-view.fxml"));
+            System.out.println("tutaj");
+            loader.setLocation(getClass().getResource("list-view.fxml"));//dlaczego to nie dziala?
+            System.out.println(loader.getLocation());//nullptr exception
             Parent root = loader.load();
             ViewController vc = loader.getController();
             vc.init(this,dataModel);
@@ -59,7 +61,7 @@ public class ViewHandler {
     public void openNote(Note note){
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/src/main/resources/note-view.fxml"));
+            loader.setLocation(getClass().getResource("note-view.fxml"));
             Parent root = loader.load();
             NoteController nc = loader.getController();
             nc.init(this,dataModel);

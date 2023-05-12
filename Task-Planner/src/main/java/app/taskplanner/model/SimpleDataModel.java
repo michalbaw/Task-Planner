@@ -44,6 +44,7 @@ public class SimpleDataModel implements DataModel{
 
     @Override
     public Note addNote (String title){
+        System.out.println("tworze");
         Note noteToAdd = new SimpleNote();
         noteToAdd.setTitle(title);
         noteList.add(noteToAdd);

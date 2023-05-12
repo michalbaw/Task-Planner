@@ -59,7 +59,7 @@ public class    ListViewController implements ViewController {
     public void init(ViewHandler viewHandler,DataModel dataModel){
         this.viewHandler = viewHandler;
         this.dataModel = dataModel;
-        titles = (ObservableList<String>) viewHandler.listNotes();
+        titles =  viewHandler.listNotes();
         listOfNotes.setItems(titles);
     }
 

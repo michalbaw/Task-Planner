@@ -6,6 +6,7 @@ import app.taskplanner.model.SimpleObservableList;
 import app.taskplanner.view.ViewController;
 import app.taskplanner.model.DataModel;
 import app.taskplanner.viewmodel.noteview.NoteController;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -37,6 +38,7 @@ public class ViewHandler {
             vc.init(this,dataModel);
             Scene listScene = new Scene(root);
             primaryStage.setScene(listScene);
+            primaryStage.show();
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -54,7 +56,7 @@ public class ViewHandler {
     public void openNote(Note note){
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("note-view.fxml"));
+            loader.setLocation(StartApp.class.getResource("note-view.fxml"));
             Parent root = loader.load();
             NoteController nc = loader.getController();
             nc.init(this,dataModel);
@@ -64,6 +66,7 @@ public class ViewHandler {
             Scene noteScene = new Scene(root);
             noteStage.setScene(noteScene);
             noteStages.add(new StageDescr(noteStage, note));
+            noteStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -79,10 +82,10 @@ public class ViewHandler {
             }
         }
     }
-    public List<String> listNotes()
+    public ObservableList<String> listNotes()
     {
-        List<Note> notes = dataModel.getNotes();
-        List<String> titles = new SimpleObservableList<>();
+        ObservableList<Note> notes = dataModel.getNotes();
+        ObservableList<String> titles = new SimpleObservableList<>();
         for(Note n : notes){
             titles.add(n.getTitle());
         }

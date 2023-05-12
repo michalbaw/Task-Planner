@@ -9,7 +9,6 @@ public class SimpleDataModel implements DataModel{
     String location = "noteList";
     @Override
     public void loadNotes() throws IOException{
-        this.location = location;
         ObjectInputStream objectIn = null;
         try {
             FileInputStream fileIn = new FileInputStream(location);
@@ -17,6 +16,8 @@ public class SimpleDataModel implements DataModel{
         }catch(FileNotFoundException e){
             File newFile = new File(location);
             newFile.createNewFile();
+        }catch(EOFException e){
+            return;
         }
         try {
             noteList = (List<Note>) objectIn;

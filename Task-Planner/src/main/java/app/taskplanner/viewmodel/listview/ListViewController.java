@@ -13,7 +13,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.util.List;
 
-public class ListViewController implements ViewController {
+public class    ListViewController implements ViewController {
     private ObservableList<String> titles;
     private ViewHandler viewHandler;
     private DataModel dataModel;

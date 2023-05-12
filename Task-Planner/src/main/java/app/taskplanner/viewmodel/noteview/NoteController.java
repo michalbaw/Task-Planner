@@ -17,7 +17,8 @@ import java.util.List;
 
 public class NoteController implements ViewController {
 
-        private ViewHandler viewHandler;
+    public Button loadChangesButton;
+    private ViewHandler viewHandler;
         private DataModel dataModel;
         private Note currentNote;
         @FXML
@@ -25,9 +26,6 @@ public class NoteController implements ViewController {
 
         @FXML
         private Menu openAnother;
-
-        @FXML
-        private ProgressBar progressBar;
 
         @FXML
         private Button saveAndClose;
@@ -44,7 +42,8 @@ public class NoteController implements ViewController {
         @FXML
         void listOtherNotes(ActionEvent event) {
                 List<Note> otherNotes = dataModel.getNotes();
-//                otherNotes.remove();//tytul tej notatki
+                otherNotes.remove(currentNote);//tytul tej notatki
+
         }
 
         @FXML
@@ -63,7 +62,6 @@ public class NoteController implements ViewController {
         @FXML
         void saveContent(KeyEvent event) {
             if(event!= null){
-                //do sth
 
             }
         }
@@ -83,8 +81,5 @@ public class NoteController implements ViewController {
     public void setup(Note currentNote){
             this.currentNote = currentNote;
     }
-//        public int getId(){
-//            return noteId; //czyli po id czy tytulach
-//        }
 
 }

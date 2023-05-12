@@ -1,5 +1,4 @@
 package app.taskplanner.model;
-
 import java.io.IOException;
 import java.util.List;
 

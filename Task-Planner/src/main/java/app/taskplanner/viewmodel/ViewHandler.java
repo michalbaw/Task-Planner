@@ -1,5 +1,6 @@
 package app.taskplanner.viewmodel;
 
+import app.taskplanner.StartApp;
 import app.taskplanner.model.Note;
 import app.taskplanner.view.ViewController;
 import app.taskplanner.model.DataModel;
@@ -14,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewHandler {
-    private DataModel dataModel;
-    private Stage primaryStage;
+    private final DataModel dataModel;
+    private final Stage primaryStage;
 
     private List<StageDescr> noteStages;
     public ViewHandler(DataModel dataModel){
@@ -29,10 +30,8 @@ public class ViewHandler {
     }
     public void openPrimaryView()  {
         try {
-            FXMLLoader loader = new FXMLLoader(ViewHandler.class.getResource("list-view.fxml"));
-            System.out.println("tutaj");
-            System.out.println(loader.getLocation());//nullptr exception
-            Parent root = loader.load();
+            FXMLLoader loader = new FXMLLoader(StartApp.class.getResource("list-view.fxml"));
+            Parent root = loader.load();//error -> loader is null
             ViewController vc = loader.getController();
             vc.init(this,dataModel);
             Scene listScene = new Scene(root);
@@ -63,7 +62,7 @@ public class ViewHandler {
             noteStage.setTitle(note.getTitle());//tytul notatki
             Scene noteScene = new Scene(root);
             noteStage.setScene(noteScene);
-            noteStages.add(new StageDescr(noteStage,note));
+            noteStages.add(new StageDescr(noteStage, note));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -89,7 +88,7 @@ public class ViewHandler {
         return titles;
     }
 
-    private class StageDescr{
+    private static class    StageDescr{
         Stage stage;
         Note note;
         StageDescr(Stage stage,Note note){

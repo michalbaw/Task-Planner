@@ -1,11 +1,14 @@
 package app.taskplanner.model;
 
+import javafx.collections.ModifiableObservableListBase;
+import javafx.collections.ObservableList;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleDataModel implements DataModel{
-    List<Note> noteList;
+    ObservableList<Note> noteList = null;
     String location = "noteList";
     @Override
     public void loadNotes() throws IOException{
@@ -16,16 +19,14 @@ public class SimpleDataModel implements DataModel{
         }catch(FileNotFoundException e){
             File newFile = new File(location);
             newFile.createNewFile();
-        }catch(EOFException e){
-            return;
-        }
-        try {
-            noteList = (List<Note>) objectIn;
-        }catch(Exception e){
-            noteList = null;
+        }catch(EOFException ignored){}
+        if(objectIn != null) {
+            try {
+                noteList = (ObservableList<Note>) objectIn;
+            } catch (Exception ignored) {}
         }
         if (noteList == null){
-            noteList = new ArrayList<>();
+            noteList = new SimpleObservableList<>();
         }
     }
 
@@ -37,7 +38,7 @@ public class SimpleDataModel implements DataModel{
     }
 
     @Override
-    public List<Note> getNotes(){
+    public ObservableList<Note> getNotes(){
         return noteList;
     }
 

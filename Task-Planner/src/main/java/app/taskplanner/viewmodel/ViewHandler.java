@@ -2,6 +2,7 @@ package app.taskplanner.viewmodel;
 
 import app.taskplanner.StartApp;
 import app.taskplanner.model.Note;
+import app.taskplanner.model.SimpleObservableList;
 import app.taskplanner.view.ViewController;
 import app.taskplanner.model.DataModel;
 import app.taskplanner.viewmodel.noteview.NoteController;
@@ -81,7 +82,7 @@ public class ViewHandler {
     public List<String> listNotes()
     {
         List<Note> notes = dataModel.getNotes();
-        List<String> titles = new ArrayList<>();
+        List<String> titles = new SimpleObservableList<>();
         for(Note n : notes){
             titles.add(n.getTitle());
         }

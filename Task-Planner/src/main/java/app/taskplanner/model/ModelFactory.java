@@ -7,12 +7,12 @@ public class ModelFactory {
 
     public ModelFactory() throws IOException {
         dataModel = new SimpleDataModel();
-        dataModel.loadNotes("savedNotes");
+        dataModel.loadNotes();
     }
     public DataModel getDataModel() throws IOException {
         if (dataModel == null) {
             dataModel = new SimpleDataModel();
-            dataModel.loadNotes("savedNotes");
+            dataModel.loadNotes();
         }
         return dataModel;
     }

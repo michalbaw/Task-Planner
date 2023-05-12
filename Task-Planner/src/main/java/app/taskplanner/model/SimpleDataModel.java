@@ -6,9 +6,9 @@ import java.util.List;
 
 public class SimpleDataModel implements DataModel{
     List<Note> noteList;
-    String location;
+    String location = "noteList";
     @Override
-    public void loadNotes(String location) throws IOException{
+    public void loadNotes() throws IOException{
         this.location = location;
         ObjectInputStream objectIn = null;
         try {

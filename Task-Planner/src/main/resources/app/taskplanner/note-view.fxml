@@ -1,20 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-    <BorderPane xmlns="http://javafx.com/javafx/17.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.taskplanner.viewmodel.noteview.NoteController">
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.taskplanner.viewmodel.noteview.NoteController">
     <top>
         <MenuBar>
             <Menu text="File">
-                <MenuItem text="Open" />
+                <Menu fx:id="openAnother" mnemonicParsing="false" onAction="#listOtherNotes" text="Open another note">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                    </items>
+                </Menu>
                 <MenuItem text="Save" />
                 <MenuItem text="Close" />
+                <MenuItem fx:id="closeNoSave" mnemonicParsing="false" onAction="#closeWithoutSaving" text="Close without saving" />
             </Menu>
         </MenuBar>
     </top>
     <center>
         <AnchorPane>
-            <TextArea editable="false" prefHeight="400.0" prefWidth="600.0" text="Load a text file using the menu" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+            <TextArea id="noteContent" fx:id="noteContent" layoutY="37.0" prefHeight="356.0" prefWidth="600.0" promptText="Here goes note content" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="37.0" />
+            <ScrollBar layoutX="591.0" layoutY="37.0" orientation="VERTICAL" prefHeight="371.0" prefWidth="15.0" />
+         <TextField fx:id="noteTitle" layoutY="13.0" prefHeight="27.0" prefWidth="610.0" promptText="Note title" />
         </AnchorPane>
     </center>
     <bottom>
@@ -23,11 +41,10 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" />
             </padding>
             <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                <Label fx:id="statusMessage" prefWidth="150.0" text="Checking for Changes..." />
-                <ProgressBar fx:id="progressBar" prefWidth="150.0" progress="0.0" />
+                <Label fx:id="statusMessage" prefWidth="150.0" text="Waiting for Changes..." />
             </HBox>
             <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
-                <Button fx:id="loadChangesButton" mnemonicParsing="false" text="Load Changes" />
+                <Button fx:id="saveAndClose" mnemonicParsing="false" onAction="#saveAndClose" text="Save and close" />
             </HBox>
         </HBox>
     </bottom>

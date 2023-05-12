@@ -91,8 +91,32 @@ public class ViewHandler {
         }
         return titles;
     }
+    public void changeTitle(Note note, String title)
+    {
+         ObservableList<Note> notes = dataModel.getNotes();
+         for(Note n : notes)
+         {
+             if(n.equals(note))
+             {
+                 n.setTitle(title);
+                 return;
+             }
+         }
+    }
+    public void changeContent(Note note, String content)
+    {
+        ObservableList<Note> notes = dataModel.getNotes();
+        for(Note n : notes)
+        {
+            if(n.equals(note))
+            {
+                n.setNote(content);
+                return;
+            }
+        }
+    }
 
-    private static class    StageDescr{
+    private static class StageDescr{
         Stage stage;
         Note note;
         StageDescr(Stage stage,Note note){

@@ -31,6 +31,7 @@ public class    ListViewController implements ViewController {
     @FXML
     void createNewNote(MouseEvent event) {
         dataModel.addNote(newTitle.getText());
+        listOfNotes.setItems(viewHandler.listNotes());
         listOfNotes.refresh();
     }
 

@@ -17,4 +17,5 @@ module app.taskplanner {
     exports app.taskplanner.viewmodel.listview;
     exports app.taskplanner.viewmodel.noteview;
     opens app.taskplanner.viewmodel to javafx.fxml;
+    exports app.taskplanner.model.notes;
 }

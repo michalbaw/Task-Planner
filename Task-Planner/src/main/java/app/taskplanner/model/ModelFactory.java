@@ -6,13 +6,11 @@ public class ModelFactory {
     private DataModel dataModel;
 
     public ModelFactory() throws IOException {
-        dataModel = new SimpleDataModel();
-        dataModel.loadNotes();
+        //dataModel = new SimpleDataModel();
     }
     public DataModel getDataModel() throws IOException {
         if (dataModel == null) {
-            dataModel = new SimpleDataModel();
-            dataModel.loadNotes();
+            //dataModel = new SimpleDataModel();
         }
         return dataModel;
     }

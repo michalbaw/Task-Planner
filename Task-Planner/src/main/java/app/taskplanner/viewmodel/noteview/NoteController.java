@@ -1,7 +1,7 @@
 package app.taskplanner.viewmodel.noteview;
 
 import app.taskplanner.model.DataModel;
-import app.taskplanner.model.Note;
+import app.taskplanner.model.notes.Note;
 import app.taskplanner.view.ViewController;
 import app.taskplanner.viewmodel.ViewHandler;
 import javafx.event.ActionEvent;
@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 
-import java.io.IOException;
 import java.util.List;
 
 public class NoteController implements ViewController {

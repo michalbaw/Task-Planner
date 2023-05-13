@@ -1,7 +1,7 @@
 package app.taskplanner.viewmodel;
 
 import app.taskplanner.StartApp;
-import app.taskplanner.model.Note;
+import app.taskplanner.model.notes.Note;
 import app.taskplanner.model.SimpleObservableList;
 import app.taskplanner.view.ViewController;
 import app.taskplanner.model.DataModel;
@@ -110,7 +110,7 @@ public class ViewHandler {
         {
             if(n.equals(note))
             {
-                n.setNote(content);
+                n.setNoteBody(content);
                 return;
             }
         }

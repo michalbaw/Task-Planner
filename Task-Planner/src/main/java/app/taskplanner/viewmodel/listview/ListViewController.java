@@ -1,6 +1,6 @@
 package app.taskplanner.viewmodel.listview;
 import app.taskplanner.model.DataModel;
-import app.taskplanner.model.Note;
+import app.taskplanner.model.notes.Note;
 import app.taskplanner.view.ViewController;
 import app.taskplanner.viewmodel.ViewHandler;
 import javafx.collections.ObservableList;

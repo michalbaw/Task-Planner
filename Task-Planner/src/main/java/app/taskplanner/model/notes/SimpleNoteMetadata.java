@@ -9,7 +9,7 @@ public class SimpleNoteMetadata implements NoteMetadata {
         return key;
     }
 
-    SimpleNoteMetadata(int key){
+    public SimpleNoteMetadata(int key){
         this.key = key;
     }
     @Override

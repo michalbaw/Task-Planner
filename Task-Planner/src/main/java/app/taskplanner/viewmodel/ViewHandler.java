@@ -5,7 +5,9 @@ import app.taskplanner.model.Note;
 import app.taskplanner.model.SimpleObservableList;
 import app.taskplanner.view.ViewController;
 import app.taskplanner.model.DataModel;
-import app.taskplanner.viewmodel.noteview.NoteController;
+import app.taskplanner.view.noteview.NoteController;
+import app.taskplanner.viewmodel.listviewmodel.ListViewModel;
+import app.taskplanner.viewmodel.noteviewmodel.NoteViewModel;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -34,8 +36,10 @@ public class ViewHandler {
         try {
             FXMLLoader loader = new FXMLLoader(StartApp.class.getResource("list-view.fxml"));
             Parent root = loader.load();//error -> loader is null
+            ViewModel vm = new ListViewModel();
+            vm.init(this,dataModel);
             ViewController vc = loader.getController();
-            vc.init(this,dataModel);
+            vc.init(vm);
             Scene listScene = new Scene(root);
             primaryStage.setScene(listScene);
             primaryStage.show();
@@ -58,9 +62,11 @@ public class ViewHandler {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(StartApp.class.getResource("note-view.fxml"));
             Parent root = loader.load();
+            NoteViewModel nvm = new NoteViewModel();
+            nvm.init(this,dataModel);
+            nvm.setupNote(note);
             NoteController nc = loader.getController();
-            nc.init(this,dataModel);
-            nc.setup(note);
+            nc.init(nvm);
             Stage noteStage = new Stage();
             noteStage.setTitle(note.getTitle());//tytul notatki
             Scene noteScene = new Scene(root);

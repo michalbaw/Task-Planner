@@ -1,22 +1,21 @@
-package app.taskplanner.viewmodel.noteview;
+package app.taskplanner.view.noteview;
 
 import app.taskplanner.model.DataModel;
 import app.taskplanner.model.Note;
 import app.taskplanner.view.ViewController;
 import app.taskplanner.viewmodel.ViewHandler;
+import app.taskplanner.viewmodel.ViewModel;
+import app.taskplanner.viewmodel.noteviewmodel.NoteViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 
-import java.io.IOException;
 import java.util.List;
 
 public class NoteController implements ViewController {
 
-    public Button loadChangesButton;
-    private ViewHandler viewHandler;
-    private DataModel dataModel;
+    private NoteViewModel noteVM;
     private Note currentNote;
     @FXML
     private MenuItem closeNoSave;
@@ -35,9 +34,12 @@ public class NoteController implements ViewController {
 
     @FXML
     private TextField noteTitle;
+    @Override
+    public void init(ViewModel noteVM) {
+        this.noteVM = (NoteViewModel) noteVM;
+    }
     @FXML
     void closeWithoutSaving(ActionEvent event) {
-        viewHandler.closeNote(currentNote);
     }
 
     @FXML
@@ -75,14 +77,10 @@ public class NoteController implements ViewController {
         }
     }
 
-    @Override
-    public void init(ViewHandler viewHandler, DataModel dataModel) {
-        this.viewHandler = viewHandler;
-        this.dataModel = dataModel;
-    }
 
-    public void setup(Note currentNote) {
+    public void setupNote(Note currentNote) {
         this.currentNote = currentNote;
     }
+
 
 }

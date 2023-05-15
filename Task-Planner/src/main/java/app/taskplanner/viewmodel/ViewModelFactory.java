@@ -6,12 +6,12 @@ import java.io.IOException;
 
 public class ViewModelFactory {
 
-    private ViewHandler viewModelHandler;
+    private ViewHandler viewHandler;
     public ViewModelFactory(DataModel dataModel) throws IOException, ClassNotFoundException {
-        this.viewModelHandler = new ViewHandler(dataModel);
-        viewModelHandler.start();
+        this.viewHandler = new ViewHandler(dataModel);
+        viewHandler.start();
     }
     public ViewHandler getHandler(){
-        return viewModelHandler;
+        return viewHandler;
     }
 }

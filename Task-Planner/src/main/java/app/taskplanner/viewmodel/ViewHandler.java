@@ -36,7 +36,7 @@ public class ViewHandler {
         try {
             FXMLLoader loader = new FXMLLoader(StartApp.class.getResource("list-view.fxml"));
             Parent root = loader.load();//error -> loader is null
-            ViewModel vm = new ListViewModel();
+            ViewModel vm = new ListViewModel(dataModel);
             vm.init(this,dataModel);
             ViewController vc = loader.getController();
             vc.init(vm);

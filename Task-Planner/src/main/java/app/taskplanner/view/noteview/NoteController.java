@@ -51,15 +51,15 @@ public class NoteController implements ViewController {
 
     @FXML
     void saveAndClose(ActionEvent event) {
-//            this.saveContent(null);
-//            this.saveTitle(null);
+        this.saveContent(null);
+        this.saveTitle(null);
         viewHandler.changeTitle(currentNote,noteTitle.getText());
         viewHandler.changeContent(currentNote,noteContent.getText());
-//        try {
-//            dataModel.saveNotes();
-//        } catch (IOException e) {
-//            System.out.println("saving failed");
-//        }
+        try {
+            dataModel.saveNotes();
+        } catch (IOException e) {
+            System.out.println("saving failed");
+        }
         this.closeWithoutSaving(event);
     }
 

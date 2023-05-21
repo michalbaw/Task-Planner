@@ -3,10 +3,10 @@ module app.taskplanner {
     requires javafx.fxml;
         requires javafx.web;
             
-        requires org.controlsfx.controls;
-                requires net.synedra.validatorfx;
-            requires org.kordamp.ikonli.javafx;
-            requires org.kordamp.bootstrapfx.core;
+        //requires org.controlsfx.controls;
+        //        requires net.synedra.validatorfx;
+        //    requires org.kordamp.ikonli.javafx;
+        //    requires org.kordamp.bootstrapfx.core;
 
     opens app.taskplanner to javafx.fxml;
     opens app.taskplanner.view.listview to javafx.fxml;

@@ -35,18 +35,26 @@ public class SimpleDataModel implements DataModel{
         }
         return null;
     }
+    private Note getNote(int key){
+        for(Note note : openNotes){
+            if(note.getMetadata().getKey() == key){
+                return note;
+            }
+        }
+        return null;
+    }
 
     @Override
     public void saveAll() throws IOException {
         fileHandler.saveNotesMetadata();
         for(Note n : openNotes){
-            fileHandler.saveBody(n.getMetadata().getKey());
+            fileHandler.saveBody(n.getMetadata().getKey(), n.getNoteBody());
         }
     }
 
     @Override
     public void saveNote(int key) throws IOException {
-        fileHandler.saveBody(key);
+        fileHandler.saveBody(key, getNote(key).getNoteBody());
         fileHandler.saveNotesMetadata();
     }
 

@@ -11,6 +11,6 @@ public interface FileHandler {
     List<NoteMetadata> loadNotesMetadata() throws IOException;
     void saveNotesMetadata() throws IOException;
     NoteBody loadBody (int key) throws IOException;
-    void saveBody (int key) throws IOException;
+    void saveBody (int key, NoteBody body) throws IOException;
     void removeBody(int key) throws IOException;
 }

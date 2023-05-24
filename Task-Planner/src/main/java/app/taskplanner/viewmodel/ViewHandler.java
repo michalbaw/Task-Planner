@@ -17,15 +17,17 @@ import javafx.scene.Parent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ViewHandler {
     private final DataModel dataModel;
     private final Stage primaryStage;
-
+    private final String css;
     private List<StageDescr> noteStages;
-    public ViewHandler(DataModel dataModel){
+    public ViewHandler(DataModel dataModel,Stage primaryStage){
         this.dataModel = dataModel;
-        this.primaryStage = new Stage();
+        this.primaryStage = primaryStage;
+        css = Objects.requireNonNull(StartApp.class.getResource("styles.css")).toExternalForm();
     }
 
     public void start(){
@@ -41,6 +43,7 @@ public class ViewHandler {
             ViewController vc = loader.getController();
             vc.init(vm);
             Scene listScene = new Scene(root);
+            listScene.getStylesheets().add(css);
             primaryStage.setScene(listScene);
             primaryStage.show();
         }

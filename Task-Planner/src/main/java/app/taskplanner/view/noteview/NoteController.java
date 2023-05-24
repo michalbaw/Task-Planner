@@ -6,10 +6,16 @@ import app.taskplanner.view.ViewController;
 import app.taskplanner.viewmodel.ViewHandler;
 import app.taskplanner.viewmodel.ViewModel;
 import app.taskplanner.viewmodel.noteviewmodel.NoteViewModel;
+import javafx.beans.binding.ObjectExpression;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 import java.util.List;
 
@@ -17,11 +23,39 @@ public class NoteController implements ViewController {
 
     private NoteViewModel noteVM;
     private Note currentNote;
+    private ObservableList<CheckBoxListCell<Object>> tasks;
+    @FXML
+    private Button addTask;
+
+    @FXML
+    private HBox bottomOptions;
+
+    @FXML
+    private ComboBox<?> changeNote;
+
+    @FXML
+    private VBox checkListVBox;
+
     @FXML
     private MenuItem closeNoSave;
 
     @FXML
+    private VBox midBox;
+
+    @FXML
+    private TextArea noteContent;
+
+    @FXML
+    private TextField noteTitle;
+
+    @FXML
     private Menu openAnother;
+
+    @FXML
+    private VBox pureNote;
+
+    @FXML
+    private VBox rightBox;
 
     @FXML
     private Button saveAndClose;
@@ -30,10 +64,14 @@ public class NoteController implements ViewController {
     private Label statusMessage;
 
     @FXML
-    private TextArea noteContent;
+    private Button taskButton;
 
     @FXML
-    private TextField noteTitle;
+    private ListView<CheckBoxListCell<Object>> taskList;
+
+    @FXML
+    private HBox textAndTasks;
+
     @Override
     public void init(ViewModel noteVM) {
         this.noteVM = (NoteViewModel) noteVM;
@@ -44,23 +82,20 @@ public class NoteController implements ViewController {
 
     @FXML
     void listOtherNotes(ActionEvent event) {
-        List<Note> otherNotes = dataModel.getNotes();
-        otherNotes.remove(currentNote);//tytul tej notatki
 
     }
 
     @FXML
+    void openTaskPage(ActionEvent event) {
+        noteVM.checkListMode(true);
+        checkListVBox.setMinWidth(200);
+//        tasks = noteVM.taskProperty();
+//        taskList.itemsProperty().
+    }
+
+    @FXML
     void saveAndClose(ActionEvent event) {
-        this.saveContent(null);
-        this.saveTitle(null);
-        viewHandler.changeTitle(currentNote,noteTitle.getText());
-        viewHandler.changeContent(currentNote,noteContent.getText());
-        try {
-            dataModel.saveNotes();
-        } catch (IOException e) {
-            System.out.println("saving failed");
-        }
-        this.closeWithoutSaving(event);
+
     }
 
     @FXML
@@ -77,7 +112,10 @@ public class NoteController implements ViewController {
         }
     }
 
-
+    @FXML
+    void swapNote(ActionEvent event) {
+//        noteVM.setupNote();
+    }
     public void setupNote(Note currentNote) {
         this.currentNote = currentNote;
     }

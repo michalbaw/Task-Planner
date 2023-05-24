@@ -8,6 +8,7 @@ import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.stage.Stage;
 
 import java.util.List;
 
@@ -44,6 +45,8 @@ public class ListViewModel implements ViewModel {
 
     public void openNoteWithTitle(String title) {
         // Perform the necessary action when opening a note
+        Note note = viewHandler.noteFromTitle(title);
+        viewHandler.openNote(note);
     }
 
     public void refreshNotes() {
@@ -62,6 +65,11 @@ public class ListViewModel implements ViewModel {
     public void init(ViewHandler viewHandler, DataModel dataModel) {
         this.viewHandler = viewHandler;
         this.dataModel = dataModel;
+    }
+
+    @Override
+    public void init(ViewHandler viewHandler, DataModel dataModel, Stage currentView) {
+
     }
 
     @Override

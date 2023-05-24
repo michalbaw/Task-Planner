@@ -66,13 +66,14 @@ public class ViewHandler {
             loader.setLocation(StartApp.class.getResource("note-view.fxml"));
             Parent root = loader.load();
             NoteViewModel nvm = new NoteViewModel();
-            nvm.init(this,dataModel);
+            Stage noteStage = new Stage();
+            nvm.init(this,dataModel,noteStage);
             nvm.setupNote(note);
             NoteController nc = loader.getController();
             nc.init(nvm);
-            Stage noteStage = new Stage();
             noteStage.setTitle(note.getTitle());//tytul notatki
             Scene noteScene = new Scene(root);
+            noteScene.getStylesheets().add(css);
             noteStage.setScene(noteScene);
             noteStages.add(new StageDescr(noteStage, note));
             noteStage.show();

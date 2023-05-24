@@ -2,6 +2,7 @@ package app.taskplanner.viewmodel.noteviewmodel;
 
 import app.taskplanner.model.DataModel;
 import app.taskplanner.model.Note;
+import app.taskplanner.viewmodel.NoteTasks;
 import app.taskplanner.viewmodel.ViewHandler;
 import app.taskplanner.viewmodel.ViewModel;
 import javafx.beans.property.ListProperty;
@@ -10,7 +11,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class NoteViewModel implements ViewModel {
@@ -22,11 +26,21 @@ public class NoteViewModel implements ViewModel {
     public ListProperty<String> taskProperty() {
         return new SimpleListProperty<>(tasks);
     }
-    Note currentNote;
+    private Note currentNote;
+
+    private Stage noteStage;
+
     @Override
     public void init(ViewHandler viewHandler, DataModel dataModel) {
         this.dataModel = dataModel;
         this.viewHandler = viewHandler;
+    }
+
+    @Override
+    public void init(ViewHandler viewHandler, DataModel dataModel, Stage noteStage) {
+        this.dataModel = dataModel;
+        this.viewHandler = viewHandler;
+        this.noteStage = noteStage;
     }
 
     @Override
@@ -59,16 +73,26 @@ public class NoteViewModel implements ViewModel {
 
         }
     }
+
+    //ToDo
+    public List<NoteTasks> getTasks(){
+        return new ArrayList<>();
+    }
     void saveTitle(KeyEvent event) {
         if (event != null) {
             //do sth
         }
     }
-    //ToDo
     public void setupNote(Note currentNote) {
 //        this.currentNote = currentNote;
     }
     public void checkListMode(boolean enabled){
 
+    }
+    public void resizeX(double X){
+        noteStage.setWidth(noteStage.getWidth()+X);
+    }
+    public void resizeY(double Y){
+        noteStage.setHeight(noteStage.getHeight()+Y);
     }
 }

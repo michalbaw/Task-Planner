@@ -11,34 +11,30 @@ import static javafx.application.Application.launch;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class BoardView implements ViewController {
+public final class BoardView extends AnchorPane {
     private BoardViewModel boardVM;
-    public static Stage board;
     public static ObservableList<Note> notes;
 
-    @Override
     public void init(ViewModel viewModel) {
         this.boardVM = (BoardViewModel) viewModel;
-        board = new Stage();
-        Group root = new Group();
-        Scene scene = new Scene(root,1000,600,Color.SKYBLUE);
-        board.setTitle("Notes like to move it!");
-        setNotes(board);
+        setNotes();
     }
 
-    void setNotes(Stage board){
+    void setNotes( ){
         for(Note note: notes){
-            addNote(board);
+            this.addNote();
         }
     }
-    void addNote(Stage board){
+    void addNote( ){
         try {
             Region root;
             FXMLLoader loader = new FXMLLoader();
@@ -46,6 +42,7 @@ public class BoardView implements ViewController {
             root = loader.load();
             root.setMinHeight(100);
             root.setMinSize(100,100);
+            this.getChildren().add(root);
         }
         catch (IOException ioE)
         {

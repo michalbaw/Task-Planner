@@ -3,10 +3,9 @@ package app.taskplanner.viewmodel;
 import app.taskplanner.StartApp;
 import app.taskplanner.model.Note;
 import app.taskplanner.model.SimpleObservableList;
-import app.taskplanner.view.ViewController;
+import app.taskplanner.view.TestClass;
 import app.taskplanner.model.DataModel;
 import app.taskplanner.view.noteview.NoteController;
-import app.taskplanner.viewmodel.listviewmodel.ListViewModel;
 import app.taskplanner.viewmodel.noteviewmodel.NoteViewModel;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -36,12 +35,14 @@ public class ViewHandler {
     }
     public void openPrimaryView()  {
         try {
-            FXMLLoader loader = new FXMLLoader(StartApp.class.getResource("list-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(StartApp.class.getResource("test-view.fxml"));
             Parent root = loader.load();//error -> loader is null
-            ViewModel vm = new ListViewModel(dataModel);
-            vm.init(this,dataModel);
-            ViewController vc = loader.getController();
-            vc.init(vm);
+//            ViewModel vm = new ListViewModel(dataModel);
+//            vm.init(this,dataModel);
+//            ViewController vc = loader.getController();
+//            vc.init(vm);
+            TestClass tc = loader.getController();
+            tc.init();
             Scene listScene = new Scene(root);
             listScene.getStylesheets().add(css);
             primaryStage.setScene(listScene);

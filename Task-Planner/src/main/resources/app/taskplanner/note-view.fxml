@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.taskplanner.view.noteview.NoteController">
+<BorderPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.taskplanner.view.noteview.NoteController">
     <top>
         <MenuBar>
             <Menu text="File">
@@ -90,7 +90,7 @@
         </HBox>
     </bottom>
    <right>
-      <SplitPane fx:id="taskPane" dividerPositions="0.06845965770171149" minWidth="0.0" orientation="VERTICAL" prefWidth="0.0" BorderPane.alignment="CENTER">
+      <SplitPane fx:id="taskPane" dividerPositions="0.06845965770171149" minWidth="0.0" orientation="VERTICAL" prefWidth="160.0" BorderPane.alignment="CENTER">
         <items>
           <AnchorPane prefHeight="31.0" prefWidth="158.0">
                <children>
@@ -99,7 +99,7 @@
             </AnchorPane>
             <SplitPane dividerPositions="0.9151193633952255" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
               <items>
-                  <ListView fx:id="taskList" prefHeight="242.0" prefWidth="158.0" />
+                  <ListView fx:id="taskList" onDragDetected="#setOnDetected" onDragDropped="#setOnDropped" onDragOver="#setOnOver" prefHeight="242.0" prefWidth="158.0" />
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="148.0" prefWidth="158.0">
                      <children>
                         <TextField fx:id="taskName" layoutX="-2.0" layoutY="2.0" prefHeight="26.0" prefWidth="112.0" promptText="Next task" />

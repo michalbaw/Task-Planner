@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<TabPane fx:id="tabs" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.taskplanner.view.PrimaryView">
+  <tabs>
+    <Tab fx:id="boardTab" text="Untitled Tab 1">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+      </content>
+         <graphic>
+            <AnchorPane fx:id="boardView" prefHeight="200.0" prefWidth="200.0" />
+         </graphic>
+    </Tab>
+    <Tab fx:id="listTab" text="Untitled Tab 2">
+      <fx:include fx:id="listView" source="list-view.fxml"/>
+    </Tab>
+  </tabs>
+</TabPane>

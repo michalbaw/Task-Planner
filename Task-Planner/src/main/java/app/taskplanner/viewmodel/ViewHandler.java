@@ -3,7 +3,7 @@ package app.taskplanner.viewmodel;
 import app.taskplanner.StartApp;
 import app.taskplanner.model.Note;
 import app.taskplanner.model.SimpleObservableList;
-import app.taskplanner.view.TestClass;
+import app.taskplanner.view.PrimaryView;
 import app.taskplanner.model.DataModel;
 import app.taskplanner.view.noteview.NoteController;
 import app.taskplanner.viewmodel.noteviewmodel.NoteViewModel;
@@ -41,7 +41,7 @@ public class ViewHandler {
 //            vm.init(this,dataModel);
 //            ViewController vc = loader.getController();
 //            vc.init(vm);
-            TestClass tc = loader.getController();
+            PrimaryView tc = loader.getController();
             tc.init();
             Scene listScene = new Scene(root);
             listScene.getStylesheets().add(css);

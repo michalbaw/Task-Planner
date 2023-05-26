@@ -1,23 +1,23 @@
 .root{
-    -fx-background-color: "red";
+    -fx-background-color: "aquamarine";
 }
 .button{
     -fx-base:#f8f7b6;
-    -fx-border-width: 0;
-    -fx-border-color: transparent;
+    -fx-border-width: 1;
+    -fx-border-color: #cd5c5c;
     -fx-border-radius: 10%;
     -fx-background-radius: 10%;
     -fx-border-style: none;
-    -fx-background-color: transparent;
-    -fx-border-insets: 0;
-    -fx-background-insets: 0;
+    -fx-background-color: #00ced1;
+    -fx-border-insets: 1;
+    -fx-background-insets: 1;
 }
 .button:hover{
-    -fx-background-color: derive(-fx-base, 18%); /*linear-gradient(#fdffe5, #fdffcf)*/;
+    -fx-background-color: derive(-fx-button, 18%); /*linear-gradient(#fdffe5, #fdffcf)*/;
     -fx-border-style: solid;
-    -fx-border-width: 1;
-    -fx-border-color: derive(-fx-base, -15%);
-    -fx-effect: innershadow( gaussian, derive(-fx-base, -17%), 2, 0.0, -1, -1);
+    -fx-border-width: 3;
+    -fx-border-color: derive(-fx-button-border, -15%);
+    -fx-effect: innershadow( gaussian, derive(-fx-button, -17%), 2, 0.0, -1, -1);
 }
 .button:pressed, .button:pressed:hover{
     -fx-background-color: derive(-fx-base, -2%);
@@ -141,4 +141,44 @@
     -fx-background-radius: 0 0 0 0;
     -fx-background-color: #f0f0f0;
     -fx-background-insets: 1 0 0 1; /* have the square on the corner be centered */
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * TabPane                                                                     *
+ *                                                                             *
+ ******************************************************************************/
+
+.tab-pane {
+    -fx-tab-min-height: 25px;
+    -fx-tab-min-width: 35px;
+}
+
+.tab-pane .tab-header-area {
+    -fx-padding: 0.5em 0.5em 0 0.5em;
+}
+
+.tab-pane .tab {
+    -fx-background-color: indianred;
+    -fx-background-radius: 5px;
+    -fx-border-color: #AAAAAA;
+    -fx-border-width: 1px;
+    -fx-padding: 0.5em;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: darkred;
+    -fx-padding: 0.7em;
+}
+
+.tab-pane .tab:selected .focus-indicator {
+    -fx-background-color: transparent;
+}
+
+.tab-pane .tab-label {
+    -fx-text-fill: white;
+}
+
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: white;
 }

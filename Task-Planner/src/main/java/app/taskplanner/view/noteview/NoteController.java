@@ -1,17 +1,10 @@
 package app.taskplanner.view.noteview;
 
-import app.taskplanner.model.DataModel;
 import app.taskplanner.model.Note;
 import app.taskplanner.view.ViewController;
 import app.taskplanner.viewmodel.NoteTasks;
-import app.taskplanner.viewmodel.ViewHandler;
 import app.taskplanner.viewmodel.ViewModel;
 import app.taskplanner.viewmodel.noteviewmodel.NoteViewModel;
-import javafx.beans.binding.ObjectExpression;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +13,7 @@ import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.util.Callback;
+
 import java.util.List;
 
 public class NoteController implements ViewController {
@@ -28,9 +21,9 @@ public class NoteController implements ViewController {
     private NoteViewModel noteVM;
     private Note currentNote;
     private ObservableList<CheckBoxListCell<Object>> tasks;
-    DataFormat task = new DataFormat("text/title","text/toDo");
+    DataFormat task = new DataFormat("text/title", "text/toDo");
 
-    boolean opened=false;
+    boolean opened = false;
     @FXML
     private HBox bottomOptions;
 
@@ -89,8 +82,10 @@ public class NoteController implements ViewController {
     public void init(ViewModel noteVM) {
         this.noteVM = (NoteViewModel) noteVM;
     }
+
     @FXML
     void closeWithoutSaving(ActionEvent event) {
+
     }
 
     @FXML
@@ -100,7 +95,7 @@ public class NoteController implements ViewController {
 
     @FXML
     void openTaskPage(ActionEvent event) {
-        if(!opened) {
+        if (!opened) {
             System.out.println(taskPane.getLayoutX() + " " + taskPane.getLayoutY());
             noteVM.checkListMode(true);
             taskPane.setMinWidth(160);
@@ -110,11 +105,10 @@ public class NoteController implements ViewController {
             taskList.setCellFactory(CheckBoxListCell.forListView(NoteTasks::toDoProperty));
             System.out.println(taskPane.getLayoutX() + " " + taskPane.getLayoutY());
             noteVM.resizeX(160);
-            opened=true;
-        }
-        else {
+            opened = true;
+        } else {
             noteVM.resizeX(-160);
-            opened=false;
+            opened = false;
         }
     }
 
@@ -141,12 +135,13 @@ public class NoteController implements ViewController {
     void swapNote(ActionEvent event) {
 //        noteVM.setupNote();
     }
+
     @FXML
     void setOnDetected(MouseEvent event) {
         Dragboard dragboard = taskList.startDragAndDrop(TransferMode.MOVE);
         ClipboardContent content = new ClipboardContent();
         int selectedId = taskList.getSelectionModel().getSelectedIndex();
-        content.put(task,taskList.getItems().get(selectedId).titleAsString());
+        content.put(task, taskList.getItems().get(selectedId).titleAsString());
         dragboard.setContent(content);
         event.consume();
     }
@@ -155,14 +150,14 @@ public class NoteController implements ViewController {
     void setOnDropped(DragEvent event) {
         Dragboard dragboard = event.getDragboard();
         boolean done = false;
-        if(dragboard.hasContent(task)) {
+        if (dragboard.hasContent(task)) {
             int selectedId = taskList.getSelectionModel().getSelectedIndex();
             NoteTasks noteTask = (NoteTasks) dragboard.getContent(task);
             taskList.getItems().remove(noteTask);
             noteTask.toDoProperty().set(true);
             taskList.getItems().remove(noteTask);
             noteTask.toDoProperty().set(false);
-            taskList.getItems().add(selectedId,noteTask);
+            taskList.getItems().add(selectedId, noteTask);
             done = true;
         }
         event.setDropCompleted(done);
@@ -172,11 +167,12 @@ public class NoteController implements ViewController {
 
     @FXML
     void setOnOver(DragEvent event) {
-    if(event.getGestureSource() != taskList && event.getDragboard().hasContent(task)) {
-        event.acceptTransferModes(TransferMode.MOVE);
+        if (event.getGestureSource() != taskList && event.getDragboard().hasContent(task)) {
+            event.acceptTransferModes(TransferMode.MOVE);
+        }
+        event.consume();
     }
-    event.consume();
-    }
+
     public void setupNote(Note currentNote) {
         this.currentNote = currentNote;
     }

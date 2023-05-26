@@ -1,4 +1,5 @@
 package app.taskplanner.view.listview;
+
 import app.taskplanner.view.ViewController;
 import app.taskplanner.viewmodel.ViewModel;
 import app.taskplanner.viewmodel.listviewmodel.ListViewModel;
@@ -32,7 +33,6 @@ public class ListViewController implements ViewController {
         listVM.addNoteWithTitle(title);
         newTitle.clear();
     }
-
     @FXML
     void deleteSelectedNotes(MouseEvent event) {
         int selectedIndex = listOfNotes.getSelectionModel().getSelectedIndex();

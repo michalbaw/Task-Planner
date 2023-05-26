@@ -3,7 +3,7 @@ package app.taskplanner.viewmodel;
 import app.taskplanner.StartApp;
 import app.taskplanner.model.Note;
 import app.taskplanner.model.SimpleObservableList;
-import app.taskplanner.view.PrimaryView;
+import app.taskplanner.view.PrimaryViewController;
 import app.taskplanner.model.DataModel;
 import app.taskplanner.view.noteview.NoteController;
 import app.taskplanner.viewmodel.noteviewmodel.NoteViewModel;
@@ -23,52 +23,52 @@ public class ViewHandler {
     private final Stage primaryStage;
     private final String css;
     private List<StageDescr> noteStages;
-    public ViewHandler(DataModel dataModel,Stage primaryStage){
+
+    public ViewHandler(DataModel dataModel, Stage primaryStage) {
         this.dataModel = dataModel;
         this.primaryStage = primaryStage;
         css = Objects.requireNonNull(StartApp.class.getResource("styles.css")).toExternalForm();
     }
 
-    public void start(){
+    public void start() {
         openPrimaryView();
         noteStages = new ArrayList<>();
     }
-    public void openPrimaryView()  {
+
+    public void openPrimaryView() {
         try {
             FXMLLoader loader = new FXMLLoader(StartApp.class.getResource("test-view.fxml"));
             Parent root = loader.load();//error -> loader is null
-//            ViewModel vm = new ListViewModel(dataModel);
-//            vm.init(this,dataModel);
-//            ViewController vc = loader.getController();
-//            vc.init(vm);
-            PrimaryView tc = loader.getController();
+            PrimaryViewController tc = loader.getController();
             tc.init();
-            Scene listScene = new Scene(root);
-            listScene.getStylesheets().add(css);
-            primaryStage.setScene(listScene);
+            Scene mainScene = new Scene(root);
+            mainScene.getStylesheets().add(css);
+            primaryStage.setScene(mainScene);
+            primaryStage.resizableProperty().set(false);
+            primaryStage.setHeight(mainScene.getHeight() + 450);
             primaryStage.show();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public Note noteFromTitle(String title){
-        List<Note> notes= dataModel.getNotes();
-        for(Note note : notes)
-        {
-            if(note.getTitle().equals(title))
+
+    public Note noteFromTitle(String title) {
+        List<Note> notes = dataModel.getNotes();
+        for (Note note : notes) {
+            if (note.getTitle().equals(title))
                 return note;
         }
         return null;
     }
-    public void openNote(Note note){
+
+    public void openNote(Note note) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(StartApp.class.getResource("note-view.fxml"));
             Parent root = loader.load();
             NoteViewModel nvm = new NoteViewModel();
             Stage noteStage = new Stage();
-            nvm.init(this,dataModel,noteStage);
+            nvm.init(this, dataModel, noteStage);
             nvm.setupNote(note);
             NoteController nc = loader.getController();
             nc.init(nvm);
@@ -82,55 +82,51 @@ public class ViewHandler {
             e.printStackTrace();
         }
     }
-    public void closeNote(Note note)
-    {
-        for(int i=0;i<noteStages.size();i++)
-        {
-            if(noteStages.get(i).note.equals(note)) {
+
+    public void closeNote(Note note) {
+        for (int i = 0; i < noteStages.size(); i++) {
+            if (noteStages.get(i).note.equals(note)) {
                 noteStages.get(i).stage.close();
                 noteStages.remove(i);
                 break;
             }
         }
     }
-    public ObservableList<String> listNotes()
-    {
+
+    public ObservableList<String> listNotes() {
         ObservableList<Note> notes = dataModel.getNotes();
         ObservableList<String> titles = new SimpleObservableList<>();
-        for(Note n : notes){
+        for (Note n : notes) {
             titles.add(n.getTitle());
         }
         return titles;
     }
-    public void changeTitle(Note note, String title)
-    {
-         ObservableList<Note> notes = dataModel.getNotes();
-         for(Note n : notes)
-         {
-             if(n.equals(note))
-             {
-                 n.setTitle(title);
-                 return;
-             }
-         }
-    }
-    public void changeContent(Note note, String content)
-    {
+
+    public void changeTitle(Note note, String title) {
         ObservableList<Note> notes = dataModel.getNotes();
-        for(Note n : notes)
-        {
-            if(n.equals(note))
-            {
+        for (Note n : notes) {
+            if (n.equals(note)) {
+                n.setTitle(title);
+                return;
+            }
+        }
+    }
+
+    public void changeContent(Note note, String content) {
+        ObservableList<Note> notes = dataModel.getNotes();
+        for (Note n : notes) {
+            if (n.equals(note)) {
                 n.setNote(content);
                 return;
             }
         }
     }
 
-    private static class StageDescr{
+    private static class StageDescr {
         Stage stage;
         Note note;
-        StageDescr(Stage stage,Note note){
+
+        StageDescr(Stage stage, Note note) {
             this.stage = stage;
             this.note = note;
         }

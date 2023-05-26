@@ -12,9 +12,10 @@ public class StartApp extends Application {
     @Override
     public void start(Stage primarystage) throws IOException, ClassNotFoundException {
         ModelFactory mf = new ModelFactory();
-        ViewModelFactory viewModelFactory = new ViewModelFactory(mf.getDataModel(),primarystage);
+        ViewModelFactory viewModelFactory = new ViewModelFactory(mf.getDataModel(), primarystage);
         ViewFactory viewFactory = new ViewFactory(viewModelFactory.getHandler());
     }
+
     public static void main(String[] args) {
         launch();
     }

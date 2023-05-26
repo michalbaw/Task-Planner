@@ -45,7 +45,7 @@ public class SimpleNoteController {
     private Button taskButton;
 
     @FXML
-    private ListView<?> taskList;
+    private ListView<String> taskList;
 
     @FXML
     private TextField taskName;
@@ -68,8 +68,8 @@ public class SimpleNoteController {
             taskPane.setMinWidth(160);
             taskPane.setPrefWidth(160);
             List<NoteTasks> taskNames = boardVM.getTasks(this);
-            taskList.getItems().addAll(taskNames);
-            taskList.setCellFactory(CheckBoxListCell.forListView(NoteTasks::toDoProperty));
+            taskList.getItems().addAll(taskNames.stream().map(NoteTasks::titleAsString).toList());
+//            taskList.setCellFactory(CheckBoxListCell.forListView(NoteTasks::toDoProperty));
             System.out.println(taskPane.getLayoutX() + " " + taskPane.getLayoutY());
             boardVM.resizeX(this,160);
             opened = true;

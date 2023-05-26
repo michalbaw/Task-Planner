@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.taskplanner.view.listview.ListViewController">
+<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" xmlns="http://javafx.com/javafx/17.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.taskplanner.view.listview.ListViewController">
 <children>
       <ListView fx:id="listOfNotes" layoutX="319.0" prefHeight="373.0" prefWidth="321.0" />
       <Button fx:id="newNoteButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#createNewNote" prefHeight="27.0" prefWidth="76.0" text="New" />

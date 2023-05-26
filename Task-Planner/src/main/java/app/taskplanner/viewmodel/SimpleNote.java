@@ -4,7 +4,7 @@ import javafx.beans.property.*;
 import javafx.collections.ObservableList;
 
 public class SimpleNote {
-    private static Integer count;
+    private static Integer count=0;
     private final IntegerProperty id;
     private final DoubleProperty x =new SimpleDoubleProperty(0);
     private final DoubleProperty y = new SimpleDoubleProperty(0);

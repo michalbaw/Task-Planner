@@ -3,6 +3,7 @@ package app.taskplanner.viewmodel.boardviewmodel;
 import app.taskplanner.model.DataModel;
 import app.taskplanner.model.Note;
 import app.taskplanner.view.boardView.SimpleNoteController;
+import app.taskplanner.viewmodel.NoteTasks;
 import app.taskplanner.viewmodel.SimpleNote;
 import app.taskplanner.viewmodel.ViewHandler;
 import app.taskplanner.viewmodel.ViewModel;
@@ -10,6 +11,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 public class BoardViewModel implements ViewModel {
     ViewHandler viewHandler;
@@ -32,12 +35,13 @@ public class BoardViewModel implements ViewModel {
     }
 
     private void loadNotes() {
-        notes = dataModel.getNotes();
+    //todo
+//        for(SimpleNote note : dataModel.getNotes();
     }
 
-    public ObservableList<Note> getNotes() {
+    public ObservableList<SimpleNote> getNotes() {
         loadNotes();
-        return notes;
+        return (ObservableList<SimpleNote>) notes.stream().map(NoteOnBoard::getNote).toList();
     }
 
     public BoardViewModel() {
@@ -48,8 +52,17 @@ public class BoardViewModel implements ViewModel {
     public void closeWindow() {
 
     }
-    void checkListMode(SimpleNoteController note,boolean val){
-        notes.stream().filter(m -> m.getController().equals(note)).findAny().ifPresent(m -> m.checkListMode=val);
+    public List<NoteTasks> getTasks(SimpleNoteController ctrl){
+        return notes.stream().filter(m -> m.getController().equals(ctrl)).findAny().get().getNote().getTasks();
+    }
+    public void checkListMode(SimpleNoteController ctrl, boolean val){
+        notes.stream().filter(m -> m.getController().equals(ctrl)).findAny().ifPresent(m -> m.checkListMode=val);
+    }
+    public void resizeX(SimpleNoteController ctrl, double px) {
+        notes.stream().filter(m -> m.getController().equals(ctrl)).findAny().ifPresent(m -> m.getNote().setWidth(m.getNote().getWidth()+px));
+    }
+    public void resizeY(SimpleNoteController ctrl, double px) {
+        notes.stream().filter(m -> m.getController().equals(ctrl)).findAny().ifPresent(m -> m.getNote().setHeight(m.getNote().getHeight()+px));
     }
     class NoteOnBoard {
         boolean checkListMode;

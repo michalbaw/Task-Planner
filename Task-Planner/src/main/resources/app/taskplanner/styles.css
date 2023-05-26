@@ -17,7 +17,7 @@
     -fx-border-style: solid;
     -fx-border-width: 3;
     -fx-border-color: derive(-fx-button-border, -15%);
-    -fx-effect: innershadow( gaussian, derive(-fx-button, -17%), 2, 0.0, -1, -1);
+    /*-fx-effect: innershadow( gaussian, derive(-fx-button, -17%), 2, 0.0, -1, -1);*/
 }
 .button:pressed, .button:pressed:hover{
     -fx-background-color: derive(-fx-base, -2%);
@@ -129,22 +129,6 @@
 
 /*******************************************************************************
  *                                                                             *
- * ScrollPane                                                                  *
- *                                                                             *
- ******************************************************************************/
-
-.scroll-pane {
-    -fx-background-color: transparent, transparent;
-}
-
-.scroll-pane .corner {
-    -fx-background-radius: 0 0 0 0;
-    -fx-background-color: #f0f0f0;
-    -fx-background-insets: 1 0 0 1; /* have the square on the corner be centered */
-}
-
-/*******************************************************************************
- *                                                                             *
  * TabPane                                                                     *
  *                                                                             *
  ******************************************************************************/
@@ -169,10 +153,6 @@
 .tab-pane .tab:selected {
     -fx-background-color: darkred;
     -fx-padding: 0.7em;
-}
-
-.tab-pane .tab:selected .focus-indicator {
-    -fx-background-color: transparent;
 }
 
 .tab-pane .tab-label {

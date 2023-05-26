@@ -7,9 +7,15 @@ import app.taskplanner.view.PrimaryViewController;
 import app.taskplanner.model.DataModel;
 import app.taskplanner.view.noteview.NoteController;
 import app.taskplanner.viewmodel.noteviewmodel.NoteViewModel;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ListView;
+import javafx.scene.control.cell.TextFieldListCell;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 
@@ -37,7 +43,7 @@ public class ViewHandler {
 
     public void openPrimaryView() {
         try {
-            FXMLLoader loader = new FXMLLoader(StartApp.class.getResource("test-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(StartApp.class.getResource("primary-view.fxml"));
             Parent root = loader.load();//error -> loader is null
             PrimaryViewController tc = loader.getController();
             tc.init();
@@ -47,6 +53,14 @@ public class ViewHandler {
             primaryStage.resizableProperty().set(false);
             primaryStage.setHeight(mainScene.getHeight() + 450);
             primaryStage.show();
+            SimpleNote s = new SimpleNote();
+            s.setTitle("siemson");
+            ObservableList<SimpleNote> l = FXCollections.observableArrayList();
+            l.add(s);
+//            if(dataModel.ifUpcomingTask())
+//            {
+                showDeadlineAlert(l);
+//            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -92,7 +106,23 @@ public class ViewHandler {
             }
         }
     }
-
+    private void showDeadlineAlert(ObservableList<SimpleNote> upcoming){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("UPCOMING DEADLINE");
+        alert.setHeaderText("You are running out of time! Consider completing those tasks:");
+        ListView<String> upcomingList = new ListView<>();
+        ListView<String> upcomingDates = new ListView<>();
+        GridPane gPane = new GridPane();
+        gPane.add(upcomingList,0,1);
+        gPane.add(upcomingDates,1,1);
+        upcomingDates.getItems().addAll(upcoming.stream().map(s -> "19.10.2023").toList());
+        upcomingList.getItems().addAll(upcoming.stream().map(SimpleNote::getTitle).toList());
+        upcomingDates.setPrefHeight(10 +25*upcoming.size());
+        upcomingList.setPrefHeight(10 +25*upcoming.size());
+//        upcomingList.setPrefWidth();
+        alert.getDialogPane().setContent(gPane);
+        alert.showAndWait();
+    }
     public ObservableList<String> listNotes() {
         ObservableList<Note> notes = dataModel.getNotes();
         ObservableList<String> titles = new SimpleObservableList<>();

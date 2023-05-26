@@ -2,6 +2,7 @@ package app.taskplanner.view.boardView;
 
 import app.taskplanner.StartApp;
 import app.taskplanner.model.Note;
+import app.taskplanner.viewmodel.SimpleNote;
 import app.taskplanner.viewmodel.ViewModel;
 import app.taskplanner.viewmodel.boardviewmodel.BoardViewModel;
 
@@ -17,7 +18,7 @@ import java.io.IOException;
 
 public final class BoardViewController extends AnchorPane {
     private BoardViewModel boardVM;
-    public static ObservableList<Note> notes;
+    public static ObservableList<SimpleNote> notes;
 
     private double maxX; //later reassignment of notes
     private double maxY;
@@ -28,7 +29,7 @@ public final class BoardViewController extends AnchorPane {
     }
 
     public void refresh() {
-        ObservableList<Note> currentNotes;
+        ObservableList<SimpleNote> currentNotes;
         currentNotes = boardVM.getNotes();
         if (!currentNotes.equals(notes)) {
             notes = currentNotes;
@@ -38,7 +39,7 @@ public final class BoardViewController extends AnchorPane {
     }
 
     void setNotes() {
-        for (Note note : notes) {
+        for (SimpleNote note : notes) {
             this.addNote();
         }
     }

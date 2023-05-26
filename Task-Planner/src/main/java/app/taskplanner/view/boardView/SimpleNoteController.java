@@ -61,7 +61,7 @@ public class SimpleNoteController {
 
 
     @FXML
-    void openTaskPage(ActionEvent event) {
+    void openTaskPanel(ActionEvent event) {
         if (!opened) {
             System.out.println(taskPane.getLayoutX() + " " + taskPane.getLayoutY());
             boardVM.checkListMode(this,true);

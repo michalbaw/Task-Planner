@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 
+import java.io.IOException;
 import java.util.List;
 
 public class NoteController implements ViewController {
@@ -44,21 +45,20 @@ public class NoteController implements ViewController {
     @FXML
     void listOtherNotes(ActionEvent event) {
         List<NoteMetadata> otherNotes = dataModel.getNotesMetadata();
-        otherNotes.remove(currentNote.getMetadata());//tytul tej notatki
-
+        otherNotes.remove(currentNote);//tytul tej notatki
     }
 
     @FXML
     void saveAndClose(ActionEvent event) {
 //            this.saveContent(null);
 //            this.saveTitle(null);
-        viewHandler.changeTitle(currentNote.getMetadata(),noteTitle.getText());
-        viewHandler.changeContent(currentNote.getMetadata(),noteContent.getText());
-//        try {
-//            dataModel.saveNotes();
-//        } catch (IOException e) {
-//            System.out.println("saving failed");
-//        }
+        viewHandler.changeTitle(currentNote,noteTitle.getText());
+        viewHandler.changeContent(currentNote,noteContent.getText());
+        try {
+            dataModel.saveNote(currentNote.getMetadata().getKey());
+        } catch (IOException e) {
+            System.out.println("saving failed");
+        }
         this.closeWithoutSaving(event);
     }
 
@@ -76,7 +76,7 @@ public class NoteController implements ViewController {
         }
     }
 
-
+    @Override
     public void init(ViewHandler viewHandler, DataModel dataModel) {
         this.viewHandler = viewHandler;
         this.dataModel = dataModel;
@@ -86,8 +86,4 @@ public class NoteController implements ViewController {
         this.currentNote = currentNote;
     }
 
-    @Override
-    public void init(ViewModel viewModel) {
-
-    }
 }

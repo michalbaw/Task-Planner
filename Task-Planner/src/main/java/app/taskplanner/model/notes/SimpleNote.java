@@ -7,7 +7,7 @@ import java.io.IOException;
 public class SimpleNote implements Note {
     private NoteBody body;
     private NoteMetadata metadata;
-    public SimpleNote(NoteMetadata metadata) throws IOException {
+    public SimpleNote(NoteMetadata metadata) {
         this.metadata = metadata;
     }
     @Override

@@ -1,6 +1,8 @@
 package app.taskplanner.model.notes;
 
-public class SimpleNoteMetadata implements NoteMetadata {
+import java.io.Serializable;
+
+public class SimpleNoteMetadata implements NoteMetadata, Serializable {
     private int key;
     private String title;
 

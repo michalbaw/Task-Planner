@@ -15,6 +15,9 @@ public class SimpleDataModel implements DataModel{
     private List<NoteMetadata> noteMetadataList;
     private List<Note> openNotes;
     private int nextKey(){
+        if(noteMetadataList.size() == 0){
+            return 1;
+        }
         return noteMetadataList.get(noteMetadataList.size()-1).getKey()+1;
     }
 
@@ -41,7 +44,7 @@ public class SimpleDataModel implements DataModel{
                 return note;
             }
         }
-        return null;
+        return new SimpleNote(getMetadata(key));
     }
 
     @Override
@@ -78,7 +81,11 @@ public class SimpleDataModel implements DataModel{
     public Note openNote(int key) throws IOException {
         NoteMetadata metadata = getMetadata(key);
         Note note = new SimpleNote(metadata);
-        note.setNoteBody(fileHandler.loadBody(key));
+        NoteBody body = fileHandler.loadBody(key);
+        if(body == null){
+            body = new SimpleNoteBody();
+        }
+        note.setNoteBody(body);
         return note;
     }
 

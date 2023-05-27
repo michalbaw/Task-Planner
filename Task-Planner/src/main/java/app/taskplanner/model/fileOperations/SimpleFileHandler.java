@@ -16,14 +16,23 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class SimpleFileHandler implements FileHandler{
-    private final String metadataLocation = "noteList";
+    private final String prefixDir = "src/main/resources/app/taskplanner";
+    private final String prefixNotes = prefixDir + "/notes";
+    private final String metadataLocation = prefixDir + "/noteList";
     private List<NoteMetadata> noteMetadataList;
     private List<Note> openNotes;
+    public SimpleFileHandler() throws IOException{
+        Path dir = Paths.get(prefixNotes);
+        if(Files.notExists(dir)){
+            Files.createDirectory(dir);
+        }
+    }
     @Override
     public List<NoteMetadata> loadNotesMetadata() throws IOException {
         Path file = Paths.get(metadataLocation);
         if(! Files.exists(file)){
             noteMetadataList = new LinkedList<>();
+            Files.createFile(file);
             saveNotesMetadata();
             return noteMetadataList;
         }
@@ -46,7 +55,7 @@ public class SimpleFileHandler implements FileHandler{
     @Override
     public NoteBody loadBody(int key) throws IOException {
         NoteBody body;
-        String location = "notes" + File.separator + Integer.valueOf(key).toString();
+        String location = prefixNotes + Integer.valueOf(key).toString();
         Path file = Paths.get(location);
         if(! Files.exists(file)){
             return null;
@@ -62,15 +71,15 @@ public class SimpleFileHandler implements FileHandler{
 
     @Override
     public void saveBody(int key, NoteBody body) throws IOException {
-        String location = "notes" + File.separator + Integer.valueOf(key).toString();
+        String location = prefixNotes + Integer.valueOf(key).toString();
         ObjectOutputStream stream = new ObjectOutputStream(Files.newOutputStream((Paths.get(location))));
         stream.writeObject(body);
     }
 
     @Override
     public void removeBody(int key) throws IOException {
-        String location = "notes" + File.separator + Integer.valueOf(key).toString();
-        File file = new File(location);
-        file.delete();
+        String location = prefixNotes + Integer.valueOf(key).toString();
+        Path file = Paths.get(location);
+        Files.deleteIfExists(file);
     }
 }

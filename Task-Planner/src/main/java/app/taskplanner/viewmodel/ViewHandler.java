@@ -49,13 +49,13 @@ public class ViewHandler {
             FXMLLoader loader = new FXMLLoader(StartApp.class.getResource("primary-view.fxml"));
             Parent root = loader.load();//error -> loader is null
             PrimaryViewController tc = loader.getController();
-            tc.init();
+            tc.init(dataModel);
             Scene mainScene = new Scene(root);
             mainScene.getStylesheets().add(css);
             primaryStage.setScene(mainScene);
             primaryStage.resizableProperty().set(false);
             primaryStage.setHeight(mainScene.getHeight() + 450);
-            Image icon = new Image(StartApp.class.getResourceAsStream("main.png"));
+            Image icon = new Image(Objects.requireNonNull(StartApp.class.getResourceAsStream("main.png")));
             primaryStage.getIcons().add(icon);
             primaryStage.show();
             SimpleNote s = new SimpleNote();

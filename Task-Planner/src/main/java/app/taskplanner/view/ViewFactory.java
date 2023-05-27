@@ -10,11 +10,7 @@ public class ViewFactory {
 
     public ViewFactory(ViewHandler viewHandler) {
         this.viewHandler = viewHandler;
-        boardView = new BoardViewController();
 //     place for creating view classes
-    }
-
-    BoardViewController getBoardView() {
-        return boardView;
+        //nothing to do here
     }
 }

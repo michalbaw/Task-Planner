@@ -36,8 +36,7 @@ public class ListViewModel implements ViewModel {
 
     public void addNoteWithTitle(String title) {
         try {
-
-        dataModel.addNote(title); // Add the new note to the model
+            dataModel.addNote(title); // Add the new note to the model
         }
         catch (IOException ioException){
             System.err.println("yyyy");

@@ -64,5 +64,7 @@ public final class BoardViewController extends AnchorPane {
                 this.getChildren().remove(i);
         }
     }
-
+    public AnchorPane createView() {
+        return null;
+    }
 }

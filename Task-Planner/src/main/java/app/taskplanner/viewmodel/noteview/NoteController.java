@@ -2,8 +2,10 @@ package app.taskplanner.viewmodel.noteview;
 
 import app.taskplanner.model.DataModel;
 import app.taskplanner.model.notes.Note;
+import app.taskplanner.model.notes.NoteMetadata;
 import app.taskplanner.view.ViewController;
 import app.taskplanner.viewmodel.ViewHandler;
+import app.taskplanner.viewmodel.ViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -41,8 +43,8 @@ public class NoteController implements ViewController {
 
     @FXML
     void listOtherNotes(ActionEvent event) {
-        List<Note> otherNotes = dataModel.getNotes();
-        otherNotes.remove(currentNote);//tytul tej notatki
+        List<NoteMetadata> otherNotes = dataModel.getNotesMetadata();
+        otherNotes.remove(currentNote.getMetadata());//tytul tej notatki
 
     }
 
@@ -50,8 +52,8 @@ public class NoteController implements ViewController {
     void saveAndClose(ActionEvent event) {
 //            this.saveContent(null);
 //            this.saveTitle(null);
-        viewHandler.changeTitle(currentNote,noteTitle.getText());
-        viewHandler.changeContent(currentNote,noteContent.getText());
+        viewHandler.changeTitle(currentNote.getMetadata(),noteTitle.getText());
+        viewHandler.changeContent(currentNote.getMetadata(),noteContent.getText());
 //        try {
 //            dataModel.saveNotes();
 //        } catch (IOException e) {
@@ -74,7 +76,7 @@ public class NoteController implements ViewController {
         }
     }
 
-    @Override
+
     public void init(ViewHandler viewHandler, DataModel dataModel) {
         this.viewHandler = viewHandler;
         this.dataModel = dataModel;
@@ -84,4 +86,8 @@ public class NoteController implements ViewController {
         this.currentNote = currentNote;
     }
 
+    @Override
+    public void init(ViewModel viewModel) {
+
+    }
 }

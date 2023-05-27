@@ -1,7 +1,6 @@
 package app.taskplanner.model;
 
 import javafx.collections.ModifiableObservableListBase;
-import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.List;

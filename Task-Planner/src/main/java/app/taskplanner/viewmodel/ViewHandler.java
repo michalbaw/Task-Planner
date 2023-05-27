@@ -1,8 +1,9 @@
 package app.taskplanner.viewmodel;
 
 import app.taskplanner.StartApp;
-import app.taskplanner.model.Note;
+import app.taskplanner.model.notes.Note;
 import app.taskplanner.model.SimpleObservableList;
+import app.taskplanner.model.notes.NoteMetadata;
 import app.taskplanner.view.ViewController;
 import app.taskplanner.model.DataModel;
 import app.taskplanner.viewmodel.noteview.NoteController;
@@ -45,11 +46,11 @@ public class ViewHandler {
         }
     }
     public Note noteFromTitle(String title){
-        List<Note> notes= dataModel.getNotes();
-        for(Note note : notes)
+        List<NoteMetadata> notes = dataModel.getNotesMetadata();
+        for(NoteMetadata note : notes)
         {
             if(note.getTitle().equals(title))
-                return note;
+                return dataModel.openNote();
         }
         return null;
     }
@@ -62,7 +63,7 @@ public class ViewHandler {
             nc.init(this,dataModel);
             nc.setup(note);
             Stage noteStage = new Stage();
-            noteStage.setTitle(note.getTitle());//tytul notatki
+            noteStage.setTitle(note.getMetadata().getTitle());//tytul notatki
             Scene noteScene = new Scene(root);
             noteStage.setScene(noteScene);
             noteStages.add(new StageDescr(noteStage, note));
@@ -84,31 +85,31 @@ public class ViewHandler {
     }
     public ObservableList<String> listNotes()
     {
-        ObservableList<Note> notes = dataModel.getNotes();
+        List<NoteMetadata> notes = dataModel.getNotesMetadata();
         ObservableList<String> titles = new SimpleObservableList<>();
-        for(Note n : notes){
+        for(NoteMetadata n : notes){
             titles.add(n.getTitle());
         }
         return titles;
     }
-    public void changeTitle(Note note, String title)
+    public void changeTitle(int noteKey, String title)
     {
-         ObservableList<Note> notes = dataModel.getNotes();
-         for(Note n : notes)
+         List<NoteMetadata> notes = dataModel.getNotesMetadata();
+         for(NoteMetadata n : notes)
          {
-             if(n.equals(note))
+             if(noteKey == n.getKey())
              {
                  n.setTitle(title);
                  return;
              }
          }
     }
-    public void changeContent(Note note, String content)
+    public void changeContent(int noteKey, String content)
     {
-        ObservableList<Note> notes = dataModel.getNotes();
-        for(Note n : notes)
+        List<NoteMetadata> notes = dataModel.getNotesMetadata();
+        for(NoteMetadata n : notes)
         {
-            if(n.equals(note))
+            if(noteKey == n.getKey())
             {
                 n.setNote(content);
                 return;

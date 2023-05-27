@@ -1,6 +1,5 @@
 package app.taskplanner.viewmodel.listview;
 import app.taskplanner.model.DataModel;
-import app.taskplanner.model.Note;
 import app.taskplanner.view.ViewController;
 import app.taskplanner.viewmodel.ViewHandler;
 import javafx.collections.ObservableList;
@@ -11,9 +10,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
+import java.io.IOException;
 import java.util.List;
 
-public class    ListViewController implements ViewController {
+public class ListViewController implements ViewController {
     private ObservableList<String> titles;
     private ViewHandler viewHandler;
     private DataModel dataModel;
@@ -29,7 +29,7 @@ public class    ListViewController implements ViewController {
     private Button removeButton;
 
     @FXML
-    void createNewNote(MouseEvent event) {
+    void createNewNote(MouseEvent event) throws IOException {
         dataModel.addNote(newTitle.getText());
         listOfNotes.setItems(viewHandler.listNotes());
         listOfNotes.refresh();

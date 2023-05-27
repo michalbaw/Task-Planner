@@ -2,6 +2,7 @@ package app.taskplanner.viewmodel.noteview;
 
 import app.taskplanner.model.DataModel;
 import app.taskplanner.model.notes.Note;
+import app.taskplanner.model.notes.NoteMetadata;
 import app.taskplanner.view.ViewController;
 import app.taskplanner.viewmodel.ViewHandler;
 import javafx.event.ActionEvent;
@@ -42,9 +43,8 @@ public class NoteController implements ViewController {
 
     @FXML
     void listOtherNotes(ActionEvent event) {
-        List<Note> otherNotes = dataModel.getNotes();
+        List<NoteMetadata> otherNotes = dataModel.getNotesMetadata();
         otherNotes.remove(currentNote);//tytul tej notatki
-
     }
 
     @FXML
@@ -53,11 +53,11 @@ public class NoteController implements ViewController {
 //            this.saveTitle(null);
         viewHandler.changeTitle(currentNote,noteTitle.getText());
         viewHandler.changeContent(currentNote,noteContent.getText());
-//        try {
-//            dataModel.saveNotes();
-//        } catch (IOException e) {
-//            System.out.println("saving failed");
-//        }
+        try {
+            dataModel.saveNote(currentNote.getMetadata().getKey());
+        } catch (IOException e) {
+            System.out.println("saving failed");
+        }
         this.closeWithoutSaving(event);
     }
 

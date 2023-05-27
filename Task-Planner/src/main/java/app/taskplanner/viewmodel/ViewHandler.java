@@ -45,12 +45,12 @@ public class ViewHandler {
             e.printStackTrace();
         }
     }
-    public Note noteFromTitle(String title){
+    public Note getNoteFromID(int id) throws IOException{
         List<NoteMetadata> notes = dataModel.getNotesMetadata();
         for(NoteMetadata note : notes)
         {
-            if(note.getTitle().equals(title))
-                return dataModel.openNote();
+            if(note.getKey() == id)
+                return dataModel.openNote(id);
         }
         return null;
     }
@@ -92,26 +92,28 @@ public class ViewHandler {
         }
         return titles;
     }
-    public void changeTitle(int noteKey, String title)
+    public void changeTitle(Note note, String title)
     {
          List<NoteMetadata> notes = dataModel.getNotesMetadata();
+         int key = note.getMetadata().getKey();
          for(NoteMetadata n : notes)
          {
-             if(noteKey == n.getKey())
+             if(key == n.getKey())
              {
-                 n.setTitle(title);
+                 note.getMetadata().setTitle(title);
                  return;
              }
          }
     }
-    public void changeContent(int noteKey, String content)
+    public void changeContent(Note note, String content)
     {
         List<NoteMetadata> notes = dataModel.getNotesMetadata();
+        int key = note.getMetadata().getKey();
         for(NoteMetadata n : notes)
         {
-            if(noteKey == n.getKey())
+            if(key == n.getKey())
             {
-                n.setNote(content);
+                note.getNoteBody().setContent(content);
                 return;
             }
         }

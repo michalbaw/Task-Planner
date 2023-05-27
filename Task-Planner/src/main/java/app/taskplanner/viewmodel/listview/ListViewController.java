@@ -1,5 +1,6 @@
 package app.taskplanner.viewmodel.listview;
 import app.taskplanner.model.DataModel;
+import app.taskplanner.model.notes.Note;
 import app.taskplanner.view.ViewController;
 import app.taskplanner.viewmodel.ViewHandler;
 import javafx.collections.ObservableList;
@@ -40,7 +41,7 @@ public class ListViewController implements ViewController {
         List<String> selected = listOfNotes.getSelectionModel().getSelectedItems();
         for(String title : selected)
         {
-            Note newNote = viewHandler.noteFromTitle(title);
+            Note newNote = viewHandler.getNoteFromID(title);//TODO: zrobic na id notatki
             dataModel.removeNote(newNote);
         }
         listOfNotes.refresh();
@@ -50,7 +51,7 @@ public class ListViewController implements ViewController {
         List<String> selected = listOfNotes.getSelectionModel().getSelectedItems();
         for(String title : selected)
         {
-         Note newNote = viewHandler.noteFromTitle(title);
+         Note newNote = viewHandler.getNoteFromID(title);//TODO: jak wyzej
          viewHandler.openNote(newNote);
         }
     }

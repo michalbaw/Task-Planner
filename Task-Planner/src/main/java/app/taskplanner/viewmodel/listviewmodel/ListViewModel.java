@@ -60,7 +60,7 @@ public class ListViewModel implements ViewModel {
 
     public void openNoteWithTitle(String title) {
         // Perform the necessary action when opening a note
-        Note note = viewHandler.noteFromTitle(title);
+        Note note = viewHandler.getNoteFromID(0);
         viewHandler.openNote(note);
     }
 

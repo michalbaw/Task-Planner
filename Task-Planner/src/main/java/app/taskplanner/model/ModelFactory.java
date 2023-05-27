@@ -16,8 +16,8 @@ public class ModelFactory {
     }
     public DataModel getDataModel() throws IOException {
         if (dataModel == null) {
-            dataModel = new SimpleDataModel();
-            dataModel.loadNotes();
+            fileHandler = new SimpleFileHandler();
+            dataModel = new SimpleDataModel(fileHandler);
         }
         return dataModel;
     }

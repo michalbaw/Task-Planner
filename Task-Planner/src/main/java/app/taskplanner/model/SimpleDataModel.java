@@ -1,10 +1,7 @@
 package app.taskplanner.model;
 
 import app.taskplanner.model.fileOperations.FileHandler;
-import app.taskplanner.model.notes.Note;
-import app.taskplanner.model.notes.NoteMetadata;
-import app.taskplanner.model.notes.SimpleNote;
-import app.taskplanner.model.notes.SimpleNoteMetadata;
+import app.taskplanner.model.notes.*;
 
 import java.io.IOException;
 import java.util.LinkedList;

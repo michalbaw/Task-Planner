@@ -76,7 +76,7 @@ public class NoteController implements ViewController {
         }
     }
 
-    @Override
+
     public void init(ViewHandler viewHandler, DataModel dataModel) {
         this.viewHandler = viewHandler;
         this.dataModel = dataModel;
@@ -86,4 +86,8 @@ public class NoteController implements ViewController {
         this.currentNote = currentNote;
     }
 
+    @Override
+    public void init(ViewModel viewModel) {
+
+    }
 }

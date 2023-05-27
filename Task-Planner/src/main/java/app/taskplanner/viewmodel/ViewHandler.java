@@ -4,9 +4,12 @@ import app.taskplanner.StartApp;
 import app.taskplanner.model.notes.Note;
 import app.taskplanner.model.SimpleObservableList;
 import app.taskplanner.model.notes.NoteMetadata;
+import app.taskplanner.view.PrimaryViewController;
 import app.taskplanner.view.ViewController;
 import app.taskplanner.model.DataModel;
 import app.taskplanner.viewmodel.noteview.NoteController;
+import app.taskplanner.viewmodel.noteviewmodel.NoteViewModel;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -67,12 +70,18 @@ public class ViewHandler {
             e.printStackTrace();
         }
     }
-    public Note getNoteFromID(int id) throws IOException{
+    public Note getNoteFromID(int id){
         List<NoteMetadata> notes = dataModel.getNotesMetadata();
         for(NoteMetadata note : notes)
         {
             if(note.getKey() == id)
+                try{
+
                 return dataModel.openNote(id);
+                }
+                catch (IOException ioException) {
+                    System.err.println("wait,no");
+                }
         }
         return null;
     }
@@ -89,7 +98,6 @@ public class ViewHandler {
             NoteController nc = loader.getController();
             nc.init(this,dataModel);
             nc.setup(note);
-            Stage noteStage = new Stage();
             noteStage.setTitle(note.getMetadata().getTitle());//tytul notatki
             Scene noteScene = new Scene(root);
             noteScene.getStylesheets().add(css);
@@ -129,9 +137,6 @@ public class ViewHandler {
     }
     public ObservableList<String> listNotes() {
         ObservableList<NoteMetadata> notes = (ObservableList<NoteMetadata>) dataModel.getNotesMetadata();
-    public ObservableList<String> listNotes()
-    {
-        List<NoteMetadata> notes = dataModel.getNotesMetadata();
         ObservableList<String> titles = new SimpleObservableList<>();
         for(NoteMetadata n : notes){
             titles.add(n.getTitle());

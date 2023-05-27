@@ -1,5 +1,6 @@
 package app.taskplanner.viewmodel.noteviewmodel;
 
+import app.taskplanner.StartApp;
 import app.taskplanner.model.DataModel;
 import app.taskplanner.model.Note;
 import app.taskplanner.viewmodel.NoteTasks;
@@ -10,6 +11,7 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
@@ -38,9 +40,10 @@ public class NoteViewModel implements ViewModel {
 
     @Override
     public void init(ViewHandler viewHandler, DataModel dataModel, Stage noteStage) {
-        this.dataModel = dataModel;
-        this.viewHandler = viewHandler;
+        init(viewHandler,dataModel);
         this.noteStage = noteStage;
+        Image icon = new Image(StartApp.class.getResourceAsStream("icon.png"));
+        noteStage.getIcons().add(icon);
     }
 
     @Override

@@ -31,7 +31,7 @@
                                     <Insets />
                                 </opaqueInsets>
                             </TextField>
-                            <Button fx:id="taskButton" mnemonicParsing="false" onAction="#openTaskPage" prefHeight="26.0" prefWidth="73.0" text="Tasks" />
+                            <Button fx:id="taskButton" mnemonicParsing="false" onAction="#openTaskPanel" prefHeight="26.0" prefWidth="73.0" text="Tasks" />
                         </children>
                     </HBox>
                     <HBox fx:id="textAndTasks" prefHeight="271.0" prefWidth="256.0">

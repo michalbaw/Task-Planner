@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.TextFieldListCell;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -52,6 +53,8 @@ public class ViewHandler {
             primaryStage.setScene(mainScene);
             primaryStage.resizableProperty().set(false);
             primaryStage.setHeight(mainScene.getHeight() + 450);
+            Image icon = new Image(StartApp.class.getResourceAsStream("main.png"));
+            primaryStage.getIcons().add(icon);
             primaryStage.show();
             SimpleNote s = new SimpleNote();
             s.setTitle("siemson");
@@ -119,8 +122,8 @@ public class ViewHandler {
         upcomingList.getItems().addAll(upcoming.stream().map(SimpleNote::getTitle).toList());
         upcomingDates.setPrefHeight(10 +25*upcoming.size());
         upcomingList.setPrefHeight(10 +25*upcoming.size());
-//        upcomingList.setPrefWidth();
         alert.getDialogPane().setContent(gPane);
+        alert.getDialogPane().getStylesheets().add(StartApp.class.getResource("styles.css").toExternalForm());
         alert.showAndWait();
     }
     public ObservableList<String> listNotes() {

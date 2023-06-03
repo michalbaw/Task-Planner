@@ -1,6 +1,7 @@
 package app.taskplanner.view.boardView;
 
-import app.taskplanner.viewmodel.NoteTasks;
+import app.taskplanner.model.notes.NoteTask;
+//import app.taskplanner.viewmodel.NoteTasks;
 import app.taskplanner.viewmodel.boardviewmodel.BoardViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,6 +23,10 @@ import java.util.List;
 
 public class SimpleNoteController {
     private boolean opened = false;
+    private double X=0;
+    private double Y=0;
+    private double height=0;
+    private double width=0;
     private BoardViewModel boardVM;
     @FXML
     private Button addButton;
@@ -64,17 +69,17 @@ public class SimpleNoteController {
     void openTaskPanel(ActionEvent event) {
         if (!opened) {
             System.out.println(taskPane.getLayoutX() + " " + taskPane.getLayoutY());
-            boardVM.checkListMode(this,true);
+            boardVM.checkListMode(this, true);
             taskPane.setMinWidth(160);
             taskPane.setPrefWidth(160);
-            List<NoteTasks> taskNames = boardVM.getTasks(this);
-            taskList.getItems().addAll(taskNames.stream().map(NoteTasks::titleAsString).toList());
+            List<NoteTask>taskNames = boardVM.getTasks(this);
+            taskList.getItems().addAll(taskNames.stream().map(NoteTask::getTaskTitle).toList());
 //            taskList.setCellFactory(CheckBoxListCell.forListView(NoteTasks::toDoProperty));
             System.out.println(taskPane.getLayoutX() + " " + taskPane.getLayoutY());
-            boardVM.resizeX(this,160);
+            boardVM.resizeX(this, 160);
             opened = true;
         } else {
-            boardVM.resizeX(this,-160);
+            boardVM.resizeX(this, -160);
             opened = false;
         }
     }
@@ -94,5 +99,36 @@ public class SimpleNoteController {
 
     }
 
+    public double getWidth() {
+        return width;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public double getY() {
+        return Y;
+    }
+
+    public void setY(double y) {
+        Y = y;
+    }
+
+    public double getX() {
+        return X;
+    }
+
+    public void setX(double x) {
+        X = x;
+    }
 }
 

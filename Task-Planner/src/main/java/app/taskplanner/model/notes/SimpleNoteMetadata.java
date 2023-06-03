@@ -11,9 +11,10 @@ public class SimpleNoteMetadata implements NoteMetadata, Serializable {
         return key;
     }
 
-    public SimpleNoteMetadata(int key){
+    public SimpleNoteMetadata(int key) {
         this.key = key;
     }
+
     @Override
     public String getTitle() {
         return title;

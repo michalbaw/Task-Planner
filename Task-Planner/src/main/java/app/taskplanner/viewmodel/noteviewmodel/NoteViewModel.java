@@ -4,9 +4,8 @@ import app.taskplanner.StartApp;
 import app.taskplanner.model.DataModel;
 import app.taskplanner.model.notes.Note;
 import app.taskplanner.model.notes.NoteMetadata;
-import app.taskplanner.viewmodel.NoteTasks;
-import app.taskplanner.viewmodel.ViewHandler;
-import app.taskplanner.viewmodel.ViewModel;
+import app.taskplanner.model.notes.NoteTask;
+import app.taskplanner.viewmodel.*;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -20,8 +19,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NoteViewModel implements ViewModel {
-    private ViewHandler viewHandler;
+public class NoteViewModel implements ViewModel{
+    private SingleNoteHandler singleNoteHandler;
     private DataModel dataModel;
 
     private ObservableList<String> tasks = FXCollections.observableArrayList();
@@ -29,40 +28,26 @@ public class NoteViewModel implements ViewModel {
     public ListProperty<String> taskProperty() {
         return new SimpleListProperty<>(tasks);
     }
+
     private Note currentNote;
 
     private Stage noteStage;
 
-    @Override
-    public void init(ViewHandler viewHandler, DataModel dataModel) {
-        this.dataModel = dataModel;
-        this.viewHandler = viewHandler;
-    }
 
-    @Override
-    public void init(ViewHandler viewHandler, DataModel dataModel, Stage noteStage) {
-        init(viewHandler,dataModel);
-        this.noteStage = noteStage;
-        Image icon = new Image(StartApp.class.getResourceAsStream("icon.png"));
-        noteStage.getIcons().add(icon);
-    }
-
-    @Override
-    public void closeWindow() {
-
-    }
 
     void closeWithoutSaving(ActionEvent event) {
-        viewHandler.closeNote(currentNote);
+        singleNoteHandler.closeNote(currentNote);
     }
+
     void listOtherNotes(ActionEvent event) {
         List<NoteMetadata> otherNotes = dataModel.getNotesMetadata();
         otherNotes.remove(currentNote);//tytul tej notatki
 
     }
+
     void saveAndClose(ActionEvent event) {
-            this.saveContent(null);
-            this.saveTitle(null);
+        this.saveContent(null);
+        this.saveTitle(null);
         //viewHandler.changeTitle(currentNote,noteTitle.getText());
         //viewHandler.changeContent(currentNote,noteContent.getText());
         try {
@@ -72,6 +57,7 @@ public class NoteViewModel implements ViewModel {
         }
         this.closeWithoutSaving(event);
     }
+
     void saveContent(KeyEvent event) {
         if (event != null) {
 
@@ -79,24 +65,47 @@ public class NoteViewModel implements ViewModel {
     }
 
     //ToDo
-    public List<NoteTasks> getTasks(){
+    public List<NoteTask> getTasks() {
         return new ArrayList<>();
     }
+
     void saveTitle(KeyEvent event) {
         if (event != null) {
             //do sth
         }
     }
+
     public void setupNote(Note currentNote) {
-//        this.currentNote = currentNote;
+        this.currentNote = currentNote;
     }
-    public void checkListMode(boolean enabled){
+
+    public void checkListMode(boolean enabled) {
 
     }
-    public void resizeX(double X){
-        noteStage.setWidth(noteStage.getWidth()+X);
+
+    public void resizeX(double X) {
+        noteStage.setWidth(noteStage.getWidth() + X);
     }
-    public void resizeY(double Y){
-        noteStage.setHeight(noteStage.getHeight()+Y);
+
+    public void resizeY(double Y) {
+        noteStage.setHeight(noteStage.getHeight() + Y);
+    }
+
+    @Override
+    public void init(Handler singleNoteHandler, DataModel dataModel) {
+        this.dataModel = dataModel;
+        this.singleNoteHandler = (SingleNoteHandler) singleNoteHandler;
+    }
+
+    @Override
+    public void init(Handler singleNoteHandler, DataModel dataModel, Stage currentNote) {
+        this.dataModel = dataModel;
+        this.singleNoteHandler = (SingleNoteHandler) singleNoteHandler;
+        this.noteStage = currentNote;
+    }
+
+    @Override
+    public void closeWindow() {
+
     }
 }

@@ -19,7 +19,7 @@ public class ListViewController implements ViewController {
     private ListViewModel listVM;
 
     @FXML
-    private ListView<String> listOfNotes;
+    private ListView<String> listOfNotes = new ListView<>();
 
     @FXML
     private Button newNoteButton;
@@ -29,6 +29,9 @@ public class ListViewController implements ViewController {
 
     @FXML
     private Button removeButton;
+
+    public ListViewController() {
+    }
 
     @FXML
     void createNewNote(MouseEvent event) {
@@ -56,12 +59,12 @@ public class ListViewController implements ViewController {
         listOfNotes.itemsProperty().bindBidirectional(this.listVM.titlesProperty());
         listOfNotes.setOnMouseClicked(event -> {
             if (listOfNotes.getSelectionModel().getSelectedItems() != null) {
-                showOptions(listOfNotes.getSelectionModel().getSelectedIndex(),event);
+                showOptions(listOfNotes.getSelectionModel().getSelectedIndex(), event);
             }
         });
     }
 
-    private void showOptions(Integer item,MouseEvent event) {
+    private void showOptions(Integer item, MouseEvent event) {
         Popup popup = new Popup();
         Button openNote = new Button("Open");
         Button deleteNote = new Button("Delete");
@@ -75,7 +78,9 @@ public class ListViewController implements ViewController {
             popup.hide();
         });
         popup.getContent().add(vbox);
-        popup.show(listOfNotes.getScene().getWindow(),event.getScreenX(), event.getScreenY());
+        popup.show(listOfNotes.getScene().getWindow(), event.getScreenX(), event.getScreenY());
+        // TODO: 03.06.2023 should disappear on dishover
+        popup.hide();
     }
 
 }

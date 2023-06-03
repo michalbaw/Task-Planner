@@ -12,13 +12,14 @@ module app.taskplanner {
     opens app.taskplanner.view.listview to javafx.fxml;
     opens app.taskplanner.view.noteview to javafx.fxml;
     opens app.taskplanner.view.boardView to javafx.fxml;
-    exports app.taskplanner.viewmodel;
     exports app.taskplanner.model;
     exports app.taskplanner;
     exports app.taskplanner.view.listview;
     exports app.taskplanner.view.noteview;
     exports app.taskplanner.view.boardView;
     exports app.taskplanner.view;
+    exports app.taskplanner.viewmodel;
+    exports app.taskplanner.viewmodel.noteviewmodel;
     opens app.taskplanner.view to javafx.fxml;
     opens app.taskplanner.viewmodel to javafx.fxml;
     exports app.taskplanner.model.notes;

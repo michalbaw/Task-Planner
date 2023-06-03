@@ -1,8 +1,8 @@
 package app.taskplanner.view.noteview;
 
 import app.taskplanner.model.notes.Note;
+import app.taskplanner.model.notes.NoteTask;
 import app.taskplanner.view.ViewController;
-import app.taskplanner.viewmodel.NoteTasks;
 import app.taskplanner.viewmodel.ViewModel;
 import app.taskplanner.viewmodel.noteviewmodel.NoteViewModel;
 import javafx.collections.ObservableList;
@@ -64,7 +64,7 @@ public class NoteController implements ViewController {
 
 
     @FXML
-    private ListView<NoteTasks> taskList;
+    private ListView<NoteTask> taskList;
 
     @FXML
     private TextField taskName;
@@ -96,18 +96,17 @@ public class NoteController implements ViewController {
     @FXML
     void openTaskPage(ActionEvent event) {
         if (!opened) {
-            System.out.println(taskPane.getLayoutX() + " " + taskPane.getLayoutY());
             noteVM.checkListMode(true);
             taskPane.setMinWidth(160);
             taskPane.setPrefWidth(160);
-            List<NoteTasks> taskNames = noteVM.getTasks();
+            List<NoteTask> taskNames = noteVM.getTasks();
             taskList.getItems().addAll(taskNames);
-            taskList.setCellFactory(CheckBoxListCell.forListView(NoteTasks::toDoProperty));
-            System.out.println(taskPane.getLayoutX() + " " + taskPane.getLayoutY());
-            noteVM.resizeX(160);
+            // TODO: 03.06.2023 how should it work?
+//            taskList.setCellFactory(CheckBoxListCell.forListView(NoteTask));
+            noteVM.resizeX(-160);
             opened = true;
         } else {
-            noteVM.resizeX(-160);
+            noteVM.resizeX(+160);
             opened = false;
         }
     }
@@ -141,7 +140,7 @@ public class NoteController implements ViewController {
         Dragboard dragboard = taskList.startDragAndDrop(TransferMode.MOVE);
         ClipboardContent content = new ClipboardContent();
         int selectedId = taskList.getSelectionModel().getSelectedIndex();
-        content.put(task, taskList.getItems().get(selectedId).titleAsString());
+        content.put(task, taskList.getItems().get(selectedId).getTaskTitle());
         dragboard.setContent(content);
         event.consume();
     }
@@ -152,11 +151,11 @@ public class NoteController implements ViewController {
         boolean done = false;
         if (dragboard.hasContent(task)) {
             int selectedId = taskList.getSelectionModel().getSelectedIndex();
-            NoteTasks noteTask = (NoteTasks) dragboard.getContent(task);
+            NoteTask noteTask = (NoteTask) dragboard.getContent(task);
             taskList.getItems().remove(noteTask);
-            noteTask.toDoProperty().set(true);
+            noteTask.setStatus(true);
             taskList.getItems().remove(noteTask);
-            noteTask.toDoProperty().set(false);
+            noteTask.setStatus(false);
             taskList.getItems().add(selectedId, noteTask);
             done = true;
         }

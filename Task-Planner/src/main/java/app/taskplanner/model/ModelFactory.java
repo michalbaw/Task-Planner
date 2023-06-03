@@ -14,6 +14,7 @@ public class ModelFactory {
         dataModel = new SimpleDataModel(fileHandler);
         dataModel.removeNote(2);
     }
+
     public DataModel getDataModel() throws IOException {
         if (dataModel == null) {
             fileHandler = new SimpleFileHandler();

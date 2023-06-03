@@ -2,7 +2,9 @@ package app.taskplanner.view.boardView;
 
 import app.taskplanner.StartApp;
 import app.taskplanner.model.notes.Note;
-import app.taskplanner.viewmodel.SimpleNote;
+//import app.taskplanner.viewmodel.SimpleNote;
+//import app.taskplanner.viewmodel.ViewModel;
+import app.taskplanner.model.notes.SimpleNote;
 import app.taskplanner.viewmodel.ViewModel;
 import app.taskplanner.viewmodel.boardviewmodel.BoardViewModel;
 
@@ -31,11 +33,9 @@ public final class BoardViewController extends AnchorPane {
     public void refresh() {
         ObservableList<SimpleNote> currentNotes;
         currentNotes = boardVM.getNotes();
-        if (!currentNotes.equals(notes)) {
             notes = currentNotes;
             clearNotes();
             setNotes();
-        }
     }
 
     void setNotes() {
@@ -59,11 +59,9 @@ public final class BoardViewController extends AnchorPane {
 
     void clearNotes() {
         ObservableList<Node> nodes = this.getChildren();
-        for (int i = 0; i < nodes.size(); i++) {
-            if (nodes.get(i) instanceof Note)
-                this.getChildren().remove(i);
-        }
+        this.getChildren().clear();
     }
+
     public AnchorPane createView() {
         return null;
     }

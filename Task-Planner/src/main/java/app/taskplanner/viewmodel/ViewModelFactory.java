@@ -8,12 +8,14 @@ import java.io.IOException;
 public class ViewModelFactory {
 
     private final ViewHandler viewHandler;
+    private final SingleNoteHandler singleNoteHandler;
 
     public ViewModelFactory(DataModel dataModel, Stage primaryStage) throws IOException, ClassNotFoundException {
-        this.viewHandler = new ViewHandler(dataModel, primaryStage);
+        this.singleNoteHandler = new SingleNoteHandler();
+        this.viewHandler = new ViewHandler(dataModel, primaryStage,singleNoteHandler);
         viewHandler.start();
     }
-
+    public SingleNoteHandler getSingleNoteHandler(){return singleNoteHandler;}
     public ViewHandler getHandler() {
         return viewHandler;
     }

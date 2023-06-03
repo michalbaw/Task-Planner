@@ -1,8 +1,10 @@
 package app.taskplanner.view;
 
+import app.taskplanner.StartApp;
 import app.taskplanner.model.DataModel;
 import app.taskplanner.view.boardView.BoardViewController;
 import app.taskplanner.view.listview.ListViewController;
+import app.taskplanner.viewmodel.ViewHandler;
 import app.taskplanner.viewmodel.boardviewmodel.BoardViewModel;
 import app.taskplanner.viewmodel.listviewmodel.ListViewModel;
 import javafx.fxml.FXML;
@@ -31,37 +33,38 @@ public class PrimaryViewController {
     private AnchorPane boardView;
 
 
-    public void init(DataModel dataModel) {
+    public void init(DataModel dataModel, ViewHandler viewHandler) {
         // Create the view models
-        ListViewModel listViewModel = new ListViewModel(dataModel);
+        ListViewModel listViewModel = new ListViewModel(dataModel, viewHandler);
         BoardViewModel boardViewModel = new BoardViewModel(dataModel);
 
         // Create the controllers and pass the view models
-        ListViewController listController = new ListViewController();
-        listController.init(listViewModel);
+
+
         BoardViewController boardController = new BoardViewController();
         boardController.init(boardViewModel);
 
         // Load the list view from its FXML file
-        FXMLLoader listLoader = new FXMLLoader(getClass().getResource("list-view.fxml"));
-        listLoader.setController(listController);
+        FXMLLoader listLoader = new FXMLLoader(StartApp.class.getResource("list-view.fxml"));
+//        listLoader.setController(listController);
         try {
             listView = listLoader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        ListViewController listController = listLoader.getController();
+        listController.init(listViewModel);
         // Set the list view as the content of the listTab
         listTab.setContent(listView);
-
         // Set the board view as the content of the boardTab
         boardTab.setContent(boardView);
-
         // Create the board view from the BoardViewController
         boardView = boardController.createView();
 
         // Add the tabs to the TabPane
-        tabs.getTabs().addAll(listTab, boardTab);
+//        tabs.getTabs().addAll(listTab, boardTab);
+        tabs.getTabs().set(0, listTab);
+        tabs.getTabs().set(1, boardTab);
     }
 }
 /*

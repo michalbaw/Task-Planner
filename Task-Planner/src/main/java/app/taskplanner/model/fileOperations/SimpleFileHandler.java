@@ -15,22 +15,24 @@ import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SimpleFileHandler implements FileHandler{
+public class SimpleFileHandler implements FileHandler {
     private final String prefixDir = "src/main/resources/app/taskplanner";
     private final String prefixNotes = prefixDir + "/notes";
     private final String metadataLocation = prefixDir + "/noteList";
     private List<NoteMetadata> noteMetadataList;
     private List<Note> openNotes;
-    public SimpleFileHandler() throws IOException{
+
+    public SimpleFileHandler() throws IOException {
         Path dir = Paths.get(prefixNotes);
-        if(Files.notExists(dir)){
+        if (Files.notExists(dir)) {
             Files.createDirectory(dir);
         }
     }
+
     @Override
     public List<NoteMetadata> loadNotesMetadata() throws IOException {
         Path file = Paths.get(metadataLocation);
-        if(! Files.exists(file)){
+        if (!Files.exists(file)) {
             noteMetadataList = new LinkedList<>();
             Files.createFile(file);
             saveNotesMetadata();
@@ -57,13 +59,13 @@ public class SimpleFileHandler implements FileHandler{
         NoteBody body;
         String location = prefixNotes + Integer.valueOf(key).toString();
         Path file = Paths.get(location);
-        if(! Files.exists(file)){
+        if (!Files.exists(file)) {
             return null;
         }
         ObjectInputStream stream = new ObjectInputStream(Files.newInputStream(file));
-        try{
+        try {
             body = (NoteBody) stream.readObject();
-        } catch (ClassNotFoundException e){
+        } catch (ClassNotFoundException e) {
             return null;
         }
         return body;

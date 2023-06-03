@@ -3,6 +3,7 @@ package app.taskplanner.viewmodel.listviewmodel;
 import app.taskplanner.model.DataModel;
 import app.taskplanner.model.notes.Note;
 import app.taskplanner.model.notes.NoteMetadata;
+import app.taskplanner.viewmodel.Handler;
 import app.taskplanner.viewmodel.ViewHandler;
 import app.taskplanner.viewmodel.ViewModel;
 import javafx.beans.property.ListProperty;
@@ -20,8 +21,9 @@ public class ListViewModel implements ViewModel {
     private DataModel dataModel;
     private ViewHandler viewHandler;
 
-    public ListViewModel(DataModel dataModel) {
+    public ListViewModel(DataModel dataModel, ViewHandler viewHandler) {
         this.dataModel = dataModel;
+        this.viewHandler = viewHandler;
         initializeNotes();
     }
 
@@ -37,8 +39,7 @@ public class ListViewModel implements ViewModel {
     public void addNoteWithTitle(String title) {
         try {
             dataModel.addNote(title); // Add the new note to the model
-        }
-        catch (IOException ioException){
+        } catch (IOException ioException) {
             System.err.println("yyyy");
         }
         titles.add(title);
@@ -46,12 +47,9 @@ public class ListViewModel implements ViewModel {
 
     public void removeNoteAt(int index) {
         NoteMetadata noteToRemove = dataModel.getNotesMetadata().get(index);
-        try{
-
-        dataModel.removeNote(noteToRemove.getKey()); // Remove the note from the model
-        }
-        catch (IOException ioException)
-        {
+        try {
+            dataModel.removeNote(noteToRemove.getKey()); // Remove the note from the model
+        } catch (IOException ioException) {
             System.err.println("deletion? nope.");
         }
         titles.remove(index);
@@ -59,7 +57,9 @@ public class ListViewModel implements ViewModel {
 
     public void openNoteWithTitle(String title) {
         // Perform the necessary action when opening a note
-        Note note = viewHandler.getNoteFromID(0);
+//        viewHandler.openNote(title);
+        // TODO: 03.06.2023
+        Note note = viewHandler.getNoteFromID(1);
         viewHandler.openNote(note);
     }
 
@@ -76,13 +76,13 @@ public class ListViewModel implements ViewModel {
     }
 
     @Override
-    public void init(ViewHandler viewHandler, DataModel dataModel) {
-        this.viewHandler = viewHandler;
+    public void init(Handler viewHandler, DataModel dataModel) {
+        this.viewHandler = (ViewHandler) viewHandler;
         this.dataModel = dataModel;
     }
 
     @Override
-    public void init(ViewHandler viewHandler, DataModel dataModel, Stage currentView) {
+    public void init(Handler viewHandler, DataModel dataModel, Stage currentView) {
 
     }
 

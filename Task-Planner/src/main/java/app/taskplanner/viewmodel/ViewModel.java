@@ -4,9 +4,9 @@ import app.taskplanner.model.DataModel;
 import javafx.stage.Stage;
 
 public interface ViewModel {
-    public void init(ViewHandler viewHandler, DataModel dataModel);
+    public void init(Handler Handler, DataModel dataModel);
 
-    void init(ViewHandler viewHandler, DataModel dataModel, Stage currentView);
+    void init(Handler handler, DataModel dataModel, Stage currentView);
 
     public void closeWindow(); //signature?
 }

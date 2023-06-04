@@ -4,7 +4,6 @@ import app.taskplanner.view.ViewController;
 import app.taskplanner.viewmodel.ViewModel;
 import app.taskplanner.viewmodel.listviewmodel.ListViewModel;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 
 import javafx.fxml.FXML;

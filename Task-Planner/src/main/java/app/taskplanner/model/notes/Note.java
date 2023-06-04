@@ -4,11 +4,7 @@ import java.util.List;
 
 public interface Note {
     NoteMetadata getMetadata();
-
     void setMetadata(NoteMetadata metadata);
-
     NoteBody getNoteBody();
-
     void setNoteBody(NoteBody noteBody);
-    List<NoteTask> getNoteTasks();
 }

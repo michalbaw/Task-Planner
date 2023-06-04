@@ -57,7 +57,7 @@ public class BoardViewModel implements ViewModel {
     }
 
     public List<NoteTask> getTasks(SimpleNoteController ctrl) {
-        return notes.stream().filter(m -> m.getController().equals(ctrl)).findAny().get().getNote().getNoteTasks();
+        return notes.stream().filter(m -> m.getController().equals(ctrl)).findAny().get().getNote().getNoteBody().getNoteTasks();
     }
 
     public void checkListMode(SimpleNoteController ctrl, boolean val) {

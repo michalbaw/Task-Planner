@@ -23,10 +23,10 @@ import java.util.List;
 
 public class SimpleNoteController {
     private boolean opened = false;
-    private double X=0;
-    private double Y=0;
-    private double height=0;
-    private double width=0;
+    private double X = 0;
+    private double Y = 0;
+    private double height = 0;
+    private double width = 0;
     private BoardViewModel boardVM;
     @FXML
     private Button addButton;
@@ -72,7 +72,7 @@ public class SimpleNoteController {
             boardVM.checkListMode(this, true);
             taskPane.setMinWidth(160);
             taskPane.setPrefWidth(160);
-            List<NoteTask>taskNames = boardVM.getTasks(this);
+            List<NoteTask> taskNames = boardVM.getTasks(this);
             taskList.getItems().addAll(taskNames.stream().map(NoteTask::getTaskTitle).toList());
 //            taskList.setCellFactory(CheckBoxListCell.forListView(NoteTasks::toDoProperty));
             System.out.println(taskPane.getLayoutX() + " " + taskPane.getLayoutY());

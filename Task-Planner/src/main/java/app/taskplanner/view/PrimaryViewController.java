@@ -33,18 +33,12 @@ public class PrimaryViewController {
     private AnchorPane boardView;
 
 
-    public void init(DataModel dataModel, ViewHandler viewHandler) {
-        // Create the view models
-        ListViewModel listViewModel = new ListViewModel(dataModel, viewHandler);
-        BoardViewModel boardViewModel = new BoardViewModel(dataModel);
-
-        // Create the controllers and pass the view models
+    public void init(DataModel dataModel, ViewHandler viewHandler, ListViewModel listViewModel,BoardViewModel boardViewModel) {
 
 
         BoardViewController boardController = new BoardViewController();
         boardController.init(boardViewModel);
-
-        // Load the list view from its FXML file
+        
         FXMLLoader listLoader = new FXMLLoader(StartApp.class.getResource("list-view.fxml"));
 //        listLoader.setController(listController);
         try {
@@ -54,14 +48,12 @@ public class PrimaryViewController {
         }
         ListViewController listController = listLoader.getController();
         listController.init(listViewModel);
-        // Set the list view as the content of the listTab
+        
         listTab.setContent(listView);
-        // Set the board view as the content of the boardTab
         boardTab.setContent(boardView);
-        // Create the board view from the BoardViewController
         boardView = boardController.createView();
-
-        // Add the tabs to the TabPane
+        
+        
 //        tabs.getTabs().addAll(listTab, boardTab);
         tabs.getTabs().set(0, listTab);
         tabs.getTabs().set(1, boardTab);

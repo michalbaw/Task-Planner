@@ -2,6 +2,7 @@ package app.taskplanner.viewmodel.boardviewmodel;
 
 import app.taskplanner.model.DataModel;
 import app.taskplanner.model.SimpleObservableList;
+import app.taskplanner.model.notes.NoteMetadata;
 import app.taskplanner.model.notes.NoteTask;
 import app.taskplanner.model.notes.SimpleNote;
 import app.taskplanner.view.boardView.SimpleNoteController;
@@ -92,5 +93,9 @@ public class BoardViewModel implements ViewModel {
         public void setController(SimpleNoteController controller) {
             this.controller = controller;
         }
+    }
+
+    public void refreshNotes() {
+
     }
 }

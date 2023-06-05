@@ -9,6 +9,8 @@ import app.taskplanner.model.DataModel;
 import app.taskplanner.view.PrimaryViewController;
 import app.taskplanner.view.alerts.DeadlineAlert;
 import app.taskplanner.view.noteview.NoteController;
+import app.taskplanner.viewmodel.boardviewmodel.BoardViewModel;
+import app.taskplanner.viewmodel.listviewmodel.ListViewModel;
 import app.taskplanner.viewmodel.noteviewmodel.NoteViewModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,18 +25,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ViewHandler implements Handler{
+public class ViewHandler implements Handler {
     private final DataModel dataModel;
     private final Stage primaryStage;
     private final String css;
     private final SingleNoteHandler singleNoteHandler;
 
-    public ViewHandler(DataModel dataModel, Stage primaryStage,SingleNoteHandler singleNoteHandler) {
+
+    ListViewModel listViewModel;
+    BoardViewModel boardViewModel;
+
+    public ViewHandler(DataModel dataModel, Stage primaryStage, SingleNoteHandler singleNoteHandler) {
         this.dataModel = dataModel;
         this.primaryStage = primaryStage;
         this.singleNoteHandler = singleNoteHandler;
+        listViewModel = new ListViewModel(dataModel, this);
+        boardViewModel = new BoardViewModel(dataModel);
         css = Objects.requireNonNull(StartApp.class.getResource("styles.css")).toExternalForm();
-        singleNoteHandler.init(dataModel,this,css);
+        singleNoteHandler.init(dataModel, this, css);
     }
 
     public void start() {
@@ -46,7 +54,7 @@ public class ViewHandler implements Handler{
             FXMLLoader loader = new FXMLLoader(StartApp.class.getResource("primary-view.fxml"));
             Parent root = loader.load();
             PrimaryViewController primaryVC = loader.getController();
-            primaryVC.init(dataModel, this);
+            primaryVC.init(dataModel, this,listViewModel,boardViewModel);
             Scene mainScene = new Scene(root);
             mainScene.getStylesheets().add(css);
             primaryStage.setScene(mainScene);
@@ -76,7 +84,6 @@ public class ViewHandler implements Handler{
         for (NoteMetadata note : notes) {
             if (note.getKey() == id)
                 try {
-
                     return dataModel.openNote(id);
                 } catch (IOException ioException) {
                     System.err.println("wait,no");
@@ -88,8 +95,6 @@ public class ViewHandler implements Handler{
     public void openNote(Note note) {
         singleNoteHandler.openNote(note);
     }
-
-
 
 
     public ObservableList<String> listNotes() {
@@ -107,6 +112,7 @@ public class ViewHandler implements Handler{
         for (NoteMetadata n : notes) {
             if (key == n.getKey()) {
                 note.getMetadata().setTitle(title);
+                notifyVM(); //notification
                 return;
             }
         }
@@ -118,12 +124,34 @@ public class ViewHandler implements Handler{
         for (NoteMetadata n : notes) {
             if (key == n.getKey()) {
                 note.getNoteBody().setContent(content);
+                notifyVM(); //notification
                 return;
             }
         }
     }
 
+    public void addNoteWithTitle(String title) {
+        try {
+            dataModel.addNote(title);
+            notifyVM();
+        } catch (IOException ioException) {
+            System.err.println("addNoteWithTitle - ioException");
+        }
+    }
 
+    public void removeNoteAt(int index) {
+        NoteMetadata noteToRemove = dataModel.getNotesMetadata().get(index);
+        try {
+            dataModel.removeNote(noteToRemove.getKey());
+            notifyVM();
+        } catch (IOException ioException) {
+            System.err.println("removeNoteAt = ioException");
+        }
+    }
 
+    public void notifyVM(){
+        listViewModel.refreshNotes();
+        boardViewModel.refreshNotes();
 
+    }
 }

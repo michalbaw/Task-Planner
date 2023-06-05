@@ -19,8 +19,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NoteViewModel implements ViewModel{
+public class NoteViewModel implements ViewModel {
     private SingleNoteHandler singleNoteHandler;
+
     private DataModel dataModel;
 
     private ObservableList<String> tasks = FXCollections.observableArrayList();
@@ -32,7 +33,6 @@ public class NoteViewModel implements ViewModel{
     private Note currentNote;
 
     private Stage noteStage;
-
 
 
     void closeWithoutSaving(ActionEvent event) {

@@ -37,22 +37,28 @@ public class ListViewModel implements ViewModel {
     }
 
     public void addNoteWithTitle(String title) {
-        try {
-            dataModel.addNote(title); // Add the new note to the model
-        } catch (IOException ioException) {
-            System.err.println("yyyy");
-        }
-        titles.add(title);
+
+        viewHandler.addNoteWithTitle(title);
+
+       // try {
+       //     dataModel.addNote(title); // Add the new note to the model
+       // } catch (IOException ioException) {
+       //     System.err.println("yyyy");
+       // }
+       // titles.add(title);
     }
 
     public void removeNoteAt(int index) {
-        NoteMetadata noteToRemove = dataModel.getNotesMetadata().get(index);
-        try {
-            dataModel.removeNote(noteToRemove.getKey()); // Remove the note from the model
-        } catch (IOException ioException) {
-            System.err.println("deletion? nope.");
-        }
-        titles.remove(index);
+
+        viewHandler.removeNoteAt(index);
+
+        //NoteMetadata noteToRemove = dataModel.getNotesMetadata().get(index);
+        //try {
+        //    dataModel.removeNote(noteToRemove.getKey()); // Remove the note from the model
+        //} catch (IOException ioException) {
+        //    System.err.println("deletion? nope.");
+        //}
+        //titles.remove(index);
     }
 
     public void openNoteWithTitle(String title) {

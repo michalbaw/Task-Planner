@@ -33,9 +33,9 @@ public final class BoardViewController extends AnchorPane {
     public void refresh() {
         ObservableList<SimpleNote> currentNotes;
         currentNotes = boardVM.getNotes();
-            notes = currentNotes;
-            clearNotes();
-            setNotes();
+        notes = currentNotes;
+        clearNotes();
+        setNotes();
     }
 
     void setNotes() {

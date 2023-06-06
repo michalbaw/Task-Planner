@@ -30,17 +30,19 @@ public class PrimaryViewController {
     private AnchorPane listView;
 
     @FXML
-    private AnchorPane boardView;
+    private AnchorPane boardPane;
 
+    public void initialize() {
+        boardPane = new AnchorPane();
+    }
 
-    public void init(DataModel dataModel, ViewHandler viewHandler, ListViewModel listViewModel,BoardViewModel boardViewModel) {
+    public void init(DataModel dataModel, ViewHandler viewHandler, ListViewModel listViewModel, BoardViewModel boardViewModel) {
 
 
         BoardViewController boardController = new BoardViewController();
-        boardController.init(boardViewModel);
-        
+        boardController.init(boardViewModel, boardPane);
+
         FXMLLoader listLoader = new FXMLLoader(StartApp.class.getResource("list-view.fxml"));
-//        listLoader.setController(listController);
         try {
             listView = listLoader.load();
         } catch (IOException e) {
@@ -48,48 +50,11 @@ public class PrimaryViewController {
         }
         ListViewController listController = listLoader.getController();
         listController.init(listViewModel);
-        
+
         listTab.setContent(listView);
-        boardTab.setContent(boardView);
-        boardView = boardController.createView();
-        
-        
-//        tabs.getTabs().addAll(listTab, boardTab);
+        boardTab.setContent(boardPane);
         tabs.getTabs().set(0, listTab);
         tabs.getTabs().set(1, boardTab);
+
     }
 }
-/*
-public class PrimaryViewController {
-
-    @FXML
-    private Tab boardTab;
-
-    @FXML
-    private AnchorPane boardView;
-
-    @FXML
-    private Tab listTab;
-    @FXML
-    private ListViewController listViewController;
-    @FXML
-    private BoardViewModel boardViewModel;
-
-    @FXML
-    private AnchorPane listView;
-    @FXML
-    private BoardViewController boardPane;
-    @FXML
-    private TabPane tabs;
-
-    public void init() {
-        listViewController = new ListViewController();
-        boardViewModel = new BoardViewModel();
-        boardPane = new BoardViewController();
-        Tab board = new Tab("Board", boardPane);
-        tabs.getTabs().set(1, board);
-    }
-
-}
-
- */

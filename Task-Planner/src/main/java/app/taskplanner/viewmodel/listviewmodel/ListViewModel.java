@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ListViewModel implements ViewModel {
 
-    private ObservableList<String> titles = FXCollections.observableArrayList();
+    private ObservableList<NoteMetadata> notesMetadata = FXCollections.observableArrayList();
     private DataModel dataModel;
     private ViewHandler viewHandler;
 
@@ -27,8 +27,8 @@ public class ListViewModel implements ViewModel {
         initializeNotes();
     }
 
-    public ListProperty<String> titlesProperty() {
-        return new SimpleListProperty<>(titles);
+    public ListProperty<NoteMetadata> notesProperty() {
+        return new SimpleListProperty<>(notesMetadata);
     }
 
     private void initializeNotes() {
@@ -39,46 +39,34 @@ public class ListViewModel implements ViewModel {
     public void addNoteWithTitle(String title) {
 
         viewHandler.addNoteWithTitle(title);
-
-       // try {
-       //     dataModel.addNote(title); // Add the new note to the model
-       // } catch (IOException ioException) {
-       //     System.err.println("yyyy");
-       // }
-       // titles.add(title);
     }
 
     public void removeNoteAt(int index) {
-
         viewHandler.removeNoteAt(index);
 
-        //NoteMetadata noteToRemove = dataModel.getNotesMetadata().get(index);
-        //try {
-        //    dataModel.removeNote(noteToRemove.getKey()); // Remove the note from the model
-        //} catch (IOException ioException) {
-        //    System.err.println("deletion? nope.");
-        //}
-        //titles.remove(index);
     }
-
-    public void openNoteWithTitle(String title) {
-        // Perform the necessary action when opening a note
-//        viewHandler.openNote(title);
-        // TODO: 03.06.2023
-        Note note = viewHandler.getNoteFromID(1);
+    public void openNote(Note note) {
         viewHandler.openNote(note);
     }
-
     public void refreshNotes() {
         List<NoteMetadata> updatedNotes = dataModel.getNotesMetadata(); // Retrieve the updated notes from the model
         updateTitles(updatedNotes);
     }
-
-    private void updateTitles(List<NoteMetadata> notes) {
-        titles.clear();
-        for (NoteMetadata note : notes) {
-            titles.add(note.getTitle());
+    public Note getNote(int key){
+        Note note = null;
+        try {
+            note = dataModel.openNote(key);
         }
+        catch (IOException ioException)
+        {
+            System.err.println("KeinProblemHerrMichal");
+        }
+        return note;
+                
+    }
+    private void updateTitles(List<NoteMetadata> notes) {
+        this.notesMetadata.clear();
+        this.notesMetadata.addAll(notes);
     }
 
     @Override

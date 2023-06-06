@@ -14,20 +14,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SingleNoteHandler implements Handler{
+public class SingleNoteHandler implements Handler {
     private List<StageDescr> noteStages;
     private DataModel dataModel;
     private ViewHandler viewHandler;
     private String css;
 
-    public SingleNoteHandler(){
+    public SingleNoteHandler() {
         noteStages = new ArrayList<>();
     }
-    public void init(DataModel dataModel,ViewHandler viewHandler,String css){
+
+    public void init(DataModel dataModel, ViewHandler viewHandler, String css) {
         this.dataModel = dataModel;
         this.viewHandler = viewHandler;
         this.css = css;
     }
+
     public void openNote(Note note) {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -38,7 +40,7 @@ public class SingleNoteHandler implements Handler{
             nvm.setupNote(note);
 //            nvm.resizeX(-160);
             Stage noteStage = new Stage();
-            nvm.init(this, dataModel,noteStage);
+            nvm.init(this, dataModel, noteStage);
             nc.init(nvm);
             noteStage.setTitle(note.getMetadata().getTitle());//tytul notatki
             Scene noteScene = new Scene(root);
@@ -50,6 +52,7 @@ public class SingleNoteHandler implements Handler{
             e.printStackTrace();
         }
     }
+
     public void closeNote(Note note) {
         for (int i = 0; i < noteStages.size(); i++) {
             if (noteStages.get(i).note.equals(note)) {
@@ -59,6 +62,7 @@ public class SingleNoteHandler implements Handler{
             }
         }
     }
+
     private static class StageDescr {
         Stage stage;
         Note note;

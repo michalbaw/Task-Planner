@@ -1,5 +1,6 @@
 package app.taskplanner.view.boardView;
 
+import app.taskplanner.model.notes.NoteMetadata;
 import app.taskplanner.model.notes.NoteTask;
 //import app.taskplanner.viewmodel.NoteTasks;
 import app.taskplanner.viewmodel.boardviewmodel.BoardViewModel;
@@ -23,6 +24,7 @@ import java.util.List;
 
 public class SimpleNoteController {
     private boolean opened = false;
+    private NoteMetadata selfNote;
     private double X = 0;
     private double Y = 0;
     private double height = 0;
@@ -64,18 +66,19 @@ public class SimpleNoteController {
     @FXML
     private HBox textAndTasks;
 
+    SimpleNoteController(NoteMetadata noteMetadata) {
+        selfNote = noteMetadata;
+    }
 
     @FXML
     void openTaskPanel(ActionEvent event) {
         if (!opened) {
             System.out.println(taskPane.getLayoutX() + " " + taskPane.getLayoutY());
-            boardVM.checkListMode(this, true);
             taskPane.setMinWidth(160);
             taskPane.setPrefWidth(160);
             List<NoteTask> taskNames = boardVM.getTasks(this);
             taskList.getItems().addAll(taskNames.stream().map(NoteTask::getTaskTitle).toList());
 //            taskList.setCellFactory(CheckBoxListCell.forListView(NoteTasks::toDoProperty));
-            System.out.println(taskPane.getLayoutX() + " " + taskPane.getLayoutY());
             boardVM.resizeX(this, 160);
             opened = true;
         } else {
@@ -129,6 +132,14 @@ public class SimpleNoteController {
 
     public void setX(double x) {
         X = x;
+    }
+
+    public NoteMetadata getSelfNote() {
+        return selfNote;
+    }
+
+    public void setSelfNote(NoteMetadata selfNote) {
+        this.selfNote = selfNote;
     }
 }
 

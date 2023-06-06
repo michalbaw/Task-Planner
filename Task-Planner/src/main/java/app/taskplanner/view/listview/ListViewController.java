@@ -1,5 +1,7 @@
 package app.taskplanner.view.listview;
 
+import app.taskplanner.model.notes.Note;
+import app.taskplanner.model.notes.NoteMetadata;
 import app.taskplanner.view.ViewController;
 import app.taskplanner.viewmodel.ViewModel;
 import app.taskplanner.viewmodel.listviewmodel.ListViewModel;
@@ -18,7 +20,7 @@ public class ListViewController implements ViewController {
     private ListViewModel listVM;
 
     @FXML
-    private ListView<String> listOfNotes = new ListView<>();
+    private ListView<NoteMetadata> listOfNotes = new ListView<>();
 
     @FXML
     private Button newNoteButton;
@@ -47,15 +49,18 @@ public class ListViewController implements ViewController {
 
     @FXML
     void openSelectedNote(MouseEvent event) {
-        String selectedTitle = listOfNotes.getSelectionModel().getSelectedItem();
-        listVM.openNoteWithTitle(selectedTitle);
+//        String selectedTitle = listOfNotes.getSelectionModel().getSelectedItem();
+        NoteMetadata selectedNoteInfo = listOfNotes.getSelectionModel().getSelectedItem();
+        Note selectedNote = listVM.getNote(selectedNoteInfo.getKey());
+        listVM.openNote(selectedNote);
+//        listVM.openNoteWithTitle(se);
     }
 
     @Override
     public void init(ViewModel listVM) {
         this.listVM = (ListViewModel) listVM;
         // Bind the ListView's items property to the ViewModel's titlesProperty
-        listOfNotes.itemsProperty().bindBidirectional(this.listVM.titlesProperty());
+        listOfNotes.itemsProperty().bindBidirectional(this.listVM.notesProperty());
         listOfNotes.setOnMouseClicked(event -> {
             if (listOfNotes.getSelectionModel().getSelectedItems() != null) {
                 showOptions(listOfNotes.getSelectionModel().getSelectedIndex(), event);
@@ -68,9 +73,9 @@ public class ListViewController implements ViewController {
         Button openNote = new Button("Open");
         Button deleteNote = new Button("Delete");
         VBox vbox = new VBox(openNote, deleteNote);
+        Note note = listVM.getNote(listOfNotes.getItems().get(item).getKey());
         openNote.setOnAction(click -> {
-            listVM.openNoteWithTitle(listOfNotes.getItems().get(item));
-            popup.hide();
+            listVM.openNote(note);
         });
         deleteNote.setOnAction(click -> {
             listVM.removeNoteAt(item);

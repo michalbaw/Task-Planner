@@ -4,55 +4,77 @@ import app.taskplanner.StartApp;
 import app.taskplanner.model.notes.Note;
 //import app.taskplanner.viewmodel.SimpleNote;
 //import app.taskplanner.viewmodel.ViewModel;
+import app.taskplanner.model.notes.NoteMetadata;
 import app.taskplanner.model.notes.SimpleNote;
 import app.taskplanner.viewmodel.ViewModel;
 import app.taskplanner.viewmodel.boardviewmodel.BoardViewModel;
 
 import static javafx.application.Application.launch;
 
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class BoardViewController extends AnchorPane {
     private BoardViewModel boardVM;
-    public static ObservableList<SimpleNote> notes;
-
+    public ObservableList<Note> notes;
+    private AnchorPane board;
+    private ListProperty<Note> notesOnBoardProperty;
     private double maxX; //later reassignment of notes
     private double maxY;
+    private List<SimpleNoteController> controllers;
 
-    public void init(ViewModel viewModel) {
+    public void init(ViewModel viewModel, AnchorPane board) {
         this.boardVM = (BoardViewModel) viewModel;
         refresh();
-    }
-
-    public void refresh() {
-        ObservableList<SimpleNote> currentNotes;
-        currentNotes = boardVM.getNotes();
-        notes = currentNotes;
-        clearNotes();
+        this.board = board;
+        controllers = new ArrayList<>();
+        notesOnBoardProperty = new SimpleListProperty<>();
+        notesOnBoardProperty.bindBidirectional(this.boardVM.boardNotes());
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(StartApp.class.getResource("simple-note-view.fxml"));
+//        try {
+//            loader.load();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
         setNotes();
     }
 
+    public void refresh() {
+        ObservableList<Note> currentNotes;
+        currentNotes = boardVM.getNotes();
+        notes = currentNotes;
+        clearNotes();
+//        setNotes();
+    }
+
     void setNotes() {
-        for (SimpleNote note : notes) {
-            this.addNote();
+        for (Note note : notesOnBoardProperty) {
+            this.addNote(note.getMetadata());
         }
     }
 
-    void addNote() {
+    void addNote(NoteMetadata noteInfo) {
+        controllers.add(new SimpleNoteController(noteInfo));
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(StartApp.class.getResource("simple-note-view.fxml"));
+        loader.setController(controllers.get(controllers.size() - 1));
         try {
-            Region root;
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(StartApp.class.getResource("simple-note-view.fxml"));
-            root = loader.load();
-            root.setMinHeight(100);
-            root.setMinSize(100, 100);
-            this.getChildren().add(root);
+            loader.load();
+            Parent root = loader.getRoot();
+            board.getChildren().add(root);
         } catch (IOException ignored) {
         }
     }
@@ -62,7 +84,4 @@ public final class BoardViewController extends AnchorPane {
         this.getChildren().clear();
     }
 
-    public AnchorPane createView() {
-        return null;
-    }
 }

@@ -1,6 +1,7 @@
 package app.taskplanner.view.noteview;
 
 import app.taskplanner.model.notes.Note;
+import app.taskplanner.model.notes.NoteMetadata;
 import app.taskplanner.model.notes.NoteTask;
 import app.taskplanner.view.ViewController;
 import app.taskplanner.viewmodel.ViewModel;
@@ -18,6 +19,7 @@ import java.util.List;
 
 public class NoteController implements ViewController {
 
+    private ObservableList<NoteMetadata> notes;
     private NoteViewModel noteVM;
     private Note currentNote;
     private ObservableList<CheckBoxListCell<Object>> tasks;
@@ -28,7 +30,7 @@ public class NoteController implements ViewController {
     private HBox bottomOptions;
 
     @FXML
-    private ComboBox<?> changeNote;
+    private ComboBox<NoteMetadata> changeNote;
 
     @FXML
     private MenuItem closeNoSave;
@@ -170,6 +172,10 @@ public class NoteController implements ViewController {
             event.acceptTransferModes(TransferMode.MOVE);
         }
         event.consume();
+    }
+
+    public void initialize() {
+//        notes =
     }
 
     public void setupNote(Note currentNote) {

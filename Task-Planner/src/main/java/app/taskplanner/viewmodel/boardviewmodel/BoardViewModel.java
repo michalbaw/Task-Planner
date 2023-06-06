@@ -2,6 +2,7 @@ package app.taskplanner.viewmodel.boardviewmodel;
 
 import app.taskplanner.model.DataModel;
 import app.taskplanner.model.SimpleObservableList;
+import app.taskplanner.model.notes.Note;
 import app.taskplanner.model.notes.NoteMetadata;
 import app.taskplanner.model.notes.NoteTask;
 import app.taskplanner.model.notes.SimpleNote;
@@ -11,18 +12,22 @@ import app.taskplanner.view.boardView.SimpleNoteController;
 import app.taskplanner.viewmodel.Handler;
 import app.taskplanner.viewmodel.ViewHandler;
 import app.taskplanner.viewmodel.ViewModel;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.List;
 
 public class BoardViewModel implements ViewModel {
-    ViewHandler viewHandler;
-    DataModel dataModel;
-    Stage stage;
-    ObservableList<NoteOnBoard> notes = FXCollections.observableArrayList();
+    private ViewHandler viewHandler;
+    private DataModel dataModel;
+    private Stage stage;
+    private ObservableList<Note> notes = FXCollections.observableArrayList();
 
+    public ListProperty<Note> boardNotes() { return new SimpleListProperty<Note>(notes);}
     @Override
     public void init(Handler viewHandler, DataModel dataModel) {
         this.viewHandler = (ViewHandler) viewHandler;
@@ -40,12 +45,22 @@ public class BoardViewModel implements ViewModel {
     private void loadNotes() {
         //todo
 //        for(SimpleNote note : dataModel.getNotes();
+        List<NoteMetadata> notesMetadata = dataModel.getNotesMetadata();
+        for(NoteMetadata note : notesMetadata){
+            try{
+            notes.add(dataModel.openNote(note.getKey()));
+            }
+            catch (IOException ioioio)
+            {
+                System.err.println("prosze, uwolnijcie mnie");
+            }
+        }
     }
 
-    public ObservableList<SimpleNote> getNotes() {
+    public ObservableList<Note> getNotes() {
         loadNotes();
 //        return (ObservableList<SimpleNote>) notes.stream().map(NoteOnBoard::getNote).toList();
-        return new SimpleObservableList<>();
+        return notes;
     }
 
     public BoardViewModel(DataModel dataModel) {
@@ -58,12 +73,19 @@ public class BoardViewModel implements ViewModel {
     }
 
     public List<NoteTask> getTasks(SimpleNoteController ctrl) {
-        return notes.stream().filter(m -> m.getController().equals(ctrl)).findAny().get().getNote().getNoteBody().getNoteTasks();
+        List<NoteTask> tasks = null;
+        try {
+            tasks= dataModel.openNote(ctrl.getSelfNote().getKey()).getNoteBody().getNoteTasks();
+        }
+        catch (IOException ioioio) {
+            System.err.println("mamo, zjadlem ta srebrna kulke z termometru");
+        }
+        return tasks;
     }
 
-    public void checkListMode(SimpleNoteController ctrl, boolean val) {
-        notes.stream().filter(m -> m.getController().equals(ctrl)).findAny().ifPresent(m -> m.checkListMode = val);
-    }
+//    public void checkListMode(SimpleNoteController ctrl, boolean val) {
+//
+//    }
 
     public void resizeX(SimpleNoteController ctrl, double px) {
         ctrl.setX(ctrl.getX() + px);
@@ -72,15 +94,19 @@ public class BoardViewModel implements ViewModel {
     public void resizeY(SimpleNoteController ctrl, double px) {
         ctrl.setY(ctrl.getY() + px);
     }
-
+    public Note getNote(int x) {
+        try {
+            return dataModel.openNote(x);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
     class NoteOnBoard {
         boolean checkListMode;
-        SimpleNote note;
+        Note note;
         SimpleNoteController controller;
 
-        public SimpleNote getNote() {
-            return note;
-        }
+
 
         public void setNote(SimpleNote note) {
             this.note = note;
@@ -96,6 +122,7 @@ public class BoardViewModel implements ViewModel {
     }
 
     public void refreshNotes() {
+        loadNotes();
 
     }
 }

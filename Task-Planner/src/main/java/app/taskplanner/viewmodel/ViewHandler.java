@@ -54,7 +54,7 @@ public class ViewHandler implements Handler {
             FXMLLoader loader = new FXMLLoader(StartApp.class.getResource("primary-view.fxml"));
             Parent root = loader.load();
             PrimaryViewController primaryVC = loader.getController();
-            primaryVC.init(dataModel, this,listViewModel,boardViewModel);
+            primaryVC.init(dataModel, this, listViewModel, boardViewModel);
             Scene mainScene = new Scene(root);
             mainScene.getStylesheets().add(css);
             primaryStage.setScene(mainScene);
@@ -140,16 +140,10 @@ public class ViewHandler implements Handler {
     }
 
     public void removeNoteAt(int index) {
-        NoteMetadata noteToRemove = dataModel.getNotesMetadata().get(index);
-        try {
-            dataModel.removeNote(noteToRemove.getKey());
-            notifyVM();
-        } catch (IOException ioException) {
-            System.err.println("removeNoteAt = ioException");
-        }
+
     }
 
-    public void notifyVM(){
+    public void notifyVM() {
         listViewModel.refreshNotes();
         boardViewModel.refreshNotes();
 

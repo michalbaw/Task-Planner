@@ -20,7 +20,6 @@ public class SimpleFileHandler implements FileHandler {
     private final String prefixNotes = prefixDir + "/notes";
     private final String metadataLocation = prefixDir + "/noteList";
     private List<NoteMetadata> noteMetadataList;
-    private List<Note> openNotes;
 
     public SimpleFileHandler() throws IOException {
         Path dir = Paths.get(prefixNotes);

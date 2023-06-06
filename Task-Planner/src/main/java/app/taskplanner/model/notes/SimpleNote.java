@@ -30,4 +30,8 @@ public class SimpleNote implements Note {
     public void setNoteBody(NoteBody noteBody) {
         this.body = noteBody;
     }
+    @Override
+    public String toString(){
+        return metadata.getTitle();
+    }
 }

@@ -1,10 +1,15 @@
 package app.taskplanner.model.notes;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class SimpleNoteBody implements NoteBody {
     String content;
     List<NoteTask> tasks;
+
+    public SimpleNoteBody(){
+        tasks = new LinkedList<>();
+    }
 
     @Override
     public String getContent() {

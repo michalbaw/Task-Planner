@@ -26,7 +26,7 @@
                         <MenuItem mnemonicParsing="false" text="Action 1" />
                     </items>
                 </Menu>
-                <MenuItem text="Save" />
+                <MenuItem fx:id="saveMenu" onAction="#saveMenuItem" text="Save" />
                 <MenuItem text="Close" />
                 <MenuItem fx:id="closeNoSave" mnemonicParsing="false" onAction="#closeWithoutSaving" text="Close without saving" />
             </Menu>

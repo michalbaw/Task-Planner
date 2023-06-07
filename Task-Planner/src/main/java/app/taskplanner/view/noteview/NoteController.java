@@ -18,12 +18,11 @@ import javafx.scene.layout.VBox;
 import java.util.List;
 
 public class NoteController implements ViewController {
-
     private ObservableList<NoteMetadata> notes;
     private NoteViewModel noteVM;
     private Note currentNote;
     private ObservableList<CheckBoxListCell<Object>> tasks;
-    DataFormat task = new DataFormat("text/title", "text/toDo");
+    static DataFormat task = new DataFormat("text/title");
 
     boolean opened = false;
     @FXML
@@ -84,10 +83,14 @@ public class NoteController implements ViewController {
     public void init(ViewModel noteVM) {
         this.noteVM = (NoteViewModel) noteVM;
     }
+    @FXML
+    void saveMenuItem(ActionEvent event) {
+        saveNote();
+    }
 
     @FXML
     void closeWithoutSaving(ActionEvent event) {
-
+        noteVM.closeWithoutSaving();
     }
 
     @FXML
@@ -115,22 +118,17 @@ public class NoteController implements ViewController {
 
     @FXML
     void saveAndClose(ActionEvent event) {
-
+        saveNote();
+        noteVM.closeWithoutSaving();
     }
 
     @FXML
-    void saveContent(KeyEvent event) {
-        if (event != null) {
-
-        }
+    void saveNote() {
+        noteVM.save();
+        labelManager(false);
     }
 
-    @FXML
-    void saveTitle(KeyEvent event) {
-        if (event != null) {
-            //do sth
-        }
-    }
+
 
     @FXML
     void swapNote(ActionEvent event) {
@@ -165,7 +163,6 @@ public class NoteController implements ViewController {
         event.consume();
     }
 
-
     @FXML
     void setOnOver(DragEvent event) {
         if (event.getGestureSource() != taskList && event.getDragboard().hasContent(task)) {
@@ -174,10 +171,23 @@ public class NoteController implements ViewController {
         event.consume();
     }
 
-    public void initialize() {
-//        notes =
+//    public void initialize() {
+//    }
+    void labelManager(boolean isChanged){
+        if(isChanged)
+        {
+            statusMessage.setText("You have unsaved changes");
+        }
+        else
+        {
+            statusMessage.setText("Waiting for changes...");
+        }
     }
 
+    public void initialize(){
+        noteContent.textProperty().addListener(observable -> labelManager(true));
+        noteTitle.textProperty().addListener(observable -> labelManager(true));
+    }
     public void setupNote(Note currentNote) {
         this.currentNote = currentNote;
     }

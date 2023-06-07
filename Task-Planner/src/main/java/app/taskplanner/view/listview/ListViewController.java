@@ -1,19 +1,27 @@
 package app.taskplanner.view.listview;
 
+import app.taskplanner.StartApp;
 import app.taskplanner.model.notes.Note;
 import app.taskplanner.model.notes.NoteMetadata;
 import app.taskplanner.view.ViewController;
+import app.taskplanner.view.alerts.SelectionAlert;
 import app.taskplanner.viewmodel.ViewModel;
 import app.taskplanner.viewmodel.listviewmodel.ListViewModel;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.scene.control.ListView;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
+
+import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class ListViewController implements ViewController {
     private ObservableList<String> titles;
@@ -30,6 +38,16 @@ public class ListViewController implements ViewController {
 
     @FXML
     private Button removeButton;
+    @FXML
+    private Button plusButton;
+
+
+    @FXML
+    void createAndOpenNote(ActionEvent event) {
+        listVM.addNoteWithTitle("Your new note");
+        System.out.println("siemsonnnn");
+        listVM.openWithKey(listOfNotes.getItems().get(listOfNotes.getItems().size()-1).getKey());
+    }
 
     public ListViewController() {
     }
@@ -43,17 +61,26 @@ public class ListViewController implements ViewController {
 
     @FXML
     void deleteSelectedNotes(MouseEvent event) {
+
         int selectedIndex = listOfNotes.getSelectionModel().getSelectedIndex();
-        listVM.removeNoteAt(selectedIndex);
+        if(selectedIndex != -1) {
+            listVM.removeNoteAt(selectedIndex);
+        }
+        else {
+            new SelectionAlert().show();
+        }
     }
 
     @FXML
     void openSelectedNote(MouseEvent event) {
-//        String selectedTitle = listOfNotes.getSelectionModel().getSelectedItem();
         NoteMetadata selectedNoteInfo = listOfNotes.getSelectionModel().getSelectedItem();
-        Note selectedNote = listVM.getNote(selectedNoteInfo.getKey());
-        listVM.openNote(selectedNote);
-//        listVM.openNoteWithTitle(se);
+        if(selectedNoteInfo != null) {
+            listVM.openWithKey(selectedNoteInfo.getKey());
+        }
+        else
+        {
+            new SelectionAlert().show();
+        }
     }
 
     @Override
@@ -66,6 +93,11 @@ public class ListViewController implements ViewController {
                 showOptions(listOfNotes.getSelectionModel().getSelectedIndex(), event);
             }
         });
+        Image icon = new Image(Objects.requireNonNull(StartApp.class.getResourceAsStream("plus.png")));
+        ImageView iconView = new ImageView(icon);
+        iconView.setFitHeight(50);
+        iconView.setFitWidth(50);
+        plusButton.setGraphic(iconView);
     }
 
     private void showOptions(Integer item, MouseEvent event) {

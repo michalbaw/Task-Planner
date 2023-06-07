@@ -59,7 +59,6 @@ public class BoardViewModel implements ViewModel {
 
     public ObservableList<Note> getNotes() {
         loadNotes();
-//        return (ObservableList<SimpleNote>) notes.stream().map(NoteOnBoard::getNote).toList();
         return notes;
     }
 
@@ -83,9 +82,6 @@ public class BoardViewModel implements ViewModel {
         return tasks;
     }
 
-//    public void checkListMode(SimpleNoteController ctrl, boolean val) {
-//
-//    }
 
     public void resizeX(SimpleNoteController ctrl, double px) {
         ctrl.setX(ctrl.getX() + px);

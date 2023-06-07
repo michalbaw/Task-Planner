@@ -21,8 +21,8 @@ public class DeadlineAlert {
         //adapt to date in note
         upcomingDates.getItems().addAll(upcoming.stream().map(s -> "19.10.2023").toList());
         upcomingList.getItems().addAll(upcoming.stream().map(NoteMetadata::getTitle).toList());
-        upcomingDates.setPrefHeight(10 + 25 * upcoming.size());
-        upcomingList.setPrefHeight(10 + 25 * upcoming.size());
+        upcomingDates.setPrefHeight(15 + 35 * upcoming.size());
+        upcomingList.setPrefHeight(15 + 35 * upcoming.size());
         alert.getDialogPane().setContent(gPane);
         alert.getDialogPane().getStylesheets().add(StartApp.class.getResource("styles.css").toExternalForm());
         alert.showAndWait();

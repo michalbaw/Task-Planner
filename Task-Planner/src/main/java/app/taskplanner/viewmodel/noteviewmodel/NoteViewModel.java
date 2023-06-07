@@ -35,7 +35,7 @@ public class NoteViewModel implements ViewModel {
     private Stage noteStage;
 
 
-    void closeWithoutSaving(ActionEvent event) {
+    public void closeWithoutSaving() {
         singleNoteHandler.closeNote(currentNote);
     }
 
@@ -45,22 +45,15 @@ public class NoteViewModel implements ViewModel {
 
     }
 
-    void saveAndClose(ActionEvent event) {
-        this.saveContent(null);
-        this.saveTitle(null);
-        //viewHandler.changeTitle(currentNote,noteTitle.getText());
-        //viewHandler.changeContent(currentNote,noteContent.getText());
+    public void saveAndClose() {
+        this.save();
+        this.closeWithoutSaving();
+    }
+    public void save(){
         try {
             dataModel.saveNote(currentNote.getMetadata().getKey());
         } catch (IOException e) {
-            System.out.println("saving failed");
-        }
-        this.closeWithoutSaving(event);
-    }
-
-    void saveContent(KeyEvent event) {
-        if (event != null) {
-
+            System.err.println("saving failed");
         }
     }
 
@@ -69,11 +62,6 @@ public class NoteViewModel implements ViewModel {
         return new ArrayList<>();
     }
 
-    void saveTitle(KeyEvent event) {
-        if (event != null) {
-            //do sth
-        }
-    }
 
     public void setupNote(Note currentNote) {
         this.currentNote = currentNote;
@@ -108,4 +96,6 @@ public class NoteViewModel implements ViewModel {
     public void closeWindow() {
 
     }
+
+
 }

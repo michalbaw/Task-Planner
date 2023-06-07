@@ -59,7 +59,8 @@ public class ViewHandler implements Handler {
             mainScene.getStylesheets().add(css);
             primaryStage.setScene(mainScene);
             primaryStage.resizableProperty().set(false);
-            primaryStage.setHeight(mainScene.getHeight() + 450);
+            primaryStage.setHeight(mainScene.getHeight()+600);
+            primaryStage.setWidth(mainScene.getWidth()+1000);
             Image icon = new Image(Objects.requireNonNull(StartApp.class.getResourceAsStream("main.png")));
             primaryStage.getIcons().add(icon);
             primaryStage.show();
@@ -139,8 +140,12 @@ public class ViewHandler implements Handler {
         }
     }
 
-    public void removeNoteAt(int index) {
-
+    public void removeNote(int key) {
+        try {
+            dataModel.removeNote(key);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void notifyVM() {

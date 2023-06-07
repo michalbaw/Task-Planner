@@ -213,3 +213,33 @@
   -fx-text-fill:black;
   -fx-font-weight:bold;
  }
+
+
+
+/*******************************************************************************
+ *                                                                             *
+ * List View                                                                   *
+ *                                                                             *
+ ******************************************************************************/
+.list-view {
+    -fx-control-inner-background: #ffdddd; /* Dimmed red background color */
+    -fx-border-color: #ff6666; /* Border color */
+    -fx-border-width: 2px; /* Border width */
+}
+
+.list-view .list-cell {
+    -fx-background-color: #ffaaaa; /* Dimmed red cell background color */
+    -fx-border-color: #000000; /* Border color */
+    -fx-border-width: 1px; /* Border width */
+    -fx-font-size: 20px; /* Increased text size */
+    -fx-font-family: "Arial Black", Arial, sans-serif; /* Custom font family */
+    -fx-font-weight: bold; /* Bold font weight */
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color: #ff5555; /* Dimmed red background color for selected cell */
+}
+
+.list-view .list-cell:hover {
+    -fx-background-color: #ff9999; /* Lighter dimmed red color on hover */
+}

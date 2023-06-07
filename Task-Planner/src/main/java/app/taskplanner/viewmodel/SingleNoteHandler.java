@@ -48,12 +48,15 @@ public class SingleNoteHandler implements Handler {
 //            noteStages.add(new StageDescr(noteStage, note));
             noteScene.getStylesheets().add(css);
             noteStage.show();
+            StageDescr stageDescr =  new StageDescr(noteStage,note);
+            noteStages.add(stageDescr);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void closeNote(Note note) {
+        System.out.println("SIEMANDERO");
         for (int i = 0; i < noteStages.size(); i++) {
             if (noteStages.get(i).note.equals(note)) {
                 noteStages.get(i).stage.close();

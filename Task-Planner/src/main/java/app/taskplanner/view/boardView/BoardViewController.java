@@ -42,13 +42,6 @@ public final class BoardViewController extends AnchorPane {
         controllers = new ArrayList<>();
         notesOnBoardProperty = new SimpleListProperty<>();
         notesOnBoardProperty.bindBidirectional(this.boardVM.boardNotes());
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(StartApp.class.getResource("simple-note-view.fxml"));
-//        try {
-//            loader.load();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
         setNotes();
     }
 

@@ -82,7 +82,16 @@ public class NoteController implements ViewController {
     @Override
     public void init(ViewModel noteVM) {
         this.noteVM = (NoteViewModel) noteVM;
+        //noteContent.textProperty().bindBidirectional(noteVM.noteContentProperty());
+        //noteTitle.textProperty().bindBidirectional(noteVM.noteTitleProperty());
     }
+    //public void init(NoteViewModel noteVM) {
+    //    this.noteVM = noteVM;
+    //    noteContent.textProperty().bindBidirectional(noteVM.noteContentProperty());
+    //    noteTitle.textProperty().bindBidirectional(noteVM.noteTitleProperty());
+    //}
+
+
     @FXML
     void saveMenuItem(ActionEvent event) {
         saveNote();

@@ -20,7 +20,9 @@ public class SimpleDataModel implements DataModel {
     }
 
     SimpleDataModel(FileHandler fileHandler) throws IOException {
+        System.out.print("SimpleDataModel, ");
         this.fileHandler = fileHandler;
+        fileHandler.initialize();
         noteMetadataList = fileHandler.loadNotesMetadata();
         openNotes = new LinkedList<>();
     }
@@ -50,7 +52,7 @@ public class SimpleDataModel implements DataModel {
 
     @Override
     public void saveAll() throws IOException {
-        fileHandler.saveNotesMetadata();
+        fileHandler.saveNotesMetadata(noteMetadataList);
         for (Note n : openNotes) {
             fileHandler.saveBody(n.getMetadata().getKey(), n.getNoteBody());
         }
@@ -59,7 +61,7 @@ public class SimpleDataModel implements DataModel {
     @Override
     public void saveNote(int key) throws IOException {
         fileHandler.saveBody(key, getNote(key).getNoteBody());
-        fileHandler.saveNotesMetadata();
+        fileHandler.saveNotesMetadata(noteMetadataList);
     }
 
     @Override
@@ -68,7 +70,7 @@ public class SimpleDataModel implements DataModel {
         NoteMetadata metadata = new SimpleNoteMetadata(key);
         metadata.setTitle(title);
         noteMetadataList.add(metadata);
-        fileHandler.saveNotesMetadata();
+        fileHandler.saveNotesMetadata(noteMetadataList);
     }
 
     @Override
@@ -82,10 +84,14 @@ public class SimpleDataModel implements DataModel {
     public Note openNote(int key) throws IOException {
         NoteMetadata metadata = getMetadata(key);
         Note note = new SimpleNote(metadata);
+        System.out.println("loadBody " + key);
         NoteBody body = fileHandler.loadBody(key);
+        System.out.println("1");
         if (body == null) {
+            System.out.println("loaded body in null");
             body = new SimpleNoteBody();
         }
+        System.out.println("2");
         note.setNoteBody(body);
         return note;
     }

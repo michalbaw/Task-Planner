@@ -1,18 +1,14 @@
 package app.taskplanner.viewmodel.noteviewmodel;
 
-import app.taskplanner.StartApp;
 import app.taskplanner.model.DataModel;
 import app.taskplanner.model.notes.Note;
 import app.taskplanner.model.notes.NoteMetadata;
 import app.taskplanner.model.notes.NoteTask;
 import app.taskplanner.viewmodel.*;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.image.Image;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -20,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NoteViewModel implements ViewModel {
+
+    private Stage noteStage;
+
     private SingleNoteHandler singleNoteHandler;
 
     private DataModel dataModel;
@@ -32,7 +31,15 @@ public class NoteViewModel implements ViewModel {
 
     private Note currentNote;
 
-    private Stage noteStage;
+    private final StringProperty noteContent = new SimpleStringProperty();
+    private final StringProperty noteTitle = new SimpleStringProperty();
+
+    public Property<String> noteContentProperty() {
+        return noteContent;
+    }
+    public Property<String> noteTitleProperty() {
+        return noteTitle;
+    }
 
 
     public void closeWithoutSaving() {

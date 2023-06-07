@@ -11,6 +11,7 @@ public class ViewModelFactory {
     private final SingleNoteHandler singleNoteHandler;
 
     public ViewModelFactory(DataModel dataModel, Stage primaryStage) throws IOException, ClassNotFoundException {
+        System.out.print("ViewModelFactory, ");
         this.singleNoteHandler = new SingleNoteHandler();
         this.viewHandler = new ViewHandler(dataModel, primaryStage, singleNoteHandler);
         viewHandler.start();

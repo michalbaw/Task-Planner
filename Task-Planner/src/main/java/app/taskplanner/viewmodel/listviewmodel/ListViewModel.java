@@ -3,6 +3,7 @@ package app.taskplanner.viewmodel.listviewmodel;
 import app.taskplanner.model.DataModel;
 import app.taskplanner.model.notes.Note;
 import app.taskplanner.model.notes.NoteMetadata;
+import app.taskplanner.model.notes.SimpleNote;
 import app.taskplanner.viewmodel.Handler;
 import app.taskplanner.viewmodel.ViewHandler;
 import app.taskplanner.viewmodel.ViewModel;
@@ -50,6 +51,7 @@ public class ListViewModel implements ViewModel {
     }
     public void openWithKey(int key)
     {
+        //viewHandler.openNote(key);
         viewHandler.openNote(getNote(key));
     }
     public void refreshNotes() {
@@ -66,7 +68,6 @@ public class ListViewModel implements ViewModel {
             System.err.println("KeinProblemHerrMichal");
         }
         return note;
-                
     }
     private void updateTitles(List<NoteMetadata> notes) {
         this.notesMetadata.clear();

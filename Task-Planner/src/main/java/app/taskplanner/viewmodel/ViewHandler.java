@@ -35,6 +35,7 @@ public class ViewHandler implements Handler {
     BoardViewModel boardViewModel;
 
     public ViewHandler(DataModel dataModel, Stage primaryStage, SingleNoteHandler singleNoteHandler) {
+        System.out.println("ViewHandler");
         this.dataModel = dataModel;
         this.primaryStage = primaryStage;
         this.singleNoteHandler = singleNoteHandler;
@@ -93,6 +94,9 @@ public class ViewHandler implements Handler {
     }
 
     public void openNote(Note note) {
+        System.out.println("loaded note:");
+        System.out.println(note.getMetadata().getKey() + " " + note.getMetadata().getTitle());
+        System.out.println(note.getNoteBody().getContent());
         singleNoteHandler.openNote(note);
     }
 

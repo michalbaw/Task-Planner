@@ -21,6 +21,7 @@ public class SingleNoteHandler implements Handler {
     private String css;
 
     public SingleNoteHandler() {
+        System.out.print("SingleNoteHandler, ");
         noteStages = new ArrayList<>();
     }
 

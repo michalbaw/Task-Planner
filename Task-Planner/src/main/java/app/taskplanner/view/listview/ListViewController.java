@@ -24,7 +24,6 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class ListViewController implements ViewController {
-    private ObservableList<String> titles;
     private ListViewModel listVM;
 
     @FXML
@@ -45,7 +44,6 @@ public class ListViewController implements ViewController {
     @FXML
     void createAndOpenNote(ActionEvent event) {
         listVM.addNoteWithTitle("Your new note");
-        System.out.println("siemsonnnn");
         listVM.openWithKey(listOfNotes.getItems().get(listOfNotes.getItems().size()-1).getKey());
     }
 
@@ -74,7 +72,9 @@ public class ListViewController implements ViewController {
     @FXML
     void openSelectedNote(MouseEvent event) {
         NoteMetadata selectedNoteInfo = listOfNotes.getSelectionModel().getSelectedItem();
+        System.out.println("selection");
         if(selectedNoteInfo != null) {
+            System.out.println("openWithKey " + selectedNoteInfo.getKey());
             listVM.openWithKey(selectedNoteInfo.getKey());
         }
         else

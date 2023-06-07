@@ -1,11 +1,10 @@
 package app.taskplanner.model.fileOperations;
 
-import app.taskplanner.model.notes.Note;
 import app.taskplanner.model.notes.NoteBody;
 import app.taskplanner.model.notes.NoteMetadata;
 import app.taskplanner.model.notes.SimpleNoteBody;
+import app.taskplanner.model.notes.SimpleNoteMetadata;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -19,9 +18,9 @@ public class SimpleFileHandler implements FileHandler {
     private final String prefixDir = "src/main/resources/app/taskplanner";
     private final String prefixNotes = prefixDir + "/notes";
     private final String metadataLocation = prefixDir + "/noteList";
-    private List<NoteMetadata> noteMetadataList;
 
     public SimpleFileHandler() throws IOException {
+        System.out.print("FileHandler, ");
         Path dir = Paths.get(prefixNotes);
         if (Files.notExists(dir)) {
             Files.createDirectory(dir);
@@ -30,25 +29,27 @@ public class SimpleFileHandler implements FileHandler {
 
     @Override
     public List<NoteMetadata> loadNotesMetadata() throws IOException {
+        System.out.print("LoadNotedMetadata, ");
+        List<NoteMetadata> noteMetadataList = new LinkedList<>();
         Path file = Paths.get(metadataLocation);
         if (!Files.exists(file)) {
-            noteMetadataList = new LinkedList<>();
+            //noteMetadataList = new LinkedList<>();
             Files.createFile(file);
-            saveNotesMetadata();
+            saveNotesMetadata(noteMetadataList);
             return noteMetadataList;
         }
-        ObjectInputStream stream = new ObjectInputStream(Files.newInputStream(file));
         try {
+            ObjectInputStream stream = new ObjectInputStream(Files.newInputStream(file));
             noteMetadataList = (List<NoteMetadata>) stream.readObject();
         } catch (ClassNotFoundException e) {
             noteMetadataList = new LinkedList<>();
-            saveNotesMetadata();
+            saveNotesMetadata(noteMetadataList);
         }
         return noteMetadataList;
     }
 
     @Override
-    public void saveNotesMetadata() throws IOException {
+    public void saveNotesMetadata(List<NoteMetadata> noteMetadataList) throws IOException {
         ObjectOutputStream stream = new ObjectOutputStream(Files.newOutputStream(Paths.get(metadataLocation)));
         stream.writeObject(noteMetadataList);
     }
@@ -75,6 +76,7 @@ public class SimpleFileHandler implements FileHandler {
         String location = prefixNotes + Integer.valueOf(key).toString();
         ObjectOutputStream stream = new ObjectOutputStream(Files.newOutputStream((Paths.get(location))));
         stream.writeObject(body);
+        stream.flush();
     }
 
     @Override
@@ -82,5 +84,21 @@ public class SimpleFileHandler implements FileHandler {
         String location = prefixNotes + Integer.valueOf(key).toString();
         Path file = Paths.get(location);
         Files.deleteIfExists(file);
+    }
+
+    @Override
+    public void initialize() throws IOException {
+        System.out.print("initialize, ");
+        int key = 0;
+        NoteBody body = new SimpleNoteBody();
+        body.setContent("Initial content");
+        saveBody(0,body);
+        loadBody(0);
+
+        NoteMetadata metadata = new SimpleNoteMetadata(key);
+        metadata.setTitle("title");
+        List<NoteMetadata> initialList = new LinkedList<>();
+        initialList.add(metadata);
+        saveNotesMetadata(initialList);
     }
 }

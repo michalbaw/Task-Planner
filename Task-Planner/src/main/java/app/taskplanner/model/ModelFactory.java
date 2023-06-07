@@ -12,7 +12,7 @@ public class ModelFactory {
     public ModelFactory() throws IOException {
         fileHandler = new SimpleFileHandler();
         dataModel = new SimpleDataModel(fileHandler);
-        dataModel.removeNote(2);
+        //dataModel.removeNote(2);
     }
 
     public DataModel getDataModel() throws IOException {

@@ -1,17 +1,14 @@
 package app.taskplanner.view;
 
 import app.taskplanner.StartApp;
-import app.taskplanner.model.DataModel;
 import app.taskplanner.view.boardView.BoardViewController;
 import app.taskplanner.view.listview.ListViewController;
-import app.taskplanner.viewmodel.ViewHandler;
 import app.taskplanner.viewmodel.boardviewmodel.BoardViewModel;
 import app.taskplanner.viewmodel.listviewmodel.ListViewModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.skin.TableCellSkinBase;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -36,8 +33,7 @@ public class PrimaryViewController {
         boardPane = new AnchorPane();
     }
 
-    public void init(DataModel dataModel, ViewHandler viewHandler, ListViewModel listViewModel, BoardViewModel boardViewModel) {
-
+    public void init(ListViewModel listViewModel, BoardViewModel boardViewModel) {
 
         BoardViewController boardController = new BoardViewController();
         boardController.init(boardViewModel, boardPane);

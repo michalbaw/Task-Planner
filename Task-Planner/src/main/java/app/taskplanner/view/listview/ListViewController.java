@@ -98,6 +98,7 @@ public class ListViewController implements ViewController {
         iconView.setFitHeight(50);
         iconView.setFitWidth(50);
         plusButton.setGraphic(iconView);
+        listOfNotes.setCellFactory(param -> new NoteListCell());
     }
 
     private void showOptions(Integer item, MouseEvent event) {

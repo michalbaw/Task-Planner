@@ -10,9 +10,11 @@ public class SimpleNote implements Note {
     private NoteMetadata metadata;
     public SimpleNote(){
        metadata = new SimpleNoteMetadata(0);
+       //metadata = null;
     }
     public SimpleNote(NoteMetadata metadata) {
         this.metadata = metadata;
+        //this.metadata = null;
     }
     @Override
     public NoteMetadata getMetadata() {

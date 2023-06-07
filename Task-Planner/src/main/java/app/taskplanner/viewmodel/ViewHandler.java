@@ -31,7 +31,6 @@ public class ViewHandler implements Handler {
     private final String css;
     private final SingleNoteHandler singleNoteHandler;
 
-
     ListViewModel listViewModel;
     BoardViewModel boardViewModel;
 
@@ -54,7 +53,7 @@ public class ViewHandler implements Handler {
             FXMLLoader loader = new FXMLLoader(StartApp.class.getResource("primary-view.fxml"));
             Parent root = loader.load();
             PrimaryViewController primaryVC = loader.getController();
-            primaryVC.init(dataModel, this, listViewModel, boardViewModel);
+            primaryVC.init (listViewModel, boardViewModel);
             Scene mainScene = new Scene(root);
             mainScene.getStylesheets().add(css);
             primaryStage.setScene(mainScene);
@@ -151,6 +150,5 @@ public class ViewHandler implements Handler {
     public void notifyVM() {
         listViewModel.refreshNotes();
         boardViewModel.refreshNotes();
-
     }
 }

@@ -32,7 +32,9 @@ public class NoteViewModel implements ViewModel {
     private Note currentNote;
 
     private final StringProperty noteContent = new SimpleStringProperty();
+
     private final StringProperty noteTitle = new SimpleStringProperty();
+
 
     public Property<String> noteContentProperty() {
         return noteContent;
@@ -40,7 +42,6 @@ public class NoteViewModel implements ViewModel {
     public Property<String> noteTitleProperty() {
         return noteTitle;
     }
-
 
     public void closeWithoutSaving() {
         singleNoteHandler.closeNote(currentNote);
@@ -57,8 +58,12 @@ public class NoteViewModel implements ViewModel {
         this.closeWithoutSaving();
     }
     public void save(){
+        System.out.println(noteContent);
+        System.out.println(noteTitle);
+        currentNote.getNoteBody().setContent(noteContent.get());
+        currentNote.getMetadata().setTitle(noteTitle.get());
         try {
-            dataModel.saveNote(currentNote.getMetadata().getKey());
+            dataModel.saveNote(currentNote);
         } catch (IOException e) {
             System.err.println("saving failed");
         }
@@ -72,6 +77,10 @@ public class NoteViewModel implements ViewModel {
 
     public void setupNote(Note currentNote) {
         this.currentNote = currentNote;
+        noteContent.setValue(currentNote.getNoteBody().getContent());
+        noteTitle.setValue(currentNote.getMetadata().getTitle());
+        System.out.println(noteContent);
+        System.out.println(noteTitle);
     }
 
     public void checkListMode(boolean enabled) {

@@ -11,7 +11,9 @@ public interface DataModel {
 
     void saveAll() throws IOException;
 
-    void saveNote(int key) throws IOException;
+    //void saveNote(int key) throws IOException;
+
+    void saveNote(Note note) throws IOException;
 
     void addNote(String title) throws IOException;
 

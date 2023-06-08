@@ -32,7 +32,6 @@ public class SimpleFileHandler implements FileHandler {
         List<NoteMetadata> noteMetadataList = new LinkedList<>();
         Path file = Paths.get(metadataLocation);
         if (!Files.exists(file)) {
-            //noteMetadataList = new LinkedList<>();
             Files.createFile(file);
             saveNotesMetadata(noteMetadataList);
             return noteMetadataList;

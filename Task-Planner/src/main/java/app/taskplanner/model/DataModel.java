@@ -10,10 +10,6 @@ import java.util.List;
 public interface DataModel {
     List<NoteMetadata> getNotesMetadata();
 
-    void saveAll() throws IOException;
-
-    //void saveNote(int key) throws IOException;
-
     void saveNote(Note note) throws IOException;
 
     void addNote(String title) throws IOException;
@@ -21,8 +17,6 @@ public interface DataModel {
     void removeNote(int key) throws IOException;
 
     Note openNote(int key) throws IOException;
-
-    void closeNote(int key) throws IOException;
 
     NoteMetadata getMetadata(int key);
 

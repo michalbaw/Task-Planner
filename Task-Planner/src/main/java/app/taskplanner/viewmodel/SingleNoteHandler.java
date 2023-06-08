@@ -71,11 +71,14 @@ public class SingleNoteHandler implements Handler {
     }
     public void closeNote(int key) {
         System.out.println("close note");
-        for (int i = 0; i < noteStages.size(); i++) {
-            if (noteStages.get(i).note.getMetadata().getKey() == key) {
-                noteStages.get(i).stage.close();
-                noteStages.remove(i);
-                break;
+        int i = 0;
+        while (i<noteStages.size()){
+            for (; i < noteStages.size(); i++) {
+                if (noteStages.get(i).note.getMetadata().getKey() == key) {
+                    noteStages.get(i).stage.close();
+                    noteStages.remove(i);
+                    break;
+                }
             }
         }
     }

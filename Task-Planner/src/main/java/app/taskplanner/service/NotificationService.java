@@ -35,8 +35,14 @@ public class NotificationService {
         listViewModel.refreshNotes();
         boardViewModel.refreshNotes();
         for (NoteViewModel nvm : noteViewModels) {
-            if (nvm.getKey() == key)
-                nvm.refresh();
+            if (nvm.getKey() == key) {
+                try {
+                    nvm.refresh();
+                }
+                catch(NullPointerException e){
+                    removeViewModel(nvm);
+                }
+            }
         }
     }
 

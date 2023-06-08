@@ -56,7 +56,7 @@ public class SimpleDataModel implements DataModel {
         return new SimpleNote(getMetadata(key));
     }
 
-    @Override
+
     public void saveAll() throws IOException {
         fileHandler.saveNotesMetadata(noteMetadataList);
         for (Note n : openNotes) {
@@ -107,7 +107,7 @@ public class SimpleDataModel implements DataModel {
         return note;
     }
 
-    @Override
+   
     public void closeNote(int key) throws IOException {
         //saveNote(key);
         openNotes.removeIf(note -> note.getMetadata().getKey() == key);

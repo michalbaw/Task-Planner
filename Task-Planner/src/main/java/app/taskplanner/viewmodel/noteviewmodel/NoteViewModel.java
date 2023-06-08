@@ -94,13 +94,6 @@ public class NoteViewModel implements ViewModel {
         noteStage.setHeight(noteStage.getHeight() + Y);
     }
 
-    @Override
-    public void init(Handler singleNoteHandler, DataModel dataModel) {
-        this.dataModel = dataModel;
-        this.singleNoteHandler = (SingleNoteHandler) singleNoteHandler;
-    }
-
-    @Override
     public void init(Handler singleNoteHandler, DataModel dataModel, Stage currentNote) {
         this.dataModel = dataModel;
         this.singleNoteHandler = (SingleNoteHandler) singleNoteHandler;

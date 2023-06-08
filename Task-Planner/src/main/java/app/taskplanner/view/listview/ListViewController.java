@@ -51,9 +51,6 @@ public class ListViewController implements ViewController {
         listVM.openWithKey(listOfNotes.getItems().get(listOfNotes.getItems().size()-1).getKey());
     }
 
-    public ListViewController() {
-    }
-
     @FXML
     void createNewNote(MouseEvent event) {
         String title = newTitle.getText();

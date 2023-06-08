@@ -6,6 +6,7 @@ import app.taskplanner.model.notes.Note;
 import app.taskplanner.model.notes.NoteMetadata;
 import app.taskplanner.model.notes.NoteTask;
 import app.taskplanner.model.notes.SimpleNote;
+import app.taskplanner.service.ChangeModelService;
 import app.taskplanner.view.boardView.SimpleNoteController;
 //import app.taskplanner.viewmodel.NoteTasks;
 //import app.taskplanner.viewmodel.SimpleNote;
@@ -26,16 +27,17 @@ public class BoardViewModel implements ViewModel {
     private DataModel dataModel;
     private Stage stage;
     private ObservableList<Note> notes = FXCollections.observableArrayList();
+    private ChangeModelService changeModelService;
 
     public ListProperty<Note> boardNotes() { return new SimpleListProperty<Note>(notes);}
-    @Override
+
     public void init(Handler viewHandler, DataModel dataModel) {
         this.viewHandler = (ViewHandler) viewHandler;
         this.dataModel = dataModel;
         stage = new Stage();
     }
 
-    @Override
+
     public void init(Handler viewHandler, DataModel dataModel, Stage currentView) {
         this.viewHandler = (ViewHandler) viewHandler;
         this.dataModel = dataModel;
@@ -97,6 +99,7 @@ public class BoardViewModel implements ViewModel {
             throw new RuntimeException(e);
         }
     }
+
     class NoteOnBoard {
         boolean checkListMode;
         Note note;
@@ -119,5 +122,8 @@ public class BoardViewModel implements ViewModel {
 
     public void refreshNotes() {
         //loadNotes();
+    }
+    public void init(ChangeModelService changeModelService) {
+        this.changeModelService = changeModelService;
     }
 }

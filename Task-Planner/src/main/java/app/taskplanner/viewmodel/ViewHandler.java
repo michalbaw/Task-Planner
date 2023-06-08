@@ -6,6 +6,7 @@ import app.taskplanner.model.notes.SimpleNote;
 import app.taskplanner.model.SimpleObservableList;
 import app.taskplanner.model.notes.NoteMetadata;
 import app.taskplanner.model.DataModel;
+import app.taskplanner.service.ChangeModelService;
 import app.taskplanner.service.NotificationService;
 import app.taskplanner.view.PrimaryViewController;
 import app.taskplanner.view.alerts.DeadlineAlert;
@@ -32,16 +33,25 @@ public class ViewHandler implements Handler {
     ListViewModel listViewModel;
     BoardViewModel boardViewModel;
     NotificationService notificationService;
+    ChangeModelService changeModelService;
 
     public ViewHandler(DataModel dataModel, Stage primaryStage, SingleNoteHandler singleNoteHandler) {
         System.out.println("ViewHandler");
         this.dataModel = dataModel;
         this.primaryStage = primaryStage;
         this.singleNoteHandler = singleNoteHandler;
+
         listViewModel = new ListViewModel(dataModel, this);
         boardViewModel = new BoardViewModel(dataModel);
+
         notificationService = new NotificationService();
         notificationService.init(listViewModel,boardViewModel);
+        changeModelService = new ChangeModelService();
+        changeModelService.init(dataModel,notificationService);
+
+        listViewModel.init(changeModelService);
+        boardViewModel.init(changeModelService);
+
         css = Objects.requireNonNull(StartApp.class.getResource("styles.css")).toExternalForm();
         singleNoteHandler.init(dataModel, this, notificationService, css);
     }
@@ -70,96 +80,22 @@ public class ViewHandler implements Handler {
             s.getMetadata().setTitle("siemson");
             ObservableList<NoteMetadata> l = FXCollections.observableArrayList();
             l.add(s.getMetadata());
-//            if(dataModel.ifUpcomingTask())
-//            {
+
             //todo update to note structure
             DeadlineAlert deadlineAlert = new DeadlineAlert();
             deadlineAlert.show(l);
-//            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    //public Note getNoteFromID(int id) {
-    //    List<NoteMetadata> notes = dataModel.getNotesMetadata();
-    //    for (NoteMetadata note : notes) {
-    //        if (note.getKey() == id)
-    //            try {
-    //                return dataModel.openNote(id);
-    //            } catch (IOException ioException) {
-    //                System.err.println("wait,no");
-    //            }
-    //    }
-    //    return null;
-    //}
-
-    //public void showDeadlineAllert() {
-    //
-    //
-    //}
-
     public void openNote(Note note) {
         singleNoteHandler.openNote(note);
     }
 
-    /*public ObservableList<String> listNotes() {
-        ObservableList<NoteMetadata> notes = (ObservableList<NoteMetadata>) dataModel.getNotesMetadata();
-        ObservableList<String> titles = new SimpleObservableList<>();
-        for (NoteMetadata n : notes) {
-            titles.add(n.getTitle());
-        }
-        return titles;
-    }*/
-
-    /*public void changeTitle(Note note, String title) {
-        List<NoteMetadata> notes = dataModel.getNotesMetadata();
-        int key = note.getMetadata().getKey();
-        for (NoteMetadata n : notes) {
-            if (key == n.getKey()) {
-                note.getMetadata().setTitle(title);
-                notifyVM(); //notification
-                return;
-            }
-        }
-    }
-   */
-
-   /* public void changeContent(Note note, String content) {
-        List<NoteMetadata> notes = dataModel.getNotesMetadata();
-        int key = note.getMetadata().getKey();
-        for (NoteMetadata n : notes) {
-            if (key == n.getKey()) {
-                note.getNoteBody().setContent(content);
-                notifyVM(); //notification
-                return;
-            }
-        }
-    }
-    */
-
-    public void addNoteWithTitle(String title) {
-        try {
-            dataModel.addNote(title);
-            notifyVM();
-        } catch (IOException ioException) {
-            System.err.println("addNoteWithTitle - ioException");
-        }
-    }
-
-    public void removeNote(int key) {
-        try {
-            singleNoteHandler.closeNote(key);
-            dataModel.removeNote(key);
-            notificationService.notifyViewModels(key);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void notifyVM() {
-        listViewModel.refreshNotes();
-        boardViewModel.refreshNotes();
+    public void closeNote(int key) {
+        singleNoteHandler.closeNote(key);
     }
 
     public void closeAllNotes() {

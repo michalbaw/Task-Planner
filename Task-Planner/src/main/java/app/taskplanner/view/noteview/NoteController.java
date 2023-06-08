@@ -20,7 +20,6 @@ import java.util.List;
 public class NoteController implements ViewController {
     private ObservableList<NoteMetadata> notes;
     private NoteViewModel noteVM;
-    private Note currentNote;
     private ObservableList<CheckBoxListCell<Object>> tasks;
     static DataFormat task = new DataFormat("text/title");
 
@@ -93,13 +92,8 @@ public class NoteController implements ViewController {
 
 
     @FXML
-    void saveMenuItem(ActionEvent event) {
-        saveNote();
-    }
-
-    @FXML
     void closeWithoutSaving(ActionEvent event) {
-        noteVM.closeWithoutSaving();
+        noteVM.close();
     }
 
     @FXML
@@ -128,13 +122,12 @@ public class NoteController implements ViewController {
     @FXML
     void saveAndClose(ActionEvent event) {
         saveNote();
-        noteVM.closeWithoutSaving();
+        noteVM.close();
     }
 
     @FXML
     void saveNote() {
         noteVM.save();
-        labelManager(false);
     }
 
 
@@ -194,8 +187,5 @@ public class NoteController implements ViewController {
     public void initialize(){
         noteContent.textProperty().addListener(observable -> labelManager(true));
         noteTitle.textProperty().addListener(observable -> labelManager(true));
-    }
-    public void setupNote(Note currentNote) {
-        this.currentNote = currentNote;
     }
 }

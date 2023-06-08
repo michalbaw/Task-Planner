@@ -37,6 +37,10 @@ public class ListViewController implements ViewController {
 
     @FXML
     private Button removeButton;
+
+    @FXML
+    private Button closeAllButton;
+
     @FXML
     private Button plusButton;
 
@@ -66,6 +70,11 @@ public class ListViewController implements ViewController {
         else {
             new SelectionAlert().show();
         }
+    }
+
+    @FXML
+    void closeAllNotes(MouseEvent event) {
+        listVM.closeAllNotes();
     }
 
     @FXML

@@ -88,4 +88,8 @@ public class ListViewModel implements ViewModel {
     public void closeWindow() {
 
     }
+
+    public void closeAllNotes() {
+        viewHandler.closeAllNotes();
+    }
 }

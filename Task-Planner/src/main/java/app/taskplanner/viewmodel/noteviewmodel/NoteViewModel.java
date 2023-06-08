@@ -2,13 +2,13 @@ package app.taskplanner.viewmodel.noteviewmodel;
 
 import app.taskplanner.model.DataModel;
 import app.taskplanner.model.notes.Note;
-import app.taskplanner.model.notes.NoteMetadata;
 import app.taskplanner.model.notes.NoteTask;
+import app.taskplanner.service.ChangeModelService;
+import app.taskplanner.service.NotificationService;
 import app.taskplanner.viewmodel.*;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,10 +18,10 @@ import java.util.List;
 public class NoteViewModel implements ViewModel {
 
     private Stage noteStage;
-
-    private SingleNoteHandler singleNoteHandler;
-
     private DataModel dataModel;
+    private SingleNoteHandler singleNoteHandler;
+    private ChangeModelService changeModelService;
+    private NotificationService notificationService;
 
     private ObservableList<String> tasks = FXCollections.observableArrayList();
 
@@ -32,7 +32,6 @@ public class NoteViewModel implements ViewModel {
     private Note currentNote;
 
     private final StringProperty noteContent = new SimpleStringProperty();
-
     private final StringProperty noteTitle = new SimpleStringProperty();
 
     public Property<String> noteContentProperty() {
@@ -42,38 +41,6 @@ public class NoteViewModel implements ViewModel {
         return noteTitle;
     }
 
-    public void close() {
-        singleNoteHandler.removeFromNotification(this);
-        singleNoteHandler.closeNote(currentNote);
-    }
-
-    void listOtherNotes(ActionEvent event) {
-        List<NoteMetadata> otherNotes = dataModel.getNotesMetadata();
-        otherNotes.remove(currentNote);//tytul tej notatki
-
-    }
-
-    public void saveAndClose() {
-        this.save();
-        this.close();
-    }
-    public void save(){
-        currentNote.getNoteBody().setContent(noteContent.get());
-        currentNote.getMetadata().setTitle(noteTitle.get());
-        try {
-            dataModel.saveNote(currentNote);
-            singleNoteHandler.notifyViewModels(currentNote.getMetadata().getKey());
-        } catch (IOException e) {
-            System.err.println("saving failed");
-        }
-    }
-
-    //ToDo
-    public List<NoteTask> getTasks() {
-        return new ArrayList<>();
-    }
-
-
     public void setupNote(Note currentNote) {
         this.currentNote = currentNote;
         noteContent.setValue(currentNote.getNoteBody().getContent());
@@ -82,6 +49,18 @@ public class NoteViewModel implements ViewModel {
         System.out.println(noteTitle);
     }
 
+    public void save() {
+        currentNote.getNoteBody().setContent(noteContent.get());
+        currentNote.getMetadata().setTitle(noteTitle.get());
+
+        changeModelService.saveNote(currentNote);
+        notificationService.notifyViewModels(getKey());
+    }
+
+    public void close() {
+        notificationService.removeViewModel(this);
+        singleNoteHandler.closeNote(currentNote);
+    }
     public void checkListMode(boolean enabled) {
 
     }
@@ -94,30 +73,30 @@ public class NoteViewModel implements ViewModel {
         noteStage.setHeight(noteStage.getHeight() + Y);
     }
 
-    public void init(Handler singleNoteHandler, DataModel dataModel, Stage currentNote) {
-        this.dataModel = dataModel;
-        this.singleNoteHandler = (SingleNoteHandler) singleNoteHandler;
-        this.noteStage = currentNote;
+    public List<NoteTask> getTasks() {
+        return new ArrayList<>();
     }
 
-    @Override
-    public void closeWindow() {
-
+    public int getKey() {
+        return currentNote.getMetadata().getKey();
     }
-    public void refresh(){
+
+    public void refresh() {
         int key = currentNote.getMetadata().getKey();
         currentNote.setMetadata(dataModel.getMetadata(key));
-        try
-        {
+        try {
             currentNote.setNoteBody(dataModel.getBody(key));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("Note refreshing failed");
         }
         noteTitle.setValue(currentNote.getMetadata().getTitle());
         noteContent.setValue(currentNote.getNoteBody().getContent());
     }
-    public int getKey(){
-        return currentNote.getMetadata().getKey();
+    public void init(SingleNoteHandler singleNoteHandler, DataModel dataModel, ChangeModelService cms, NotificationService ns, Stage currentNote) {
+        this.dataModel = dataModel;
+        this.singleNoteHandler = singleNoteHandler;
+        this.changeModelService = cms;
+        this.notificationService = ns;
+        this.noteStage = currentNote;
     }
 }

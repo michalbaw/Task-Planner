@@ -16,11 +16,11 @@ import java.util.List;
 
 public class SimpleFileHandler implements FileHandler {
     private final String prefixDir = "src/main/resources/app/taskplanner";
-    private final String prefixNotes = prefixDir + "/notes";
+    private final String prefixNotes = prefixDir + "/notes/notes";
     private final String metadataLocation = prefixDir + "/noteList";
 
     public SimpleFileHandler() throws IOException {
-        Path dir = Paths.get(prefixNotes);
+        Path dir = Paths.get(prefixDir + "/notes");
         if (Files.notExists(dir)) {
             Files.createDirectory(dir);
         }

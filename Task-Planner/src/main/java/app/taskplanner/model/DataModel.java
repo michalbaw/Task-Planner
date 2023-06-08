@@ -16,7 +16,7 @@ public interface DataModel {
 
     void removeNote(int key) throws IOException;
 
-    Note openNote(int key) throws IOException;
+    Note getNote(int key) throws IOException;
 
     NoteMetadata getMetadata(int key);
 

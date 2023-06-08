@@ -7,6 +7,7 @@ import app.taskplanner.model.notes.NoteMetadata;
 import app.taskplanner.model.notes.NoteTask;
 import app.taskplanner.model.notes.SimpleNote;
 import app.taskplanner.service.ChangeModelService;
+import app.taskplanner.service.NotificationService;
 import app.taskplanner.view.boardView.SimpleNoteController;
 //import app.taskplanner.viewmodel.NoteTasks;
 //import app.taskplanner.viewmodel.SimpleNote;
@@ -28,6 +29,7 @@ public class BoardViewModel implements ViewModel {
     private Stage stage;
     private ObservableList<Note> notes = FXCollections.observableArrayList();
     private ChangeModelService changeModelService;
+    private NotificationService notificationService;
 
     public ListProperty<Note> boardNotes() { return new SimpleListProperty<Note>(notes);}
 
@@ -45,18 +47,7 @@ public class BoardViewModel implements ViewModel {
     }
 
     private void loadNotes() {
-        //todo
-//        for(SimpleNote note : dataModel.getNotes();
-        List<NoteMetadata> notesMetadata = dataModel.getNotesMetadata();
-        for(NoteMetadata note : notesMetadata){
-            try{
-            notes.add(dataModel.openNote(note.getKey()));
-            }
-            catch (IOException ioioio)
-            {
-                System.err.println("prosze, uwolnijcie mnie");
-            }
-        }
+
     }
 
     public ObservableList<Note> getNotes() {
@@ -68,19 +59,10 @@ public class BoardViewModel implements ViewModel {
         this.dataModel = dataModel;
     }
 
-    @Override
-    public void closeWindow() {
-
-    }
 
     public List<NoteTask> getTasks(SimpleNoteController ctrl) {
         List<NoteTask> tasks = null;
-        try {
-            tasks= dataModel.openNote(ctrl.getSelfNote().getKey()).getNoteBody().getNoteTasks();
-        }
-        catch (IOException ioioio) {
-            System.err.println("mamo, zjadlem ta srebrna kulke z termometru");
-        }
+
         return tasks;
     }
 
@@ -93,11 +75,7 @@ public class BoardViewModel implements ViewModel {
         ctrl.setY(ctrl.getY() + px);
     }
     public Note getNote(int x) {
-        try {
-            return dataModel.openNote(x);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+       return null;
     }
 
     class NoteOnBoard {
@@ -123,7 +101,8 @@ public class BoardViewModel implements ViewModel {
     public void refreshNotes() {
         //loadNotes();
     }
-    public void init(ChangeModelService changeModelService) {
+    public void init(ChangeModelService changeModelService, NotificationService notificationService) {
         this.changeModelService = changeModelService;
+        this.notificationService = notificationService;
     }
 }

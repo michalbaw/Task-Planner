@@ -1,13 +1,11 @@
 package app.taskplanner.view.listview;
 
 import app.taskplanner.StartApp;
-import app.taskplanner.model.notes.Note;
 import app.taskplanner.model.notes.NoteMetadata;
 import app.taskplanner.view.ViewController;
 import app.taskplanner.view.alerts.SelectionAlert;
 import app.taskplanner.viewmodel.ViewModel;
 import app.taskplanner.viewmodel.listviewmodel.ListViewModel;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ListView;
 
@@ -19,12 +17,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
-
-import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class ListViewController implements ViewController {
     private ListViewModel listVM;
+    static int counter;
 
     @FXML
     private ListView<NoteMetadata> listOfNotes = new ListView<>();
@@ -47,8 +44,8 @@ public class ListViewController implements ViewController {
 
     @FXML
     void createAndOpenNote(ActionEvent event) {
-        listVM.addNoteWithTitle("Your new note");
-        listVM.openWithKey(listOfNotes.getItems().get(listOfNotes.getItems().size()-1).getKey());
+        listVM.addNoteWithTitle("Your new note " + counter++);
+        listVM.openNote(listOfNotes.getItems().get(listOfNotes.getItems().size()-1).getKey());
     }
 
     @FXML
@@ -77,10 +74,8 @@ public class ListViewController implements ViewController {
     @FXML
     void openSelectedNote(MouseEvent event) {
         NoteMetadata selectedNoteInfo = listOfNotes.getSelectionModel().getSelectedItem();
-        System.out.println("selection");
         if(selectedNoteInfo != null) {
-            System.out.println("openWithKey " + selectedNoteInfo.getKey());
-            listVM.openWithKey(selectedNoteInfo.getKey());
+            listVM.openNote(selectedNoteInfo.getKey());
         }
         else
         {
@@ -91,7 +86,6 @@ public class ListViewController implements ViewController {
     @Override
     public void init(ViewModel listVM) {
         this.listVM = (ListViewModel) listVM;
-        // Bind the ListView's items property to the ViewModel's titlesProperty
         listOfNotes.itemsProperty().bindBidirectional(this.listVM.notesProperty());
         listOfNotes.setOnMouseClicked(event -> {
             if (listOfNotes.getSelectionModel().getSelectedItems() != null) {
@@ -104,6 +98,7 @@ public class ListViewController implements ViewController {
         iconView.setFitWidth(50);
         plusButton.setGraphic(iconView);
         listOfNotes.setCellFactory(param -> new NoteListCell());
+        counter = 1;
     }
 
     private void showOptions(Integer item, MouseEvent event) {
@@ -111,9 +106,9 @@ public class ListViewController implements ViewController {
         Button openNote = new Button("Open");
         Button deleteNote = new Button("Delete");
         VBox vbox = new VBox(openNote, deleteNote);
-        Note note = listVM.getNote(listOfNotes.getItems().get(item).getKey());
+        int key = listOfNotes.getItems().get(item).getKey();
         openNote.setOnAction(click -> {
-            listVM.openNote(note);
+            listVM.openNote(key);
         });
         deleteNote.setOnAction(click -> {
             listVM.removeNoteAt(item);

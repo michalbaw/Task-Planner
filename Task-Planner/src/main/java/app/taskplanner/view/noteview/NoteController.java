@@ -84,12 +84,6 @@ public class NoteController implements ViewController {
         noteContent.textProperty().bindBidirectional(((NoteViewModel) noteVM).noteContentProperty());
         noteTitle.textProperty().bindBidirectional(((NoteViewModel) noteVM).noteTitleProperty());
     }
-    //public void init(NoteViewModel noteVM) {
-    //    this.noteVM = noteVM;
-    //    noteContent.textProperty().bindBidirectional(noteVM.noteContentProperty());
-    //    noteTitle.textProperty().bindBidirectional(noteVM.noteTitleProperty());
-    //}
-
 
     @FXML
     void closeWithoutSaving(ActionEvent event) {
@@ -124,17 +118,9 @@ public class NoteController implements ViewController {
         saveNote();
         noteVM.close();
     }
-
     @FXML
     void saveNote() {
         noteVM.save();
-    }
-
-
-
-    @FXML
-    void swapNote(ActionEvent event) {
-//        noteVM.setupNote();
     }
 
     @FXML

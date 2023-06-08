@@ -8,5 +8,5 @@ public interface ViewModel {
 
     //void init(Handler handler, DataModel dataModel, Stage currentView);
 
-    public void closeWindow(); //signature?
+    //public void closeWindow(); //signature?
 }

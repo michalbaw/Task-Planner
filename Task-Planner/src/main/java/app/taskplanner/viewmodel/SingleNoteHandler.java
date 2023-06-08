@@ -3,6 +3,7 @@ package app.taskplanner.viewmodel;
 import app.taskplanner.StartApp;
 import app.taskplanner.model.DataModel;
 import app.taskplanner.model.notes.Note;
+import app.taskplanner.service.ChangeModelService;
 import app.taskplanner.service.NotificationService;
 import app.taskplanner.view.noteview.NoteController;
 import app.taskplanner.viewmodel.noteviewmodel.NoteViewModel;
@@ -16,20 +17,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SingleNoteHandler implements Handler {
-    private List<StageDescr> noteStages;
+    private final List<StageDescr> noteStages;
     private DataModel dataModel;
-    private ViewHandler viewHandler;
     private NotificationService notificationService;
+    private ChangeModelService changeModelService;
     private String css;
 
     public SingleNoteHandler() {
         noteStages = new ArrayList<>();
     }
 
-    public void init(DataModel dataModel, ViewHandler viewHandler, NotificationService ns, String css) {
+    public void init(DataModel dataModel, NotificationService ns, ChangeModelService cms, String css) {
         this.dataModel = dataModel;
-        this.viewHandler = viewHandler;
         this.notificationService = ns;
+        this.changeModelService = cms;
         this.css = css;
     }
 
@@ -41,15 +42,15 @@ public class SingleNoteHandler implements Handler {
             NoteController nc = loader.getController();
             NoteViewModel nvm = new NoteViewModel();
             nvm.setupNote(note);
-            viewHandler.notificationService.addNoteViewModel(nvm);
-//            nvm.resizeX(-160);
+            notificationService.addNoteViewModel(nvm);
+//          nvm.resizeX(-160);
             Stage noteStage = new Stage();
-            nvm.init(this, dataModel, noteStage);
+            nvm.init(this, dataModel, changeModelService, notificationService, noteStage);
             nc.init(nvm);
             noteStage.setTitle(note.getMetadata().getTitle());//tytul notatki
             Scene noteScene = new Scene(root);
             noteStage.setScene(noteScene);
-//            noteStages.add(new StageDescr(noteStage, note));
+//          noteStages.add(new StageDescr(noteStage, note));
             noteScene.getStylesheets().add(css);
             noteStage.show();
             StageDescr stageDescr =  new StageDescr(noteStage,note);
@@ -83,28 +84,18 @@ public class SingleNoteHandler implements Handler {
         }
     }
 
-    public void removeFromNotification(NoteViewModel noteViewModel) {
-        notificationService.removeViewModel(noteViewModel);
-    }
-
     public void closeAllNotes() {
         while (!noteStages.isEmpty()){
             noteStages.get(0).stage.close();
             noteStages.remove(0);
         }
     }
-
     private static class StageDescr {
         Stage stage;
         Note note;
-
         StageDescr(Stage stage, Note note) {
             this.stage = stage;
             this.note = note;
         }
     }
-    public void notifyViewModels(int key){
-        notificationService.notifyViewModels(key);
-    }
-
 }

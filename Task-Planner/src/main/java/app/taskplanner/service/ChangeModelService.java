@@ -1,36 +1,38 @@
 package app.taskplanner.service;
 
 import app.taskplanner.model.DataModel;
+import app.taskplanner.model.notes.Note;
 
 import java.io.IOException;
 
 public class ChangeModelService {
     DataModel dataModel;
-    NotificationService notificationService;
 
-    public void init(DataModel dataModel, NotificationService notificationService) {
+    public void init(DataModel dataModel) {
         this.dataModel = dataModel;
-        this.notificationService = notificationService;
     }
 
-    public void addNoteWithTitle(String title) {
+    public void addNote(String title) {
         try {
             dataModel.addNote(title);
-            notificationService.notifyViewModels();
         } catch (IOException ioException) {
-            System.err.println("addNoteWithTitle Exception");
+            System.err.println("addNote Exception");
         }
     }
+
     public void removeNote(int key) {
         try {
             dataModel.removeNote(key);
-
-            notificationService.notifyViewModels(key);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-
-
+    public void saveNote(Note note) {
+        try {
+            dataModel.saveNote(note);
+        } catch(IOException e) {
+            System.out.println("saveNote Exception");
+        }
+    }
 }

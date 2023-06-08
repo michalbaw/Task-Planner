@@ -3,7 +3,6 @@ package app.taskplanner.viewmodel;
 import app.taskplanner.StartApp;
 import app.taskplanner.model.notes.Note;
 import app.taskplanner.model.notes.SimpleNote;
-import app.taskplanner.model.SimpleObservableList;
 import app.taskplanner.model.notes.NoteMetadata;
 import app.taskplanner.model.DataModel;
 import app.taskplanner.service.ChangeModelService;
@@ -21,7 +20,6 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Objects;
 
 public class ViewHandler implements Handler {
@@ -47,13 +45,13 @@ public class ViewHandler implements Handler {
         notificationService = new NotificationService();
         notificationService.init(listViewModel,boardViewModel);
         changeModelService = new ChangeModelService();
-        changeModelService.init(dataModel,notificationService);
+        changeModelService.init(dataModel);
 
-        listViewModel.init(changeModelService);
-        boardViewModel.init(changeModelService);
+        listViewModel.init(changeModelService,notificationService);
+        boardViewModel.init(changeModelService,notificationService);
 
         css = Objects.requireNonNull(StartApp.class.getResource("styles.css")).toExternalForm();
-        singleNoteHandler.init(dataModel, this, notificationService, css);
+        singleNoteHandler.init(dataModel, notificationService, changeModelService, css);
     }
 
     public void start() {
@@ -90,7 +88,13 @@ public class ViewHandler implements Handler {
         }
     }
 
-    public void openNote(Note note) {
+    public void openNote(int key) {
+        Note note = null;
+        try {
+            note = dataModel.getNote(key);
+        } catch (IOException e){
+            System.out.println("getNote Exception");
+        }
         singleNoteHandler.openNote(note);
     }
 

@@ -28,7 +28,6 @@ public class SimpleFileHandler implements FileHandler {
 
     @Override
     public List<NoteMetadata> loadNotesMetadata() throws IOException {
-        System.out.print("LoadNotedMetadata, ");
         List<NoteMetadata> noteMetadataList = new LinkedList<>();
         Path file = Paths.get(metadataLocation);
         if (!Files.exists(file)) {

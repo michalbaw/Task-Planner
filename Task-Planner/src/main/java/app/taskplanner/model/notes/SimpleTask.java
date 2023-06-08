@@ -6,10 +6,6 @@ public class SimpleTask implements Task, Serializable {
     String task;
     boolean status;
 
-    SimpleTask(){
-        this.task = "nothing special";
-        this.status = false;
-    }
     public SimpleTask(String newTaskName, boolean b) {
         this.task = newTaskName;
         this.status = b;

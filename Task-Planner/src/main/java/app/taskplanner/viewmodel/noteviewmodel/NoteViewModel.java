@@ -54,18 +54,28 @@ public class NoteViewModel implements ViewModel {
             SimpleTask simpleTask = st;
             tasks.add(simpleTask);
         }
-        //tasks.addAll(loadTasks);
-        //tasks.add(new SimpleTask("indiialla",true));
     }
 
     public void save() {
         currentNote.getNoteBody().setContent(noteContent.get());
         currentNote.getMetadata().setTitle(noteTitle.get());
         //currentNote.getNoteBody().setTasks(tasks);
-        //currentNote.getNoteBody().getTasks().add(new SimpleTask("taszczek", true));
+        currentNote.getNoteBody().clearTasks();
+        //for (SimpleTask st : tasks){
+        //    currentNote.getNoteBody().addTask(new SimpleTask(st.getTask(),st.getStatus()));
+        //}
+        loadTasks();
+        //currentNote.getNoteBody().addTask(new SimpleTask("taszczek", true));
 
         changeModelService.saveNote(currentNote);
         notificationService.notifyViewModels(getKey());
+    }
+
+    private void loadTasks(){
+        currentNote.getNoteBody().clearTasks();
+        for (SimpleTask st : tasks){
+            currentNote.getNoteBody().addTask(new SimpleTask(st.getTask(),st.getStatus()));
+        }
     }
 
     public void close() {
@@ -87,6 +97,12 @@ public class NoteViewModel implements ViewModel {
         }
         noteTitle.setValue(currentNote.getMetadata().getTitle());
         noteContent.setValue(currentNote.getNoteBody().getContent());
+        List<SimpleTask> loadTasks = currentNote.getNoteBody().getTasks();
+        tasks.clear();
+        for (SimpleTask st : loadTasks){
+            SimpleTask simpleTask = st;
+            tasks.add(simpleTask);
+        }
     }
     public void init(SingleNoteHandler singleNoteHandler, DataModel dataModel, ChangeModelService cms, NotificationService ns) {
         this.dataModel = dataModel;

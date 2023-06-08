@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -16,6 +17,7 @@ import static javafx.collections.FXCollections.observableArrayList;
 public class NoteController implements ViewController {
 
     private NoteViewModel noteVM;
+    boolean opened = false;
 
     @FXML
     public HBox noteMainContent;
@@ -39,6 +41,47 @@ public class NoteController implements ViewController {
     public TextField taskName;
     @FXML
     public Button addTask;
+    @FXML
+    private HBox bottomOptions;
+
+
+    @FXML
+    private MenuItem closeNoSave;
+
+    @FXML
+    private VBox midBox;
+
+
+    @FXML
+    private Menu openAnother;
+
+    @FXML
+    private VBox pureNote;
+
+    @FXML
+    private VBox rightBox;
+
+    @FXML
+    private Button saveAndClose;
+
+    @FXML
+    private Label statusMessage;
+    @FXML
+    private Button addButton;
+
+    @FXML
+    private Button taskButton;
+
+
+    @FXML
+    private SplitPane taskPane;
+
+    @FXML
+    private Label tasksDescriptions;
+
+    @FXML
+    private HBox textAndTasks;
+
 
 
     private ObservableList<SimpleTask> taskItems;
@@ -48,10 +91,64 @@ public class NoteController implements ViewController {
         this.noteVM = (NoteViewModel) noteVM;
         noteContent.textProperty().bindBidirectional(((NoteViewModel) noteVM).noteContentProperty());
         noteTitle.textProperty().bindBidirectional(((NoteViewModel) noteVM).noteTitleProperty());
-
         taskItems = ((NoteViewModel) noteVM).getTasks();
         taskList.setItems(taskItems);
         taskList.setCellFactory(param -> new TaskCell());
+    }
+    @FXML
+    void closeWithoutSaving(ActionEvent event) {
+
+    }
+    @FXML
+    void listOtherNotes(ActionEvent event) {
+
+    }
+    @FXML
+    void setOnDetected(MouseEvent event) {
+        Dragboard dragboard = taskList.startDragAndDrop(TransferMode.MOVE);
+        ClipboardContent content = new ClipboardContent();
+        int selectedId = taskList.getSelectionModel().getSelectedIndex();
+//        content.put(task, taskList.getItems().get(selectedId).getTaskTitle());
+        dragboard.setContent(content);
+        event.consume();
+    }
+    @FXML
+    void setOnOver(DragEvent event) {
+//        if (event.getGestureSource() != taskList && event.getDragboard().hasContent(task)) {
+//            event.acceptTransferModes(TransferMode.MOVE);
+//        }
+//        event.consume();
+    }
+    @FXML
+    void setOnDropped(DragEvent event) {
+//        Dragboard dragboard = event.getDragboard();
+//        boolean done = false;
+//        if (dragboard.hasContent(task)) {
+//            int selectedId = taskList.getSelectionModel().getSelectedIndex();
+//            NoteTask noteTask = (NoteTask) dragboard.getContent(task);
+//            taskList.getItems().remove(noteTask);
+//            noteTask.setStatus(true);
+//            taskList.getItems().remove(noteTask);
+//            noteTask.setStatus(false);
+//            taskList.getItems().add(selectedId, noteTask);
+//            done = true;
+//        }
+//        event.setDropCompleted(done);
+//        event.consume();
+    }
+    @FXML
+    void openTaskPage(ActionEvent event) {
+        if (!opened) {
+            taskPane.setMinWidth(160);
+            taskPane.setPrefWidth(160);
+            // TODO: 03.06.2023 how should it work?
+//            taskList.setCellFactory(CheckBoxListCell.forListView(NoteTask));
+            noteVM.resizeX(-160);
+            opened = true;
+        } else {
+            noteVM.resizeX(+160);
+            opened = false;
+        }
     }
 
     @FXML

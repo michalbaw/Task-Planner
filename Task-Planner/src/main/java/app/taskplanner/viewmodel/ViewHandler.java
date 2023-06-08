@@ -28,13 +28,10 @@ public class ViewHandler implements Handler {
     private final String css;
     private final SingleNoteHandler singleNoteHandler;
 
-    ListViewModel listViewModel;
-    BoardViewModel boardViewModel;
-    NotificationService notificationService;
-    ChangeModelService changeModelService;
+    private final ListViewModel listViewModel;
+    private final BoardViewModel boardViewModel;
 
     public ViewHandler(DataModel dataModel, Stage primaryStage, SingleNoteHandler singleNoteHandler) {
-        System.out.println("ViewHandler");
         this.dataModel = dataModel;
         this.primaryStage = primaryStage;
         this.singleNoteHandler = singleNoteHandler;
@@ -42,13 +39,13 @@ public class ViewHandler implements Handler {
         listViewModel = new ListViewModel(dataModel, this);
         boardViewModel = new BoardViewModel(dataModel);
 
-        notificationService = new NotificationService();
+        NotificationService notificationService = new NotificationService();
         notificationService.init(listViewModel,boardViewModel);
-        changeModelService = new ChangeModelService();
+        ChangeModelService changeModelService = new ChangeModelService();
         changeModelService.init(dataModel);
 
-        listViewModel.init(changeModelService,notificationService);
-        boardViewModel.init(changeModelService,notificationService);
+        listViewModel.init(changeModelService, notificationService);
+        boardViewModel.init(changeModelService, notificationService);
 
         css = Objects.requireNonNull(StartApp.class.getResource("styles.css")).toExternalForm();
         singleNoteHandler.init(dataModel, notificationService, changeModelService, css);

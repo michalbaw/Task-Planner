@@ -20,6 +20,14 @@ public class SimpleNoteBody implements NoteBody {
     public List<SimpleTask> getTasks() {
         return tasks;
     }
+    @Override
+    public void addTask(SimpleTask task){
+        tasks.add(task);
+    }
+    @Override
+    public void clearTasks(){
+        tasks.clear();
+    }
 
     @Override
     public void setTasks(List<SimpleTask> newList) {

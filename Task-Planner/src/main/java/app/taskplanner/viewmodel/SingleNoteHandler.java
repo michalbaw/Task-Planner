@@ -45,7 +45,7 @@ public class SingleNoteHandler implements Handler {
             notificationService.addNoteViewModel(nvm);
 //          nvm.resizeX(-160);
             Stage noteStage = new Stage();
-            nvm.init(this, dataModel, changeModelService, notificationService);
+            nvm.init(this, dataModel, changeModelService, notificationService,noteStage);
             nc.init(nvm);
             noteStage.setTitle(note.getMetadata().getTitle());//tytul notatki
             Scene noteScene = new Scene(root);

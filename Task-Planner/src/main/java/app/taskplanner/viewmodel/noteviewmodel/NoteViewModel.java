@@ -11,6 +11,7 @@ import app.taskplanner.viewmodel.*;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.SortedMap;
 
 
 public class NoteViewModel implements ViewModel {
+    private Stage noteStage;
 
     private DataModel dataModel;
     private SingleNoteHandler singleNoteHandler;
@@ -54,18 +56,28 @@ public class NoteViewModel implements ViewModel {
             SimpleTask simpleTask = st;
             tasks.add(simpleTask);
         }
-        //tasks.addAll(loadTasks);
-        //tasks.add(new SimpleTask("indiialla",true));
     }
 
     public void save() {
         currentNote.getNoteBody().setContent(noteContent.get());
         currentNote.getMetadata().setTitle(noteTitle.get());
         //currentNote.getNoteBody().setTasks(tasks);
-        //currentNote.getNoteBody().getTasks().add(new SimpleTask("taszczek", true));
+        currentNote.getNoteBody().clearTasks();
+        //for (SimpleTask st : tasks){
+        //    currentNote.getNoteBody().addTask(new SimpleTask(st.getTask(),st.getStatus()));
+        //}
+        loadTasks();
+        //currentNote.getNoteBody().addTask(new SimpleTask("taszczek", true));
 
         changeModelService.saveNote(currentNote);
         notificationService.notifyViewModels(getKey());
+    }
+
+    private void loadTasks(){
+        currentNote.getNoteBody().clearTasks();
+        for (SimpleTask st : tasks){
+            currentNote.getNoteBody().addTask(new SimpleTask(st.getTask(),st.getStatus()));
+        }
     }
 
     public void close() {
@@ -87,9 +99,23 @@ public class NoteViewModel implements ViewModel {
         }
         noteTitle.setValue(currentNote.getMetadata().getTitle());
         noteContent.setValue(currentNote.getNoteBody().getContent());
+        List<SimpleTask> loadTasks = currentNote.getNoteBody().getTasks();
+        tasks.clear();
+        for (SimpleTask st : loadTasks){
+            SimpleTask simpleTask = st;
+            tasks.add(simpleTask);
+        }
     }
-    public void init(SingleNoteHandler singleNoteHandler, DataModel dataModel, ChangeModelService cms, NotificationService ns) {
+    public void resizeX(double X) {
+        noteStage.setWidth(noteStage.getWidth() + X);
+    }
+
+    public void resizeY(double Y) {
+        noteStage.setHeight(noteStage.getHeight() + Y);
+    }
+    public void init(SingleNoteHandler singleNoteHandler, DataModel dataModel, ChangeModelService cms, NotificationService ns, Stage noteStage) {
         this.dataModel = dataModel;
+        this.noteStage = noteStage;
         this.singleNoteHandler = singleNoteHandler;
         this.changeModelService = cms;
         this.notificationService = ns;

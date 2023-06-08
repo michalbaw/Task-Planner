@@ -60,13 +60,34 @@ public class SingleNoteHandler implements Handler {
     }
 
     public void closeNote(Note note) {
-        System.out.println("SIEMANDERO");
+        System.out.println("close note");
         for (int i = 0; i < noteStages.size(); i++) {
             if (noteStages.get(i).note.equals(note)) {
                 noteStages.get(i).stage.close();
                 noteStages.remove(i);
                 break;
             }
+        }
+    }
+    public void closeNote(int key) {
+        System.out.println("close note");
+        for (int i = 0; i < noteStages.size(); i++) {
+            if (noteStages.get(i).note.getMetadata().getKey() == key) {
+                noteStages.get(i).stage.close();
+                noteStages.remove(i);
+                break;
+            }
+        }
+    }
+
+    public void removeFromNotification(NoteViewModel noteViewModel) {
+        notificationService.removeViewModel(noteViewModel);
+    }
+
+    public void closeAllNotes() {
+        while (!noteStages.isEmpty()){
+            noteStages.get(0).stage.close();
+            noteStages.remove(0);
         }
     }
 

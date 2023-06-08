@@ -42,7 +42,8 @@ public class NoteViewModel implements ViewModel {
         return noteTitle;
     }
 
-    public void closeWithoutSaving() {
+    public void close() {
+        singleNoteHandler.removeFromNotification(this);
         singleNoteHandler.closeNote(currentNote);
     }
 
@@ -54,7 +55,7 @@ public class NoteViewModel implements ViewModel {
 
     public void saveAndClose() {
         this.save();
-        this.closeWithoutSaving();
+        this.close();
     }
     public void save(){
         currentNote.getNoteBody().setContent(noteContent.get());

@@ -9,10 +9,8 @@ import app.taskplanner.model.DataModel;
 import app.taskplanner.service.NotificationService;
 import app.taskplanner.view.PrimaryViewController;
 import app.taskplanner.view.alerts.DeadlineAlert;
-import app.taskplanner.view.noteview.NoteController;
 import app.taskplanner.viewmodel.boardviewmodel.BoardViewModel;
 import app.taskplanner.viewmodel.listviewmodel.ListViewModel;
-import app.taskplanner.viewmodel.noteviewmodel.NoteViewModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -22,7 +20,6 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -84,34 +81,38 @@ public class ViewHandler implements Handler {
         }
     }
 
-    public Note getNoteFromID(int id) {
-        List<NoteMetadata> notes = dataModel.getNotesMetadata();
-        for (NoteMetadata note : notes) {
-            if (note.getKey() == id)
-                try {
-                    return dataModel.openNote(id);
-                } catch (IOException ioException) {
-                    System.err.println("wait,no");
-                }
-        }
-        return null;
-    }
+    //public Note getNoteFromID(int id) {
+    //    List<NoteMetadata> notes = dataModel.getNotesMetadata();
+    //    for (NoteMetadata note : notes) {
+    //        if (note.getKey() == id)
+    //            try {
+    //                return dataModel.openNote(id);
+    //            } catch (IOException ioException) {
+    //                System.err.println("wait,no");
+    //            }
+    //    }
+    //    return null;
+    //}
+
+    //public void showDeadlineAllert() {
+    //
+    //
+    //}
 
     public void openNote(Note note) {
         singleNoteHandler.openNote(note);
     }
 
-
-    public ObservableList<String> listNotes() {
+    /*public ObservableList<String> listNotes() {
         ObservableList<NoteMetadata> notes = (ObservableList<NoteMetadata>) dataModel.getNotesMetadata();
         ObservableList<String> titles = new SimpleObservableList<>();
         for (NoteMetadata n : notes) {
             titles.add(n.getTitle());
         }
         return titles;
-    }
+    }*/
 
-    public void changeTitle(Note note, String title) {
+    /*public void changeTitle(Note note, String title) {
         List<NoteMetadata> notes = dataModel.getNotesMetadata();
         int key = note.getMetadata().getKey();
         for (NoteMetadata n : notes) {
@@ -122,8 +123,9 @@ public class ViewHandler implements Handler {
             }
         }
     }
+   */
 
-    public void changeContent(Note note, String content) {
+   /* public void changeContent(Note note, String content) {
         List<NoteMetadata> notes = dataModel.getNotesMetadata();
         int key = note.getMetadata().getKey();
         for (NoteMetadata n : notes) {
@@ -134,6 +136,7 @@ public class ViewHandler implements Handler {
             }
         }
     }
+    */
 
     public void addNoteWithTitle(String title) {
         try {
@@ -146,7 +149,7 @@ public class ViewHandler implements Handler {
 
     public void removeNote(int key) {
         try {
-            //TODO: apply notificationService
+            singleNoteHandler.closeNote(key);
             dataModel.removeNote(key);
             notificationService.notifyViewModels(key);
         } catch (IOException e) {
@@ -157,5 +160,9 @@ public class ViewHandler implements Handler {
     public void notifyVM() {
         listViewModel.refreshNotes();
         boardViewModel.refreshNotes();
+    }
+
+    public void closeAllNotes() {
+        singleNoteHandler.closeAllNotes();
     }
 }

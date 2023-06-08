@@ -1,6 +1,7 @@
 package app.taskplanner.model;
 
 import app.taskplanner.model.notes.Note;
+import app.taskplanner.model.notes.NoteBody;
 import app.taskplanner.model.notes.NoteMetadata;
 
 import java.io.IOException;
@@ -22,4 +23,8 @@ public interface DataModel {
     Note openNote(int key) throws IOException;
 
     void closeNote(int key) throws IOException;
+
+    NoteMetadata getMetadata(int key);
+
+    NoteBody getBody(int key) throws IOException;
 }

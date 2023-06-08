@@ -6,6 +6,7 @@ import app.taskplanner.model.notes.SimpleNote;
 import app.taskplanner.model.SimpleObservableList;
 import app.taskplanner.model.notes.NoteMetadata;
 import app.taskplanner.model.DataModel;
+import app.taskplanner.service.NotificationService;
 import app.taskplanner.view.PrimaryViewController;
 import app.taskplanner.view.alerts.DeadlineAlert;
 import app.taskplanner.view.noteview.NoteController;
@@ -33,6 +34,7 @@ public class ViewHandler implements Handler {
 
     ListViewModel listViewModel;
     BoardViewModel boardViewModel;
+    NotificationService notificationService;
 
     public ViewHandler(DataModel dataModel, Stage primaryStage, SingleNoteHandler singleNoteHandler) {
         System.out.println("ViewHandler");
@@ -41,8 +43,10 @@ public class ViewHandler implements Handler {
         this.singleNoteHandler = singleNoteHandler;
         listViewModel = new ListViewModel(dataModel, this);
         boardViewModel = new BoardViewModel(dataModel);
+        notificationService = new NotificationService();
+        notificationService.init(listViewModel,boardViewModel);
         css = Objects.requireNonNull(StartApp.class.getResource("styles.css")).toExternalForm();
-        singleNoteHandler.init(dataModel, this, css);
+        singleNoteHandler.init(dataModel, this, notificationService, css);
     }
 
     public void start() {
@@ -94,9 +98,6 @@ public class ViewHandler implements Handler {
     }
 
     public void openNote(Note note) {
-        System.out.println("loaded note:");
-        System.out.println(note.getMetadata().getKey() + " " + note.getMetadata().getTitle());
-        System.out.println(note.getNoteBody().getContent());
         singleNoteHandler.openNote(note);
     }
 
@@ -145,7 +146,9 @@ public class ViewHandler implements Handler {
 
     public void removeNote(int key) {
         try {
+            //TODO: apply notificationService
             dataModel.removeNote(key);
+            notificationService.notifyViewModels(key);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -44,7 +44,6 @@ public class ListViewModel implements ViewModel {
 
     public void removeNoteAt(int index) {
         viewHandler.removeNote(notesMetadata.get(index).getKey());
-        refreshNotes();
     }
     public void openNote(Note note) {
         viewHandler.openNote(note);

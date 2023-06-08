@@ -58,8 +58,7 @@ public class ListViewController implements ViewController {
     }
 
     @FXML
-    void deleteSelectedNotes(MouseEvent event) {
-
+    void deleteSelectedNote(MouseEvent event) {
         int selectedIndex = listOfNotes.getSelectionModel().getSelectedIndex();
         if(selectedIndex != -1) {
             listVM.removeNoteAt(selectedIndex);

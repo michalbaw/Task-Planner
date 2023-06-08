@@ -118,6 +118,6 @@ public class BoardViewModel implements ViewModel {
     }
 
     public void refreshNotes() {
-        loadNotes();
+        //loadNotes();
     }
 }

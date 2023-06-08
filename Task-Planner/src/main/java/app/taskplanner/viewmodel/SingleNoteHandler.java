@@ -3,6 +3,7 @@ package app.taskplanner.viewmodel;
 import app.taskplanner.StartApp;
 import app.taskplanner.model.DataModel;
 import app.taskplanner.model.notes.Note;
+import app.taskplanner.service.NotificationService;
 import app.taskplanner.view.noteview.NoteController;
 import app.taskplanner.viewmodel.noteviewmodel.NoteViewModel;
 import javafx.fxml.FXMLLoader;
@@ -18,16 +19,17 @@ public class SingleNoteHandler implements Handler {
     private List<StageDescr> noteStages;
     private DataModel dataModel;
     private ViewHandler viewHandler;
+    private NotificationService notificationService;
     private String css;
 
     public SingleNoteHandler() {
-        System.out.print("SingleNoteHandler, ");
         noteStages = new ArrayList<>();
     }
 
-    public void init(DataModel dataModel, ViewHandler viewHandler, String css) {
+    public void init(DataModel dataModel, ViewHandler viewHandler, NotificationService ns, String css) {
         this.dataModel = dataModel;
         this.viewHandler = viewHandler;
+        this.notificationService = ns;
         this.css = css;
     }
 
@@ -39,6 +41,7 @@ public class SingleNoteHandler implements Handler {
             NoteController nc = loader.getController();
             NoteViewModel nvm = new NoteViewModel();
             nvm.setupNote(note);
+            viewHandler.notificationService.addNoteViewModel(nvm);
 //            nvm.resizeX(-160);
             Stage noteStage = new Stage();
             nvm.init(this, dataModel, noteStage);
@@ -76,4 +79,8 @@ public class SingleNoteHandler implements Handler {
             this.note = note;
         }
     }
+    public void notifyViewModels(int key){
+        notificationService.notifyViewModels(key);
+    }
+
 }

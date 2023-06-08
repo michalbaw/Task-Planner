@@ -35,7 +35,6 @@ public class NoteViewModel implements ViewModel {
 
     private final StringProperty noteTitle = new SimpleStringProperty();
 
-
     public Property<String> noteContentProperty() {
         return noteContent;
     }
@@ -58,12 +57,11 @@ public class NoteViewModel implements ViewModel {
         this.closeWithoutSaving();
     }
     public void save(){
-        System.out.println(noteContent);
-        System.out.println(noteTitle);
         currentNote.getNoteBody().setContent(noteContent.get());
         currentNote.getMetadata().setTitle(noteTitle.get());
         try {
             dataModel.saveNote(currentNote);
+            singleNoteHandler.notifyViewModels(currentNote.getMetadata().getKey());
         } catch (IOException e) {
             System.err.println("saving failed");
         }
@@ -112,6 +110,20 @@ public class NoteViewModel implements ViewModel {
     public void closeWindow() {
 
     }
-
-
+    public void refresh(){
+        int key = currentNote.getMetadata().getKey();
+        currentNote.setMetadata(dataModel.getMetadata(key));
+        try
+        {
+            currentNote.setNoteBody(dataModel.getBody(key));
+        }
+        catch (IOException e) {
+            System.out.println("Note refreshing failed");
+        }
+        noteTitle.setValue(currentNote.getMetadata().getTitle());
+        noteContent.setValue(currentNote.getNoteBody().getContent());
+    }
+    public int getKey(){
+        return currentNote.getMetadata().getKey();
+    }
 }

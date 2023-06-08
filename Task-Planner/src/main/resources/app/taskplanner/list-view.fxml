@@ -10,7 +10,7 @@
 <children>
       <ListView fx:id="listOfNotes" layoutX="651.0" prefHeight="548.0" prefWidth="348.0" />
       <Button fx:id="newNoteButton" layoutX="52.0" layoutY="68.0" mnemonicParsing="false" onMouseClicked="#createNewNote" prefHeight="27.0" prefWidth="76.0" text="Add" />
-      <Button fx:id="removeButton" layoutX="554.0" layoutY="87.0" mnemonicParsing="false" onMouseClicked="#deleteSelectedNotes" prefHeight="27.0" prefWidth="76.0" text="Remove" />
+      <Button fx:id="removeButton" layoutX="554.0" layoutY="87.0" mnemonicParsing="false" onMouseClicked="#deleteSelectedNote" prefHeight="27.0" prefWidth="76.0" text="Remove" />
       <TextField fx:id="newTitle" layoutX="47.0" layoutY="28.0" promptText="New note title" />
       <Button fx:id="openNoteButton" layoutX="554.0" layoutY="41.0" mnemonicParsing="false" onMouseClicked="#openSelectedNote" prefHeight="27.0" prefWidth="76.0" text="Open" />
       <Button fx:id="plusButton" layoutX="52.0" layoutY="176.0" mnemonicParsing="false" onAction="#createAndOpenNote" />

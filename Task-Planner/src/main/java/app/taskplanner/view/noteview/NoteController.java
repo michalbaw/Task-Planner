@@ -180,8 +180,6 @@ public class NoteController implements ViewController {
         event.consume();
     }
 
-//    public void initialize() {
-//    }
     void labelManager(boolean isChanged){
         if(isChanged)
         {

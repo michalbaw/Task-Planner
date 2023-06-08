@@ -2,6 +2,8 @@ package app.taskplanner.viewmodel.noteviewmodel;
 
 import app.taskplanner.model.DataModel;
 import app.taskplanner.model.notes.Note;
+import app.taskplanner.model.notes.SimpleNoteBody;
+import app.taskplanner.model.notes.SimpleTask;
 import app.taskplanner.model.notes.Task;
 import app.taskplanner.service.ChangeModelService;
 import app.taskplanner.service.NotificationService;
@@ -11,6 +13,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.SortedMap;
 
 
 public class NoteViewModel implements ViewModel {
@@ -20,16 +25,17 @@ public class NoteViewModel implements ViewModel {
     private ChangeModelService changeModelService;
     private NotificationService notificationService;
 
-    private final ObservableList<String> tasks = FXCollections.observableArrayList();
-
-    public ListProperty<String> taskProperty() {
-        return new SimpleListProperty<>(tasks);
-    }
-
     private Note currentNote;
 
     private final StringProperty noteContent = new SimpleStringProperty();
     private final StringProperty noteTitle = new SimpleStringProperty();
+
+
+    private final ObservableList<SimpleTask> tasks = FXCollections.observableArrayList();
+
+    public ObservableList<SimpleTask> getTasks() {
+        return tasks;
+    }
 
     public Property<String> noteContentProperty() {
         return noteContent;
@@ -38,17 +44,25 @@ public class NoteViewModel implements ViewModel {
         return noteTitle;
     }
 
+
     public void setupNote(Note currentNote) {
         this.currentNote = currentNote;
         noteContent.setValue(currentNote.getNoteBody().getContent());
         noteTitle.setValue(currentNote.getMetadata().getTitle());
-        System.out.println(noteContent);
-        System.out.println(noteTitle);
+        List<SimpleTask> loadTasks = currentNote.getNoteBody().getTasks();
+        for (SimpleTask st : loadTasks){
+            SimpleTask simpleTask = st;
+            tasks.add(simpleTask);
+        }
+        //tasks.addAll(loadTasks);
+        //tasks.add(new SimpleTask("indiialla",true));
     }
 
     public void save() {
         currentNote.getNoteBody().setContent(noteContent.get());
         currentNote.getMetadata().setTitle(noteTitle.get());
+        //currentNote.getNoteBody().setTasks(tasks);
+        //currentNote.getNoteBody().getTasks().add(new SimpleTask("taszczek", true));
 
         changeModelService.saveNote(currentNote);
         notificationService.notifyViewModels(getKey());
@@ -57,9 +71,6 @@ public class NoteViewModel implements ViewModel {
     public void close() {
         notificationService.removeViewModel(this);
         singleNoteHandler.closeNote(currentNote);
-    }
-    public void checkListMode(boolean enabled) {
-
     }
 
     public int getKey() {

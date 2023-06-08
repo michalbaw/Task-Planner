@@ -1,14 +1,14 @@
 package app.taskplanner.model.notes;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleNoteBody implements NoteBody {
     String content;
-    List<Task> tasks;
+    List<SimpleTask> tasks;
 
     public SimpleNoteBody(){
-        tasks = new LinkedList<>();
+        tasks = new ArrayList<>();
     }
 
     @Override
@@ -17,12 +17,12 @@ public class SimpleNoteBody implements NoteBody {
     }
 
     @Override
-    public List<Task> getNoteTasks() {
+    public List<SimpleTask> getTasks() {
         return tasks;
     }
 
     @Override
-    public void setNoteTasks(List<Task> newList) {
+    public void setTasks(List<SimpleTask> newList) {
         this.tasks = newList;
     }
 

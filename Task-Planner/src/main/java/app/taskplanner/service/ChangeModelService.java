@@ -33,6 +33,7 @@ public class ChangeModelService {
             dataModel.saveNote(note);
         } catch(IOException e) {
             System.out.println("saveNote Exception");
+            e.printStackTrace();
         }
     }
 }

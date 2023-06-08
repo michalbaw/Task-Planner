@@ -49,7 +49,7 @@ public class NoteController implements ViewController {
         noteContent.textProperty().bindBidirectional(((NoteViewModel) noteVM).noteContentProperty());
         noteTitle.textProperty().bindBidirectional(((NoteViewModel) noteVM).noteTitleProperty());
 
-        taskItems = observableArrayList();
+        taskItems = ((NoteViewModel) noteVM).getTasks();
         taskList.setItems(taskItems);
         taskList.setCellFactory(param -> new TaskCell());
     }

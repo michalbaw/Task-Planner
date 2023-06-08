@@ -1,10 +1,8 @@
 package app.taskplanner.viewmodel.boardviewmodel;
 
 import app.taskplanner.model.DataModel;
-import app.taskplanner.model.SimpleObservableList;
 import app.taskplanner.model.notes.Note;
-import app.taskplanner.model.notes.NoteMetadata;
-import app.taskplanner.model.notes.NoteTask;
+import app.taskplanner.model.notes.Task;
 import app.taskplanner.model.notes.SimpleNote;
 import app.taskplanner.service.ChangeModelService;
 import app.taskplanner.service.NotificationService;
@@ -20,7 +18,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.List;
 
 public class BoardViewModel implements ViewModel {
@@ -60,8 +57,8 @@ public class BoardViewModel implements ViewModel {
     }
 
 
-    public List<NoteTask> getTasks(SimpleNoteController ctrl) {
-        List<NoteTask> tasks = null;
+    public List<Task> getTasks(SimpleNoteController ctrl) {
+        List<Task> tasks = null;
 
         return tasks;
     }

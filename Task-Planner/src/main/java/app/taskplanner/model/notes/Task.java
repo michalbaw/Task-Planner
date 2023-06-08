@@ -1,9 +1,8 @@
 package app.taskplanner.model.notes;
 
-public interface NoteTask {
+public interface Task {
+    void setTask(String task);
     String getTask();
-    String getTaskTitle();
-    void setTaskTitle(String newTitle);
     void setStatus(boolean isDone);
     boolean getStatus();
 

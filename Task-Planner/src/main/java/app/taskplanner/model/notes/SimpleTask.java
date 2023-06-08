@@ -1,22 +1,22 @@
 package app.taskplanner.model.notes;
 
-public class SimpleNoteTask implements NoteTask{
-    String title;
+public class SimpleTask implements Task {
     String task;
     boolean status;
+
+    public SimpleTask(String newTaskName, boolean b) {
+        this.task = newTaskName;
+        this.status = b;
+    }
+
+    @Override
+    public void setTask(String task) {
+        this.task = task;
+    }
+
     @Override
     public String getTask() {
         return task;
-    }
-
-    @Override
-    public String getTaskTitle() {
-        return title;
-    }
-
-    @Override
-    public void setTaskTitle(String newTitle) {
-        this.title = title;
     }
 
     @Override

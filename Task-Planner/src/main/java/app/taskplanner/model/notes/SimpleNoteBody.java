@@ -5,7 +5,7 @@ import java.util.List;
 
 public class SimpleNoteBody implements NoteBody {
     String content;
-    List<NoteTask> tasks;
+    List<Task> tasks;
 
     public SimpleNoteBody(){
         tasks = new LinkedList<>();
@@ -17,12 +17,12 @@ public class SimpleNoteBody implements NoteBody {
     }
 
     @Override
-    public List<NoteTask> getNoteTasks() {
+    public List<Task> getNoteTasks() {
         return tasks;
     }
 
     @Override
-    public void setNoteTasks(List<NoteTask> newList) {
+    public void setNoteTasks(List<Task> newList) {
         this.tasks = newList;
     }
 

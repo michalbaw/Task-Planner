@@ -2,28 +2,25 @@ package app.taskplanner.viewmodel.noteviewmodel;
 
 import app.taskplanner.model.DataModel;
 import app.taskplanner.model.notes.Note;
-import app.taskplanner.model.notes.NoteTask;
+import app.taskplanner.model.notes.Task;
 import app.taskplanner.service.ChangeModelService;
 import app.taskplanner.service.NotificationService;
 import app.taskplanner.viewmodel.*;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class NoteViewModel implements ViewModel {
 
-    private Stage noteStage;
     private DataModel dataModel;
     private SingleNoteHandler singleNoteHandler;
     private ChangeModelService changeModelService;
     private NotificationService notificationService;
 
-    private ObservableList<String> tasks = FXCollections.observableArrayList();
+    private final ObservableList<String> tasks = FXCollections.observableArrayList();
 
     public ListProperty<String> taskProperty() {
         return new SimpleListProperty<>(tasks);
@@ -65,18 +62,6 @@ public class NoteViewModel implements ViewModel {
 
     }
 
-    public void resizeX(double X) {
-        noteStage.setWidth(noteStage.getWidth() + X);
-    }
-
-    public void resizeY(double Y) {
-        noteStage.setHeight(noteStage.getHeight() + Y);
-    }
-
-    public List<NoteTask> getTasks() {
-        return new ArrayList<>();
-    }
-
     public int getKey() {
         return currentNote.getMetadata().getKey();
     }
@@ -92,11 +77,10 @@ public class NoteViewModel implements ViewModel {
         noteTitle.setValue(currentNote.getMetadata().getTitle());
         noteContent.setValue(currentNote.getNoteBody().getContent());
     }
-    public void init(SingleNoteHandler singleNoteHandler, DataModel dataModel, ChangeModelService cms, NotificationService ns, Stage currentNote) {
+    public void init(SingleNoteHandler singleNoteHandler, DataModel dataModel, ChangeModelService cms, NotificationService ns) {
         this.dataModel = dataModel;
         this.singleNoteHandler = singleNoteHandler;
         this.changeModelService = cms;
         this.notificationService = ns;
-        this.noteStage = currentNote;
     }
 }

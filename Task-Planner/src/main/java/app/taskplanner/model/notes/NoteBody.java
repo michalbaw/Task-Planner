@@ -6,6 +6,6 @@ import java.util.List;
 public interface NoteBody extends Serializable {
     String getContent();
     void setContent(String newContent);
-    List<NoteTask> getNoteTasks();
-    void setNoteTasks(List<NoteTask> newList);
+    List<Task> getNoteTasks();
+    void setNoteTasks(List<Task> newList);
 }

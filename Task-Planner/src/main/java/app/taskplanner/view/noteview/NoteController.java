@@ -2,6 +2,7 @@ package app.taskplanner.view.noteview;
 
 import app.taskplanner.model.notes.SimpleTask;
 import app.taskplanner.view.ViewController;
+import app.taskplanner.view.ViewFunctions;
 import app.taskplanner.viewmodel.ViewModel;
 import app.taskplanner.viewmodel.noteviewmodel.NoteViewModel;
 import javafx.collections.ObservableList;
@@ -19,58 +20,30 @@ import static javafx.collections.FXCollections.observableArrayList;
 
 public class NoteController implements ViewController {
 
-    public MenuBar menuBar;
     private NoteViewModel noteVM;
+
     boolean opened = false;
 
     @FXML
-    public HBox noteMainContent;
+    public MenuBar menuBar;
+
     @FXML
     private TextArea noteContent;
+
     @FXML
     private TextField noteTitle;
-    @FXML
-    public HBox saveCloseButtons;
+
     @FXML
     public Button save;
-    @FXML
-    public Button close;
-    @FXML
-    public VBox tasks;
+
     @FXML
     private ListView<SimpleTask> taskList;
+
     @FXML
     public TextField taskName;
     @FXML
-    public Button addTask;
-    @FXML
-    private HBox bottomOptions;
-    @FXML
-    private MenuItem closeNoSave;
-    @FXML
-    private HBox midBox;
-    @FXML
-    private Menu openAnother;
-    @FXML
-    private VBox pureNote;
-    @FXML
-    private VBox rightBox;
-    @FXML
-    private Button saveAndClose;
-    @FXML
-    private Label statusMessage;
-    @FXML
-    private Button addButton;
-    @FXML
-    private Button taskButton;
-    @FXML
+
     private SplitPane taskPane;
-
-    @FXML
-    private Label tasksDescriptions;
-
-    @FXML
-    private HBox textAndTasks;
 
     @FXML
     private DatePicker datePicker;
@@ -88,14 +61,12 @@ public class NoteController implements ViewController {
         taskList.setItems(taskItems);
         taskList.setCellFactory(param -> new TaskCell());
     }
-    @FXML
-    void closeWithoutSaving(ActionEvent event) {
 
-    }
     @FXML
     void listOtherNotes(ActionEvent event) {
 
     }
+
     @FXML
     void setOnDetected(MouseEvent event) {
         Dragboard dragboard = taskList.startDragAndDrop(TransferMode.MOVE);
@@ -105,6 +76,7 @@ public class NoteController implements ViewController {
         dragboard.setContent(content);
         event.consume();
     }
+
     @FXML
     void setOnOver(DragEvent event) {
 //        if (event.getGestureSource() != taskList && event.getDragboard().hasContent(task)) {
@@ -112,6 +84,7 @@ public class NoteController implements ViewController {
 //        }
 //        event.consume();
     }
+
     @FXML
     void setOnDropped(DragEvent event) {
 //        Dragboard dragboard = event.getDragboard();
@@ -129,13 +102,13 @@ public class NoteController implements ViewController {
 //        event.setDropCompleted(done);
 //        event.consume();
     }
+
     @FXML
     void openTaskPage(ActionEvent event) {
         if (!opened) {
             taskPane.setMinWidth(160);
             taskPane.setPrefWidth(160);
-            // TODO: 03.06.2023 how should it work?
-//            taskList.setCellFactory(CheckBoxListCell.forListView(NoteTask));
+            //taskList.setCellFactory(CheckBoxListCell.forListView(NoteTask));
             noteVM.resizeX(-160);
             opened = true;
         } else {
@@ -151,21 +124,7 @@ public class NoteController implements ViewController {
     }
 
     private void setDateColor(LocalDate date) {
-        String color;
-        if (date == null) {
-            this.menuBar.setStyle("-fx-background-color: #FFCCCC");
-            return;
-        }
-        LocalDate currentDate = LocalDate.now();
-        long number = ChronoUnit.DAYS.between(currentDate, date);
-        if (number < -5) color = "#FF66B2";
-        else if (number < 0) color = "#FF3399";
-        else if (number < 2) color = "#FF3333";
-        else if (number < 7) color = "#FF6666";
-        else if (number < 15) color = "#FF8888";
-        else if (number < 30) color = "#FFAAAA";
-        else color = "#FFCCCC";
-        this.menuBar.setStyle("-fx-background-color: " + color);
+        this.menuBar.setStyle("-fx-background-color: " + ViewFunctions.color(ViewFunctions.days(date)));
     }
 
     @FXML
@@ -186,7 +145,5 @@ public class NoteController implements ViewController {
         taskItems.add(task);
         taskName.clear();
     }
-
-
 
 }

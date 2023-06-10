@@ -14,9 +14,9 @@
                         <MenuItem mnemonicParsing="false" text="Action 1" />
                     </items>
                 </Menu>
-                <MenuItem text="Save" />
-                <MenuItem text="Close" />
-                <MenuItem fx:id="closeNoSave" mnemonicParsing="false" onAction="#closeWithoutSaving" text="Close without saving" />
+                <MenuItem fx:id="Save" mnemonicParsing="false" onAction="#saveNote" text="Save note" />
+                <MenuItem fx:id="CloseSave" mnemonicParsing="false" onAction="#saveAndClose" text="Save and close" />
+                <MenuItem fx:id="closeNoSave" mnemonicParsing="false" onAction="#closeNote" text="Close without saving" />
             </Menu>
         </MenuBar>
     </top>

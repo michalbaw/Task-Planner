@@ -71,14 +71,14 @@ public class ViewHandler implements Handler {
             primaryStage.getIcons().add(icon);
             primaryStage.show();
             //for the presentation's sake
-            SimpleNote s = new SimpleNote();
-            s.getMetadata().setTitle("siemson");
-            ObservableList<NoteMetadata> l = FXCollections.observableArrayList();
-            l.add(s.getMetadata());
+            //SimpleNote s = new SimpleNote();
+            //s.getMetadata().setTitle("siemson");
+            //ObservableList<NoteMetadata> l = FXCollections.observableArrayList();
+            //l.add(s.getMetadata());
 
             //todo update to note structure
-            DeadlineAlert deadlineAlert = new DeadlineAlert();
-            deadlineAlert.show(l);
+            DeadlineAlert deadlineAlert = new DeadlineAlert(dataModel);
+            deadlineAlert.show();
 
         } catch (IOException e) {
             e.printStackTrace();

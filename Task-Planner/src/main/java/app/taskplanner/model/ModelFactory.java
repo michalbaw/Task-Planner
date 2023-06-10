@@ -12,14 +12,9 @@ public class ModelFactory {
     public ModelFactory() throws IOException {
         fileHandler = new SimpleFileHandler();
         dataModel = new SimpleDataModel(fileHandler);
-        //dataModel.removeNote(2);
     }
 
-    public DataModel getDataModel() throws IOException {
-        if (dataModel == null) {
-            fileHandler = new SimpleFileHandler();
-            dataModel = new SimpleDataModel(fileHandler);
-        }
+    public DataModel getDataModel() {
         return dataModel;
     }
 }

@@ -17,6 +17,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
+
+import java.util.Comparator;
 import java.util.Objects;
 
 public class ListViewController implements ViewController {
@@ -120,4 +122,8 @@ public class ListViewController implements ViewController {
         popup.hide();
     }
 
+    public void chronoSort(MouseEvent mouseEvent) {
+        Comparator<NoteMetadata> comparator = Comparator.comparing(NoteMetadata::getDate, Comparator.nullsLast(Comparator.naturalOrder()));
+        listOfNotes.getItems().sort(comparator);
+    }
 }

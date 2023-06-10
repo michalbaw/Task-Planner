@@ -7,7 +7,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.taskplanner.view.noteview.NoteController">
     <top>
-        <MenuBar>
+        <MenuBar fx:id="menuBar">
             <Menu text="File">
                 <Menu fx:id="openAnother" mnemonicParsing="false" onAction="#listOtherNotes" text="Open another note">
                     <items>
@@ -26,7 +26,7 @@
                 <children>
                     <HBox prefHeight="45.0" prefWidth="496.0">
                         <children>
-                            <TextField fx:id="noteTitle" maxWidth="1.7976931348623157E308" prefHeight="44.0" prefWidth="412.0" promptText="Note title" stylesheets="@styles.css">
+                            <TextField fx:id="noteTitle" maxWidth="1.7976931348623157E308" prefHeight="36.0" prefWidth="314.0" promptText="Note title" stylesheets="@styles.css">
                                 <padding>
                                     <Insets left="20.0" right="20.0" />
                                 </padding>
@@ -37,7 +37,8 @@
                                     <Insets />
                                 </opaqueInsets>
                             </TextField>
-                            <Button fx:id="taskButton" mnemonicParsing="false" onAction="#openTaskPage" prefHeight="37.0" prefWidth="87.0" text="Tasks" />
+                            <DatePicker fx:id="datePicker" prefHeight="36.0" prefWidth="139.0" />
+                            <Button fx:id="taskButton" mnemonicParsing="false" onAction="#openTaskPage" prefHeight="36.0" prefWidth="101.0" text="Tasks" />
                         </children>
                     </HBox>
                     <HBox fx:id="textAndTasks" prefHeight="385.0" prefWidth="527.0">

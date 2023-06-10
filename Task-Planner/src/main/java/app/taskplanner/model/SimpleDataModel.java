@@ -4,18 +4,25 @@ import app.taskplanner.model.fileOperations.FileHandler;
 import app.taskplanner.model.notes.*;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 public class SimpleDataModel implements DataModel {
     private final FileHandler fileHandler;
-    private final List<NoteMetadata> noteMetadataList;
+    private List<NoteMetadata> noteMetadataList;
 
 
     SimpleDataModel(FileHandler fileHandler) throws IOException {
         this.fileHandler = fileHandler;
+        //noteMetadataList = new LinkedList<>();
+        //inita();
         noteMetadataList = fileHandler.loadNotesMetadata();
     }
 
+    private void inita() throws IOException {
+        addNote("tytulek");
+        noteMetadataList = fileHandler.loadNotesMetadata();
+    }
 
     @Override
     public void saveNote(Note note) throws IOException {
@@ -77,6 +84,8 @@ public class SimpleDataModel implements DataModel {
     }
 
     private int nextKey() {
+        if (noteMetadataList == null)
+            return 1;
         if (noteMetadataList.size() == 0) {
             return 1;
         }

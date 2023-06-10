@@ -12,10 +12,14 @@ import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
 import static javafx.collections.FXCollections.observableArrayList;
 
 public class NoteController implements ViewController {
 
+    public MenuBar menuBar;
     private NoteViewModel noteVM;
     boolean opened = false;
 
@@ -25,14 +29,12 @@ public class NoteController implements ViewController {
     private TextArea noteContent;
     @FXML
     private TextField noteTitle;
-
     @FXML
     public HBox saveCloseButtons;
     @FXML
     public Button save;
     @FXML
     public Button close;
-
     @FXML
     public VBox tasks;
     @FXML
@@ -43,36 +45,24 @@ public class NoteController implements ViewController {
     public Button addTask;
     @FXML
     private HBox bottomOptions;
-
-
     @FXML
     private MenuItem closeNoSave;
-
     @FXML
     private HBox midBox;
-
-
     @FXML
     private Menu openAnother;
-
     @FXML
     private VBox pureNote;
-
     @FXML
     private VBox rightBox;
-
     @FXML
     private Button saveAndClose;
-
     @FXML
     private Label statusMessage;
     @FXML
     private Button addButton;
-
     @FXML
     private Button taskButton;
-
-
     @FXML
     private SplitPane taskPane;
 
@@ -82,6 +72,8 @@ public class NoteController implements ViewController {
     @FXML
     private HBox textAndTasks;
 
+    @FXML
+    private DatePicker datePicker;
 
 
     private ObservableList<SimpleTask> taskItems;
@@ -91,6 +83,7 @@ public class NoteController implements ViewController {
         this.noteVM = (NoteViewModel) noteVM;
         noteContent.textProperty().bindBidirectional(((NoteViewModel) noteVM).noteContentProperty());
         noteTitle.textProperty().bindBidirectional(((NoteViewModel) noteVM).noteTitleProperty());
+        datePicker.valueProperty().bindBidirectional(((NoteViewModel) noteVM).noteDateProperty());
         taskItems = ((NoteViewModel) noteVM).getTasks();
         taskList.setItems(taskItems);
         taskList.setCellFactory(param -> new TaskCell());
@@ -153,7 +146,26 @@ public class NoteController implements ViewController {
 
     @FXML
     void saveNote() {
+        setDateColor(datePicker.getValue());
         noteVM.save();
+    }
+
+    private void setDateColor(LocalDate date) {
+        String color;
+        if (date == null) {
+            this.menuBar.setStyle("-fx-background-color: #FFCCCC");
+            return;
+        }
+        LocalDate currentDate = LocalDate.now();
+        long number = ChronoUnit.DAYS.between(currentDate, date);
+        if (number < -5) color = "#FF66B2";
+        else if (number < 0) color = "#FF3399";
+        else if (number < 2) color = "#FF3333";
+        else if (number < 7) color = "#FF6666";
+        else if (number < 15) color = "#FF8888";
+        else if (number < 30) color = "#FFAAAA";
+        else color = "#FFCCCC";
+        this.menuBar.setStyle("-fx-background-color: " + color);
     }
 
     @FXML
@@ -174,4 +186,7 @@ public class NoteController implements ViewController {
         taskItems.add(task);
         taskName.clear();
     }
+
+
+
 }

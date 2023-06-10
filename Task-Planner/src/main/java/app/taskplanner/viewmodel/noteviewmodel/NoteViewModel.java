@@ -2,9 +2,7 @@ package app.taskplanner.viewmodel.noteviewmodel;
 
 import app.taskplanner.model.DataModel;
 import app.taskplanner.model.notes.Note;
-import app.taskplanner.model.notes.SimpleNoteBody;
 import app.taskplanner.model.notes.SimpleTask;
-import app.taskplanner.model.notes.Task;
 import app.taskplanner.service.ChangeModelService;
 import app.taskplanner.service.NotificationService;
 import app.taskplanner.viewmodel.*;
@@ -14,9 +12,8 @@ import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
-import java.util.SortedMap;
 
 
 public class NoteViewModel implements ViewModel {
@@ -31,14 +28,26 @@ public class NoteViewModel implements ViewModel {
 
     private final StringProperty noteContent = new SimpleStringProperty();
     private final StringProperty noteTitle = new SimpleStringProperty();
-
-
+    private final ObjectProperty<LocalDate> noteDate = new SimpleObjectProperty<>();
     private final ObservableList<SimpleTask> tasks = FXCollections.observableArrayList();
+
+
+    public LocalDate getNoteDate() {
+        return noteDate.get();
+    }
+
+    public void setNoteDate(LocalDate date) {
+        noteDate.set(date);
+    }
+
+    public ObjectProperty<LocalDate> noteDateProperty() {
+        return noteDate;
+    }
+
 
     public ObservableList<SimpleTask> getTasks() {
         return tasks;
     }
-
     public Property<String> noteContentProperty() {
         return noteContent;
     }
@@ -51,12 +60,14 @@ public class NoteViewModel implements ViewModel {
         this.currentNote = currentNote;
         noteContent.setValue(currentNote.getNoteBody().getContent());
         noteTitle.setValue(currentNote.getMetadata().getTitle());
+        noteDate.setValue(currentNote.getMetadata().getDate());
         loadTasks();
     }
 
     public void save() {
         currentNote.getNoteBody().setContent(noteContent.get());
         currentNote.getMetadata().setTitle(noteTitle.get());
+        currentNote.getMetadata().setDate(noteDate.get());
         saveTasks();
 
         changeModelService.saveNote(currentNote);
@@ -98,6 +109,7 @@ public class NoteViewModel implements ViewModel {
         }
         noteTitle.setValue(currentNote.getMetadata().getTitle());
         noteContent.setValue(currentNote.getNoteBody().getContent());
+        noteDate.setValue(currentNote.getMetadata().getDate());
         loadTasks();
     }
     public void resizeX(double X) {

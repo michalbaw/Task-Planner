@@ -49,7 +49,7 @@ public class NoteController implements ViewController {
     private MenuItem closeNoSave;
 
     @FXML
-    private VBox midBox;
+    private HBox midBox;
 
 
     @FXML

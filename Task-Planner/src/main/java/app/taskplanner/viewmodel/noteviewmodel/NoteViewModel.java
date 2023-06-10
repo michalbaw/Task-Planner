@@ -51,32 +51,31 @@ public class NoteViewModel implements ViewModel {
         this.currentNote = currentNote;
         noteContent.setValue(currentNote.getNoteBody().getContent());
         noteTitle.setValue(currentNote.getMetadata().getTitle());
-        List<SimpleTask> loadTasks = currentNote.getNoteBody().getTasks();
-        for (SimpleTask st : loadTasks){
-            SimpleTask simpleTask = st;
-            tasks.add(simpleTask);
-        }
+        loadTasks();
     }
 
     public void save() {
         currentNote.getNoteBody().setContent(noteContent.get());
         currentNote.getMetadata().setTitle(noteTitle.get());
-        //currentNote.getNoteBody().setTasks(tasks);
-        currentNote.getNoteBody().clearTasks();
-        //for (SimpleTask st : tasks){
-        //    currentNote.getNoteBody().addTask(new SimpleTask(st.getTask(),st.getStatus()));
-        //}
-        loadTasks();
-        //currentNote.getNoteBody().addTask(new SimpleTask("taszczek", true));
+        saveTasks();
 
         changeModelService.saveNote(currentNote);
         notificationService.notifyViewModels(getKey());
     }
 
-    private void loadTasks(){
+    private void saveTasks(){
         currentNote.getNoteBody().clearTasks();
         for (SimpleTask st : tasks){
             currentNote.getNoteBody().addTask(new SimpleTask(st.getTask(),st.getStatus()));
+        }
+    }
+
+    private void loadTasks(){
+        List<SimpleTask> loadTasks = currentNote.getNoteBody().getTasks();
+        tasks.clear();
+        for (SimpleTask st : loadTasks){
+            SimpleTask simpleTask = st;
+            tasks.add(simpleTask);
         }
     }
 
@@ -99,17 +98,11 @@ public class NoteViewModel implements ViewModel {
         }
         noteTitle.setValue(currentNote.getMetadata().getTitle());
         noteContent.setValue(currentNote.getNoteBody().getContent());
-        List<SimpleTask> loadTasks = currentNote.getNoteBody().getTasks();
-        tasks.clear();
-        for (SimpleTask st : loadTasks){
-            SimpleTask simpleTask = st;
-            tasks.add(simpleTask);
-        }
+        loadTasks();
     }
     public void resizeX(double X) {
         noteStage.setWidth(noteStage.getWidth() + X);
     }
-
     public void resizeY(double Y) {
         noteStage.setHeight(noteStage.getHeight() + Y);
     }

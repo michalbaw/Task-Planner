@@ -12,7 +12,7 @@ public class WrongSelectionAlert {
     public void show(){
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Select correct item");
-        alert.setHeaderText("You selected outside of list of notes.");
+        alert.setHeaderText("  You selected outside of list of notes.");
         alert.setContentText("This is a STRONG WARNING.");
         alert.getDialogPane().setPrefHeight(0);
         alert.getDialogPane().getStylesheets().add(StartApp.class.getResource("styles.css").toExternalForm());

@@ -127,7 +127,7 @@ public class CalendarViewController {
                 moreNotes.setWrapText(true);
                 dayUnitBox.getChildren().add(moreNotes);
                 moreNotes.setOnMouseClicked(mouseEvent -> {
-                    new SelectionAlert("App is unable to decide which note to open.");
+                    new SelectionAlert("  App is unable to decide which note to open. Use List instead").show();
                 });
                 break;
             }

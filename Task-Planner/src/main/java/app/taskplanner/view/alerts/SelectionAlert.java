@@ -12,7 +12,7 @@ public class SelectionAlert {
     public SelectionAlert(){
          alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Please select an item");
-        alert.setHeaderText("To perform this action you need to select at least one note.");
+        alert.setHeaderText("  To perform this action you need to select at least one note.");
 
     }
     public SelectionAlert(String header){

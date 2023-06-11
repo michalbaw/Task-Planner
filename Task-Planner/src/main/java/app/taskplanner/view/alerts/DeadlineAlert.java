@@ -28,7 +28,7 @@ public class DeadlineAlert {
             return;
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("UPCOMING DEADLINE");
-        alert.setHeaderText("You are running out of time! Consider completing those tasks:");
+        alert.setHeaderText("  You are running out of time! Consider completing those tasks:");
         ListView<String> upcomingList = new ListView<>();
         ListView<String> upcomingDates = new ListView<>();
         GridPane gPane = new GridPane();

@@ -77,7 +77,6 @@ public class SimpleNoteController {
         contentPane.setBorder(new Border(new BorderStroke(Color.BLACK,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         contentPane.setBackground(new Background(new BackgroundFill(Color.LAVENDER,CornerRadii.EMPTY, Insets.EMPTY)));
-        System.out.println("elotutaja");
         borderLine();
     }
     @FXML
@@ -133,9 +132,6 @@ public class SimpleNoteController {
 
     public NoteMetadata getSelfNote() {
         return selfNote;
-    }
-    public void initialize(){
-        System.out.println("eloo");
     }
     public void borderLine(){
 //        contentPanex.setBorder(new Border(new BorderStroke(Color.BLACK,

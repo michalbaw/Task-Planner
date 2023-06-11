@@ -58,7 +58,6 @@ public final class BoardViewController extends AnchorPane {
     }
 
     void setNotes() {
-        System.out.println("ustawiam" + notesOnBoardProperty.get().size());
         for (Note note : notesOnBoardProperty) {
             this.addNote(note.getMetadata());
         }
@@ -74,7 +73,6 @@ public final class BoardViewController extends AnchorPane {
             root.setStyle("-fx-background-color: transparent;");
             SimpleNoteController snc = loader.getController();
             snc.init(noteInfo,boardVM);
-            System.out.println("setup");
             board.getChildren().add(root);
             makeDraggable(board.getChildren().get(board.getChildren().size()-1));
         } catch (IOException ioException) {
@@ -86,7 +84,6 @@ public final class BoardViewController extends AnchorPane {
         Random rand = new Random();
         double x = rand.nextDouble();
         double y = rand.nextDouble();
-        System.out.println(x + " " + y);
         n.setLayoutX(x * 500);
         n.setLayoutY(y * 300);
         n.setOnMousePressed(e -> {

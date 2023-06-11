@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.taskplanner.view.boardView.SimpleNoteController">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.taskplanner.view.boardView.SimpleNoteController">
    <center>
         <AnchorPane fx:id="contentPane" prefHeight="242.0" prefWidth="274.0">
             <VBox fx:id="pureNote" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="252.0" prefWidth="276.0">

@@ -24,11 +24,16 @@ public class ViewFunctions {
         if (number == null) return "#FFCCCC";
         if (number < -5) return "#FF66B2";
         if (number < 0) return "#FF3399";
+        if (number < 1) return "#B266FF";
         if (number < 2) return "#FF3333";
-        if (number < 7) return "#FF6666";
-        if (number < 15) return "#FF8888";
-        if (number < 30) return "#FFAAAA";
-        return "#FFCCCC";
+        if (number < 3) return "#FF5555";
+        if (number < 4) return "#FF7777";
+        if (number < 5) return "#FF8888";
+        if (number < 7) return "#FF9999";
+        if (number < 10) return "#FFAAAA";
+        if (number < 15) return "#FFBBBB";
+        if (number < 20) return "#FFCCCC";
+        return "#FFDDDD";
     }
 
 }

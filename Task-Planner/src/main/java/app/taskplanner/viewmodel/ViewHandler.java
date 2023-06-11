@@ -78,7 +78,7 @@ public class ViewHandler implements Handler {
 
             //todo update to note structure
             DeadlineAlert deadlineAlert = new DeadlineAlert(dataModel);
-            deadlineAlert.show();
+            deadlineAlert.showAlert();
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -21,7 +21,7 @@ public class DeadlineAlert {
         this.dataModel = dataModel;
     }
 
-    public void show() {
+    public void showAlert() {
         List<NoteMetadata> upcoming = getUpcoming();
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("UPCOMING DEADLINE");

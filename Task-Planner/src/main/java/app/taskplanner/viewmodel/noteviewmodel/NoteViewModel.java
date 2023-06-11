@@ -111,6 +111,7 @@ public class NoteViewModel implements ViewModel {
         noteContent.setValue(currentNote.getNoteBody().getContent());
         noteDate.setValue(currentNote.getMetadata().getDate());
         loadTasks();
+
     }
     public void resizeX(double X) {
         noteStage.setWidth(noteStage.getWidth() + X);

@@ -5,6 +5,7 @@ import app.taskplanner.model.notes.Note;
 import app.taskplanner.model.notes.NoteMetadata;
 import app.taskplanner.service.ChangeModelService;
 import app.taskplanner.service.NotificationService;
+import app.taskplanner.viewmodel.ViewHandler;
 
 import java.io.IOException;
 import java.time.ZonedDateTime;
@@ -12,11 +13,13 @@ import java.util.*;
 
 public class CalendarViewModel {
     private DataModel dataModel;
+    private ViewHandler viewHandler;
     private ChangeModelService changeModelService;
     private NotificationService notificationService;
 
-    public CalendarViewModel(DataModel dataModel){
+    public CalendarViewModel(DataModel dataModel,ViewHandler viewHandler){
         this.dataModel = dataModel;
+        this.viewHandler = viewHandler;
     }
     public void init(ChangeModelService changeModelService, NotificationService notificationService) {
         this.changeModelService = changeModelService;
@@ -24,9 +27,10 @@ public class CalendarViewModel {
     }
     public Map<Integer, List<Note>> getNotesForCurrentMonth(ZonedDateTime dateFocus) {
         List<NoteMetadata> allNoteList = dataModel.getNotesMetadata();
-        List<Note> noteList = new ArrayList<>();
+        List<Note> noteList;
         int year = dateFocus.getYear();
         int month = dateFocus.getMonth().getValue();
+        allNoteList = allNoteList.stream().filter(n -> n.getDate() != null).toList();
         allNoteList = allNoteList.stream().filter(n -> n.getDate().getYear() == year && n.getDate().getMonth().getValue() == month).toList();
 
 
@@ -58,5 +62,8 @@ public class CalendarViewModel {
             }
         }
         return  notesMap;
+    }
+    public void openNoteByKey(int key){
+        viewHandler.openNote(key);
     }
 }

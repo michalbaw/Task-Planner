@@ -58,8 +58,9 @@ public class PrimaryViewController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        calendarView.setStyle("-fx-background-color: aquamarine;");
         CalendarViewController calendarController = calendarLoader.getController();
-        calendarController.init(calendarVM);
+        calendarController.init(calendarVM,calendarView);
         listTab.setContent(listView);
         boardTab.setContent(boardPane);
         calendarTab.setContent(calendarView);

@@ -57,7 +57,7 @@ public class SimpleDataModel implements DataModel {
         Note note = new SimpleNote(metadata);
         NoteBody body = fileHandler.loadBody(key);
         if (body == null) {
-            System.out.println("loaded body in null");
+//            System.out.println("loaded body in null");
             body = new SimpleNoteBody();
         }
         note.setNoteBody(body);

@@ -3,9 +3,6 @@ package app.taskplanner.view.noteview;
 import app.taskplanner.model.notes.SimpleTask;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListCell;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 
 
 public class TaskCell extends ListCell<SimpleTask> {

@@ -61,7 +61,7 @@
             </padding>
             <HBox fx:id="bottomOptions" alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="600.0" HBox.hgrow="ALWAYS">
                 <Label fx:id="statusMessage" prefHeight="18.0" prefWidth="138.0" text="Waiting for Changes..." />
-                <HBox fx:id="midBox" prefHeight="40.0" prefWidth="315.0">
+                <HBox fx:id="midBox" prefHeight="40.0" prefWidth="355.0">
                     <children>
                         <Button fx:id="save" mnemonicParsing="false" onAction="#saveNote" prefHeight="28.0" prefWidth="87.0" text="Save">
                             <padding>
@@ -73,9 +73,21 @@
                                 <Insets left="20.0" right="20.0" />
                             </padding>
                         </Button>
+                  <Button fx:id="resetDate" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#resetDate" prefHeight="28.0" prefWidth="119.0" text="Reset date">
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                  </Button>
                     </children>
                 </HBox>
-                <VBox fx:id="rightBox" prefHeight="40.0" prefWidth="168.0" />
+                <VBox fx:id="rightBox" prefHeight="40.0" prefWidth="167.0">
+               <children>
+                  <Button fx:id="removeTasks" mnemonicParsing="false" onAction="#removeTasks" prefHeight="36.0" prefWidth="164.0" text="Remove completed">
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                  </Button>
+               </children></VBox>
             </HBox>
         </HBox>
     </bottom>
@@ -93,7 +105,7 @@
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="148.0" prefWidth="158.0">
                             <children>
                                 <TextField fx:id="taskName" layoutY="2.0" prefHeight="26.0" prefWidth="114.0" promptText="Next task" />
-                                <Button fx:id="addButton" layoutX="116.0" layoutY="2.0" mnemonicParsing="false" onAction="#addTask" prefHeight="26.0" prefWidth="39.0" text="Add" />
+                                <Button fx:id="addButton" layoutX="104.0" mnemonicParsing="false" onAction="#addTask" prefHeight="28.0" prefWidth="51.0" text="Add" />
                             </children>
                         </AnchorPane>
                     </items>

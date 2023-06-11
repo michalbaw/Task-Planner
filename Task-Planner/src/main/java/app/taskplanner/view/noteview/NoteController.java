@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Iterator;
 
 import static javafx.collections.FXCollections.observableArrayList;
 
@@ -60,6 +61,7 @@ public class NoteController implements ViewController {
         taskItems = ((NoteViewModel) noteVM).getTasks();
         taskList.setItems(taskItems);
         taskList.setCellFactory(param -> new TaskCell());
+        setDateColor(datePicker.getValue());
     }
 
     @FXML
@@ -146,4 +148,12 @@ public class NoteController implements ViewController {
         taskName.clear();
     }
 
+    public void resetDate(ActionEvent actionEvent) {
+        datePicker.setValue(null);
+        setDateColor(datePicker.getValue());
+    }
+
+    public void removeTasks(ActionEvent actionEvent) {
+        taskItems.removeIf(SimpleTask::getStatus);
+    }
 }

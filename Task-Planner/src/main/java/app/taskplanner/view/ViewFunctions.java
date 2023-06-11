@@ -17,7 +17,7 @@ public class ViewFunctions {
         if (daysNumber == 0) return "today!";
         return daysNumber + " days";
     }
-    public static String color(Long number){
+    public static String getColorByNumber(Long number){
 
         if (number == null) return "#FFCCCC";
         if (number < -5) return "#FF66B2";

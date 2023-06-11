@@ -12,7 +12,7 @@ public class ViewFunctions {
     }
     public static String daysDisplay(LocalDate date){
         Long daysNumber = days(date);
-        if (daysNumber == null) return "no termin";
+        if (daysNumber == null) return "no deadline";
         if (daysNumber == 1 || daysNumber == -1) return daysNumber + " day";
         if (daysNumber == 0) return "today!";
         return daysNumber + " days";

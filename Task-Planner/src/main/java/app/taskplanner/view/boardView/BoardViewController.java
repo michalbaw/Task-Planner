@@ -32,6 +32,7 @@ public final class BoardViewController extends AnchorPane {
     private BoardViewModel boardVM;
     public ObservableList<Note> notes;
     private AnchorPane board;
+    private Button saveAll;
     private ListProperty<Note> notesOnBoardProperty;
     private double maxX; //later reassignment of notes
     private double maxY;
@@ -47,6 +48,9 @@ public final class BoardViewController extends AnchorPane {
         notesOnBoardProperty.bindBidirectional(this.boardVM.boardNotes());
         refresh();
         setNotes();
+
+        saveAll = new Button("Save all");
+        board.getChildren().add(saveAll);
     }
 
     public void refresh() {
@@ -54,7 +58,7 @@ public final class BoardViewController extends AnchorPane {
         currentNotes = boardVM.getNotes();
         notes = currentNotes;
         clearNotes();
-//        setNotes();
+        setNotes();
     }
 
     void setNotes() {
@@ -93,7 +97,7 @@ public final class BoardViewController extends AnchorPane {
             startY = e.getSceneY() - n.getTranslateY();
         });
         n.setOnMouseDragged(e -> {
-            n.setTranslateX(e.getSceneX()-startX);
+            n.setTranslateX(e.getSceneX() - startX);
             n.setTranslateY(e.getSceneY() - startY);
         });
     }

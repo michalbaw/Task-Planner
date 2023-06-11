@@ -20,6 +20,7 @@ public class NoteListCell extends ListCell<NoteMetadata> {
         titleLabel = new Label();
         dateLabel = new Label();
 
+        titleLabel.setWrapText(true);
         contentBox.getChildren().addAll(titleLabel, dateLabel);
         contentBox.setAlignment(Pos.CENTER_LEFT);
         contentBox.setSpacing(5);

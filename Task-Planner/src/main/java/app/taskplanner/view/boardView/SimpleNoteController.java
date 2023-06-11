@@ -78,6 +78,7 @@ public class SimpleNoteController {
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         contentPane.setBackground(new Background(new BackgroundFill(Color.LAVENDER,CornerRadii.EMPTY, Insets.EMPTY)));
         borderLine();
+        noteContent.setWrapText(true);
     }
     @FXML
     void setOnDetected(MouseEvent event) {

@@ -62,6 +62,7 @@ public class NoteController implements ViewController {
         taskList.setItems(taskItems);
         taskList.setCellFactory(param -> new TaskCell());
         setDateColor(datePicker.getValue());
+        noteContent.setWrapText(true);
     }
 
     @FXML

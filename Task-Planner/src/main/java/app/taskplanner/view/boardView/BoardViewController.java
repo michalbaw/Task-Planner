@@ -1,11 +1,15 @@
 package app.taskplanner.view.boardView;
 
 import app.taskplanner.StartApp;
+import app.taskplanner.model.DataModel;
 import app.taskplanner.model.notes.Note;
 //import app.taskplanner.viewmodel.SimpleNote;
 //import app.taskplanner.viewmodel.ViewModel;
 import app.taskplanner.model.notes.NoteMetadata;
 import app.taskplanner.model.notes.SimpleNote;
+import app.taskplanner.service.ChangeModelService;
+import app.taskplanner.service.NotificationService;
+import app.taskplanner.viewmodel.ViewHandler;
 import app.taskplanner.viewmodel.ViewModel;
 import app.taskplanner.viewmodel.boardviewmodel.BoardViewModel;
 
@@ -13,6 +17,7 @@ import static javafx.application.Application.launch;
 
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -23,51 +28,49 @@ import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public final class BoardViewController extends AnchorPane {
-    int counter=0;
+
+    private final ListProperty<Note> notesProperty = new SimpleListProperty<>(FXCollections.observableArrayList());
+    private final List<SimpleNoteController> controllers = new LinkedList<>();
     private BoardViewModel boardVM;
-    public ObservableList<Note> notes;
     private AnchorPane board;
-    private Button saveAll;
-    private ListProperty<Note> notesOnBoardProperty;
-    private double maxX; //later reassignment of notes
-    private double maxY;
     private double startX;
     private double startY;
-    private List<SimpleNoteController> controllers;
+    private Button saveAll;
+    private Button mixNotes;
 
-    public void init(ViewModel viewModel, AnchorPane board) {
-        this.boardVM = (BoardViewModel) viewModel;
+    public void init(BoardViewModel boardViewModel, AnchorPane board) {
+        this.boardVM = boardViewModel;
+        boardViewModel.setBoardViewController(this);
         this.board = board;
-        controllers = new ArrayList<>();
-        notesOnBoardProperty = new SimpleListProperty<>();
-        notesOnBoardProperty.bindBidirectional(this.boardVM.boardNotes());
-        refresh();
-        setNotes();
+        notesProperty.bindBidirectional(this.boardVM.notesProperty());
 
         saveAll = new Button("Save all");
         board.getChildren().add(saveAll);
+        saveAll.setOnAction(event -> {
+            saveAllNotes();
+        });
+        refreshNotes();
+    }
+
+    private void saveAllNotes() {
+        boardVM.saveAllNotes();
     }
 
     public void refresh() {
-        ObservableList<Note> currentNotes;
-        currentNotes = boardVM.getNotes();
-        notes = currentNotes;
-        clearNotes();
-        setNotes();
+        refreshNotes();
     }
 
-    void setNotes() {
-        for (Note note : notesOnBoardProperty) {
-            this.addNote(note.getMetadata());
+    private void refreshNotes() {
+        clearNotes();
+        for (int i=0; i<notesProperty.size(); i++){
+            addNote(notesProperty.get(i).getMetadata(),i);
         }
     }
 
-    void addNote(NoteMetadata noteInfo) {
+    void addNote(NoteMetadata noteInfo, int i) {
         controllers.add(new SimpleNoteController(noteInfo));
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(StartApp.class.getResource("simple-note-view.fxml"));
@@ -76,7 +79,7 @@ public final class BoardViewController extends AnchorPane {
             Parent root = loader.load();
             root.setStyle("-fx-background-color: transparent;");
             SimpleNoteController snc = loader.getController();
-            snc.init(noteInfo,boardVM);
+            snc.init(noteInfo,this, i);
             board.getChildren().add(root);
             makeDraggable(board.getChildren().get(board.getChildren().size()-1));
         } catch (IOException ioException) {
@@ -84,6 +87,14 @@ public final class BoardViewController extends AnchorPane {
         }
 //        controllers.get(controllers.size() - 1).borderLine();
     }
+
+    void clearNotes(){
+        controllers.clear();
+        //board.getChildren().clear();
+        ObservableList<Node> children = board.getChildren();
+        children.removeIf(node -> (node != saveAll && node != mixNotes));
+    }
+
     void makeDraggable(Node n){
         Random rand = new Random();
         double x = rand.nextDouble();
@@ -101,9 +112,11 @@ public final class BoardViewController extends AnchorPane {
             n.setTranslateY(e.getSceneY() - startY);
         });
     }
-    void clearNotes() {
-        ObservableList<Node> nodes = this.getChildren();
-        this.getChildren().clear();
-    }
 
+    public ListProperty<Note> notesProperty() {
+        return notesProperty;
+    }
+    public Note getNote(int x) {
+        return boardVM.getNote(x);
+    }
 }

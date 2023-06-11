@@ -39,7 +39,7 @@ public class ViewHandler implements Handler {
         this.singleNoteHandler = singleNoteHandler;
 
         listVM = new ListViewModel(dataModel, this);
-        boardVM = new BoardViewModel(dataModel);
+        boardVM = new BoardViewModel(dataModel,this);
         calendarVM = new CalendarViewModel(dataModel,this);
         NotificationService notificationService = new NotificationService();
         notificationService.init(listVM,boardVM);

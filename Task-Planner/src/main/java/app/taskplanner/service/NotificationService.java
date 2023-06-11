@@ -46,4 +46,16 @@ public class NotificationService {
         }
     }
 
+    public void notifyAllViewModels() {
+        listViewModel.refreshNotes();
+        boardViewModel.refreshNotes();
+        for (NoteViewModel nvm : noteViewModels) {
+            try {
+                nvm.refresh();
+            }
+            catch(NullPointerException e){
+                removeViewModel(nvm);
+            }
+        }
+    }
 }

@@ -22,26 +22,28 @@ public class DeadlineAlert {
     }
 
     public void showAlert() {
-        List<NoteMetadata> upcoming = getUpcoming();
+        List<NoteMetadata> upcoming = getUpcomingDeadlines();
+        if (upcoming.size() == 0)
+            return;
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("UPCOMING DEADLINE");
         alert.setHeaderText("You are running out of time! Consider completing those tasks:");
         ListView<String> upcomingList = new ListView<>();
         ListView<String> upcomingDates = new ListView<>();
-        GridPane gPane = new GridPane();
-        gPane.add(upcomingList, 0, 1);
-
-        //adapt to date in note
-        upcomingDates.getItems().addAll(upcoming.stream().map(s -> "19.10.2023").toList());
+//        GridPane gPane = new GridPane();
+        VBox vBox = new VBox();
+        vBox.getChildren().add(upcomingList);
+                //adapt to date in note
+                        upcomingDates.getItems().addAll(upcoming.stream().map(s -> s.getDate().toString()).toList());
         upcomingList.getItems().addAll(upcoming.stream().map(NoteMetadata::getTitle).toList());
         upcomingDates.setPrefHeight(15 + 35 * upcoming.size());
         upcomingList.setPrefHeight(15 + 35 * upcoming.size());
-        alert.getDialogPane().setContent(gPane);
+        alert.getDialogPane().setContent(vBox);
         alert.getDialogPane().getStylesheets().add(StartApp.class.getResource("styles.css").toExternalForm());
         alert.showAndWait();
     }
 
-    private List<NoteMetadata> getUpcoming() {
+    private List<NoteMetadata> getUpcomingDeadlines() {
         List<NoteMetadata> upcoming = new LinkedList<>();
         List<NoteMetadata> noteMetadataList = dataModel.getNotesMetadata();
         for (NoteMetadata nm : noteMetadataList){

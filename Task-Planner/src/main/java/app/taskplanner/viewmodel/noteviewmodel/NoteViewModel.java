@@ -92,7 +92,7 @@ public class NoteViewModel implements ViewModel {
 
     public void close() {
         notificationService.removeViewModel(this);
-        singleNoteHandler.closeNote(currentNote);
+        singleNoteHandler.closeNoteByReference(currentNote);
     }
 
     public int getKey() {

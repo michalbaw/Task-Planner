@@ -11,6 +11,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class DeadlineAlert {
         alert.setHeaderText("You are running out of time! Consider completing those tasks:");
         ListView<String> upcomingList = new ListView<>();
         ListView<String> upcomingDates = new ListView<>();
-//        GridPane gPane = new GridPane();
+        GridPane gPane = new GridPane();
         VBox vBox = new VBox();
         vBox.getChildren().add(upcomingList);
                 //adapt to date in note

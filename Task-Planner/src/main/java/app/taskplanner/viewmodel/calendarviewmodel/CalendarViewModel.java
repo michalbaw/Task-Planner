@@ -1,0 +1,62 @@
+package app.taskplanner.viewmodel.calendarviewmodel;
+
+import app.taskplanner.model.DataModel;
+import app.taskplanner.model.notes.Note;
+import app.taskplanner.model.notes.NoteMetadata;
+import app.taskplanner.service.ChangeModelService;
+import app.taskplanner.service.NotificationService;
+
+import java.io.IOException;
+import java.time.ZonedDateTime;
+import java.util.*;
+
+public class CalendarViewModel {
+    private DataModel dataModel;
+    private ChangeModelService changeModelService;
+    private NotificationService notificationService;
+
+    public CalendarViewModel(DataModel dataModel){
+        this.dataModel = dataModel;
+    }
+    public void init(ChangeModelService changeModelService, NotificationService notificationService) {
+        this.changeModelService = changeModelService;
+        this.notificationService = notificationService;
+    }
+    public Map<Integer, List<Note>> getNotesForCurrentMonth(ZonedDateTime dateFocus) {
+        List<NoteMetadata> allNoteList = dataModel.getNotesMetadata();
+        List<Note> noteList = new ArrayList<>();
+        int year = dateFocus.getYear();
+        int month = dateFocus.getMonth().getValue();
+        allNoteList = allNoteList.stream().filter(n -> n.getDate().getYear() == year && n.getDate().getMonth().getValue() == month).toList();
+
+
+            noteList = allNoteList.stream().map(n -> {
+                try {
+                    return dataModel.getNote(n.getKey());
+                } catch (IOException e) {
+                    System.err.println("jeżeli tutaj się zepsuje, to po tym wszystkim rzucam studia");
+                    return null;
+                }
+
+            }).toList();
+
+        return setNoteMap(noteList);
+    }
+    private Map<Integer, List<Note>> setNoteMap(List<Note> noteList) {
+        Map<Integer, List<Note>> notesMap = new HashMap<>();
+
+        for (Note Note: noteList) {
+            int NoteDate = Note.getMetadata().getDate().getDayOfMonth();
+            if(!notesMap.containsKey(NoteDate)){
+                notesMap.put(NoteDate, List.of(Note));
+            } else {
+                List<Note> manyNotesInOneDay = notesMap.get(NoteDate);
+
+                List<Note> newList = new ArrayList<>(manyNotesInOneDay);
+                newList.add(Note);
+                notesMap.put(NoteDate, newList);
+            }
+        }
+        return  notesMap;
+    }
+}

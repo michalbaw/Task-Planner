@@ -10,6 +10,7 @@ import app.taskplanner.service.NotificationService;
 import app.taskplanner.view.PrimaryViewController;
 import app.taskplanner.view.alerts.DeadlineAlert;
 import app.taskplanner.viewmodel.boardviewmodel.BoardViewModel;
+import app.taskplanner.viewmodel.calendarviewmodel.CalendarViewModel;
 import app.taskplanner.viewmodel.listviewmodel.ListViewModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,24 +29,26 @@ public class ViewHandler implements Handler {
     private final String css;
     private final SingleNoteHandler singleNoteHandler;
 
-    private final ListViewModel listViewModel;
-    private final BoardViewModel boardViewModel;
+    private final ListViewModel listVM;
+    private final BoardViewModel boardVM;
+    private final CalendarViewModel calendarVM;
 
     public ViewHandler(DataModel dataModel, Stage primaryStage, SingleNoteHandler singleNoteHandler) {
         this.dataModel = dataModel;
         this.primaryStage = primaryStage;
         this.singleNoteHandler = singleNoteHandler;
 
-        listViewModel = new ListViewModel(dataModel, this);
-        boardViewModel = new BoardViewModel(dataModel);
-
+        listVM = new ListViewModel(dataModel, this);
+        boardVM = new BoardViewModel(dataModel);
+        calendarVM = new CalendarViewModel(dataModel);
         NotificationService notificationService = new NotificationService();
-        notificationService.init(listViewModel,boardViewModel);
+        notificationService.init(listVM,boardVM);
         ChangeModelService changeModelService = new ChangeModelService();
         changeModelService.init(dataModel);
 
-        listViewModel.init(changeModelService, notificationService);
-        boardViewModel.init(changeModelService, notificationService);
+        listVM.init(changeModelService, notificationService);
+        boardVM.init(changeModelService, notificationService);
+        calendarVM.init(changeModelService,notificationService);
 
         css = Objects.requireNonNull(StartApp.class.getResource("styles.css")).toExternalForm();
         singleNoteHandler.init(dataModel, notificationService, changeModelService, css);
@@ -60,7 +63,7 @@ public class ViewHandler implements Handler {
             FXMLLoader loader = new FXMLLoader(StartApp.class.getResource("primary-view.fxml"));
             Parent root = loader.load();
             PrimaryViewController primaryVC = loader.getController();
-            primaryVC.init (listViewModel, boardViewModel);
+            primaryVC.init (listVM, boardVM,calendarVM);
             Scene mainScene = new Scene(root);
             mainScene.getStylesheets().add(css);
             primaryStage.setScene(mainScene);

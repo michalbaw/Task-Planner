@@ -70,9 +70,7 @@ public class SimpleFileHandler implements FileHandler {
 
     @Override
     public void saveBody(int key, NoteBody body) throws IOException {
-        System.out.println("saveBody " + key + " " + body.getContent());
         String location = prefixNotes + Integer.valueOf(key).toString();
-        System.out.println("location " + location);
         ObjectOutputStream stream = new ObjectOutputStream(Files.newOutputStream((Paths.get(location))));
         stream.writeObject(body);
         stream.flush();
@@ -87,7 +85,6 @@ public class SimpleFileHandler implements FileHandler {
 
     @Override
     public void initialize() throws IOException {
-        System.out.print("initialize, ");
         int key = 0;
         NoteBody body = new SimpleNoteBody();
         body.setContent("Initial content");

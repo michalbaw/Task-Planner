@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.taskplanner.view.noteview.NoteController">
+<BorderPane prefHeight="483.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.taskplanner.view.noteview.NoteController">
     <top>
         <MenuBar fx:id="menuBar">
             <Menu text="File">
-                <Menu fx:id="openAnother" mnemonicParsing="false" onAction="#listOtherNotes" text="Open another note">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Action 1" />
-                    </items>
-                </Menu>
                 <MenuItem fx:id="Save" mnemonicParsing="false" onAction="#saveNote" text="Save note" />
                 <MenuItem fx:id="CloseSave" mnemonicParsing="false" onAction="#saveAndClose" text="Save and close" />
                 <MenuItem fx:id="closeNoSave" mnemonicParsing="false" onAction="#closeNote" text="Close without saving" />
@@ -31,21 +38,21 @@
                                     <Insets left="20.0" right="20.0" />
                                 </padding>
                                 <font>
-                                    <Font name="DejaVu Serif Condensed Italic" size="13.0" />
+                                    <Font name="DejaVu Serif Condensed Italic" size="18.0" />
                                 </font>
                                 <opaqueInsets>
                                     <Insets />
                                 </opaqueInsets>
                             </TextField>
                             <DatePicker fx:id="datePicker" prefHeight="36.0" prefWidth="139.0" />
-                            <Button fx:id="taskButton" mnemonicParsing="false" onAction="#openTaskPage" prefHeight="36.0" prefWidth="101.0" text="Tasks" />
+                            <Button fx:id="taskButton" mnemonicParsing="false" onAction="#openTaskPage" prefHeight="36.0" prefWidth="95.0" text="Tasks" />
                         </children>
                     </HBox>
                     <HBox fx:id="textAndTasks" prefHeight="385.0" prefWidth="527.0">
                         <children>
                             <TextArea id="noteContent" fx:id="noteContent" prefHeight="386.0" prefWidth="532.0" promptText="Here goes note content" stylesheets="@styles.css">
                                 <font>
-                                    <Font name="DejaVu Serif Condensed Italic" size="13.0" />
+                                    <Font name="DejaVu Serif Condensed Italic" size="18.0" />
                                 </font>
                             </TextArea>
                         </children>
@@ -60,49 +67,55 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" />
             </padding>
             <HBox fx:id="bottomOptions" alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="600.0" HBox.hgrow="ALWAYS">
-                <Label fx:id="statusMessage" prefHeight="18.0" prefWidth="138.0" text="Waiting for Changes..." />
-                <HBox fx:id="midBox" prefHeight="40.0" prefWidth="355.0">
+                <Label fx:id="statusMessage" minWidth="169.0" prefHeight="18.0" prefWidth="169.0" text="Waiting for Changes..." />
+                <HBox fx:id="midBox" prefHeight="40.0" prefWidth="324.0">
                     <children>
-                        <Button fx:id="save" mnemonicParsing="false" onAction="#saveNote" prefHeight="28.0" prefWidth="87.0" text="Save">
+                        <Button fx:id="save" mnemonicParsing="false" onAction="#saveNote" prefHeight="37.0" prefWidth="75.0" text="Save">
                             <padding>
-                                <Insets left="20.0" right="20.0" />
+                                <Insets left="15.0" right="15.0" />
                             </padding>
                         </Button>
-                        <Button fx:id="saveAndClose" mnemonicParsing="false" onAction="#saveAndClose" prefHeight="28.0" prefWidth="129.0" text="Save and close">
+                        <Button fx:id="saveAndClose" mnemonicParsing="false" onAction="#saveAndClose" prefHeight="37.0" prefWidth="137.0" text="Save and close">
                             <padding>
-                                <Insets left="20.0" right="20.0" />
+                                <Insets left="15.0" right="15.0" />
                             </padding>
                         </Button>
-                  <Button fx:id="resetDate" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#resetDate" prefHeight="28.0" prefWidth="119.0" text="Reset date">
+                  <Button fx:id="resetDate" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#resetDate" prefHeight="37.0" prefWidth="120.0" text="Reset date">
                      <padding>
-                        <Insets left="20.0" right="20.0" />
+                        <Insets left="15.0" right="15.0" />
                      </padding>
                   </Button>
                     </children>
                 </HBox>
-                <VBox fx:id="rightBox" prefHeight="40.0" prefWidth="167.0">
+                <VBox fx:id="rightBox" prefHeight="40.0" prefWidth="175.0">
                <children>
-                  <Button fx:id="removeTasks" mnemonicParsing="false" onAction="#removeFinishedTasks" prefHeight="36.0" prefWidth="164.0" text="Remove completed">
+                  <Button fx:id="removeTasks" mnemonicParsing="false" onAction="#removeFinishedTasks" prefHeight="37.0" prefWidth="178.0" text="Remove completed">
                      <padding>
                         <Insets left="20.0" right="20.0" />
                      </padding>
+                     <VBox.margin>
+                        <Insets left="5.0" />
+                     </VBox.margin>
                   </Button>
                </children></VBox>
             </HBox>
         </HBox>
     </bottom>
     <right>
-        <SplitPane fx:id="taskPane" dividerPositions="0.06845965770171149" minWidth="0.0" orientation="VERTICAL" prefHeight="411.0" prefWidth="158.0" BorderPane.alignment="CENTER">
+        <SplitPane fx:id="taskPane" dividerPositions="0.08557457212713937" minWidth="0.0" orientation="VERTICAL" prefHeight="411.0" prefWidth="183.0" BorderPane.alignment="CENTER">
             <items>
                 <AnchorPane prefHeight="31.0" prefWidth="158.0">
                     <children>
-                        <Label fx:id="tasksDescriptions" layoutX="9.0" layoutY="4.0" prefHeight="25.0" prefWidth="158.0" text="  There is work to do:" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Label fx:id="tasksDescriptions" layoutX="9.0" layoutY="4.0" prefHeight="36.0" prefWidth="181.0" text="  There is work to do:" AnchorPane.bottomAnchor="-4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                     </children>
                 </AnchorPane>
-                <SplitPane dividerPositions="0.9151193633952255" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                <SplitPane dividerPositions="0.9151193633952255" orientation="VERTICAL" prefHeight="322.0" prefWidth="181.0">
                     <items>
-                        <ListView fx:id="taskList" onDragDetected="#setOnDetected" onDragDropped="#setOnDropped" onDragOver="#setOnOver" prefHeight="242.0" prefWidth="158.0" />
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="148.0" prefWidth="158.0">
+                        <ListView fx:id="taskList" onDragDetected="#setOnDetected" onDragDropped="#setOnDropped" onDragOver="#setOnOver" prefHeight="314.0" prefWidth="181.0" />
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="116.0" prefWidth="181.0">
                             <children>
                                 <TextField fx:id="taskName" layoutY="2.0" prefHeight="26.0" prefWidth="114.0" promptText="Next task" />
                                 <Button fx:id="addButton" layoutX="104.0" mnemonicParsing="false" onAction="#addTask" prefHeight="28.0" prefWidth="51.0" text="Add" />

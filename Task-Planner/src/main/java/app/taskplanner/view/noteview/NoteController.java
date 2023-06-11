@@ -44,7 +44,8 @@ public class NoteController implements ViewController {
     @FXML
     private DatePicker datePicker;
 
-
+    @FXML
+    private Label statusMessage;
     private ObservableList<SimpleTask> taskItems;
 
     @Override
@@ -58,6 +59,8 @@ public class NoteController implements ViewController {
         taskList.setCellFactory(param -> new TaskCell());
         setDateColor(datePicker.getValue());
         noteContent.setWrapText(true);
+        noteContent.textProperty().addListener(observable -> changeStatusMessage(true));
+        noteTitle.textProperty().addListener(observable -> changeStatusMessage(true));
     }
 
     @FXML
@@ -104,12 +107,12 @@ public class NoteController implements ViewController {
     @FXML
     void openTaskPage(ActionEvent event) {
         if (!opened) {
-            taskPane.setMinWidth(160);
-            taskPane.setPrefWidth(160);
-            noteVM.resizeX(-160);
+            taskPane.setMinWidth(185);
+            taskPane.setPrefWidth(185);
+            noteVM.resizeX(-185);
             opened = true;
         } else {
-            noteVM.resizeX(+160);
+            noteVM.resizeX(+185);
             opened = false;
         }
     }
@@ -117,6 +120,7 @@ public class NoteController implements ViewController {
     @FXML
     void saveNote() {
         setDateColor(datePicker.getValue());
+        changeStatusMessage(false);
         noteVM.save();
     }
 
@@ -150,5 +154,14 @@ public class NoteController implements ViewController {
 
     public void removeFinishedTasks(ActionEvent actionEvent) {
         taskItems.removeIf(SimpleTask::getStatus);
+    }
+    public void changeStatusMessage(boolean changed){
+        if(changed)
+        {
+            statusMessage.setText("You have unsaved changes");
+        }
+        else{
+            statusMessage.setText("Waiting for changes...");
+        }
     }
 }

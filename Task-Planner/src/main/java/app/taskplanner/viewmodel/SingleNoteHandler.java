@@ -59,7 +59,6 @@ public class SingleNoteHandler implements Handler {
     }
 
     public void closeNoteByReference(Note note) {
-        System.out.println("close note");
         for (int i = 0; i < noteStages.size(); i++) {
             if (noteStages.get(i).note.equals(note)) {
                 noteStages.get(i).stage.close();
@@ -69,7 +68,6 @@ public class SingleNoteHandler implements Handler {
         }
     }
     public void closeNoteByKey(int key) {
-        System.out.println("close note");
         int i = 0;
         while (i<noteStages.size()){
             for (; i < noteStages.size(); i++) {

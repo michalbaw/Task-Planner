@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.02" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.taskplanner.view.boardView.SimpleNoteController">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.taskplanner.view.boardView.SimpleNoteController">
    <center>
         <AnchorPane fx:id="contentPane" prefHeight="242.0" prefWidth="274.0">
             <VBox fx:id="pureNote" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="252.0" prefWidth="276.0">
@@ -22,7 +22,7 @@
                                     <Insets left="20.0" right="20.0" />
                                 </padding>
                                 <font>
-                                    <Font name="DejaVu Serif Condensed Italic" size="13.0" />
+                                    <Font name="DejaVu Serif Condensed Italic" size="18.0" />
                                 </font>
                                 <opaqueInsets>
                                     <Insets />
@@ -41,7 +41,7 @@
                         <children>
                             <TextArea id="noteContent" fx:id="noteContent" prefHeight="271.0" prefWidth="274.0" promptText="Here goes note content" stylesheets="@styles.css">
                                 <font>
-                                    <Font name="DejaVu Serif Condensed Italic" size="13.0" />
+                                    <Font name="DejaVu Serif Condensed Italic" size="18.0" />
                                 </font>
                             </TextArea>
                         </children>

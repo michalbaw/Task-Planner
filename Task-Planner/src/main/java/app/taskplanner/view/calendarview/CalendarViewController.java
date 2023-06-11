@@ -2,12 +2,10 @@ package app.taskplanner.view.calendarview;
 
 import app.taskplanner.StartApp;
 import app.taskplanner.model.notes.Note;
-import app.taskplanner.model.notes.NoteMetadata;
 import app.taskplanner.view.alerts.SelectionAlert;
 import app.taskplanner.viewmodel.calendarviewmodel.CalendarViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -24,21 +22,19 @@ public class CalendarViewController {
     ZonedDateTime today;
     CalendarViewModel calendarVM;
     String css;
+
     private Map<Integer,Integer> noteLibrary;
+
     @FXML
     private Text year;
-    @FXML
-    private HBox weekdays;
 
     @FXML
     private Text month;
 
     @FXML
     private FlowPane calendar;
-    @FXML
-    private AnchorPane calendarPane;
 
-    public void init(CalendarViewModel calendarVM,AnchorPane anchorPane) {
+    public void init(CalendarViewModel calendarVM) {
         css = Objects.requireNonNull(StartApp.class.getResource("styles.css")).toExternalForm();
         this.calendarVM = calendarVM;
         calendarVM.feelCalendarViewController(this);
@@ -64,7 +60,7 @@ public class CalendarViewController {
 
     private void displayMonth(){
         year.setText(String.valueOf(dateFocus.getYear()));
-        month.setText(String.valueOf(dateFocus.getMonth().getDisplayName(TextStyle.SHORT_STANDALONE,Locale.ENGLISH)));
+        month.setText(dateFocus.getMonth().getDisplayName(TextStyle.SHORT_STANDALONE,Locale.ENGLISH));
         noteLibrary.clear();
         double calendarWidth = calendar.getPrefWidth();
         double calendarHeight = calendar.getPrefHeight();

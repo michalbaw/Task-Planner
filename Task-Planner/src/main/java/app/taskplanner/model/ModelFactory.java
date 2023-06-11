@@ -6,11 +6,10 @@ import app.taskplanner.model.fileOperations.SimpleFileHandler;
 import java.io.IOException;
 
 public class ModelFactory {
-    private DataModel dataModel;
-    private FileHandler fileHandler;
+    private final DataModel dataModel;
 
     public ModelFactory() throws IOException {
-        fileHandler = new SimpleFileHandler();
+        FileHandler fileHandler = new SimpleFileHandler();
         dataModel = new SimpleDataModel(fileHandler);
     }
 

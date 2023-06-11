@@ -28,9 +28,13 @@ public class SimpleNoteMetadata implements NoteMetadata, Serializable {
     }
 
     @Override
-    public LocalDate getDate() { return this.date;}
+    public LocalDate getDate() {
+        return this.date;
+    }
 
     @Override
-    public void setDate(LocalDate date) { this.date = date;}
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 
 }

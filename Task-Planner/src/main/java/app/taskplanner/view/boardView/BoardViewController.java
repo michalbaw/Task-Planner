@@ -1,20 +1,8 @@
 package app.taskplanner.view.boardView;
 
 import app.taskplanner.StartApp;
-import app.taskplanner.model.DataModel;
 import app.taskplanner.model.notes.Note;
-//import app.taskplanner.viewmodel.SimpleNote;
-//import app.taskplanner.viewmodel.ViewModel;
-import app.taskplanner.model.notes.NoteMetadata;
-import app.taskplanner.model.notes.SimpleNote;
-import app.taskplanner.service.ChangeModelService;
-import app.taskplanner.service.NotificationService;
-import app.taskplanner.viewmodel.ViewHandler;
-import app.taskplanner.viewmodel.ViewModel;
 import app.taskplanner.viewmodel.boardviewmodel.BoardViewModel;
-
-import static javafx.application.Application.launch;
-
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -24,22 +12,17 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.*;
 
 public final class BoardViewController extends AnchorPane {
 
     private final ListProperty<Note> notesProperty = new SimpleListProperty<>(FXCollections.observableArrayList());
-    private final List<SimpleNoteController> controllers = new LinkedList<>();
     private BoardViewModel boardVM;
     private AnchorPane board;
     private double startX;
     private double startY;
     private Button saveAll;
-    private Button mixNotes;
 
     public void init(BoardViewModel boardViewModel, AnchorPane board) {
         this.boardVM = boardViewModel;
@@ -47,7 +30,7 @@ public final class BoardViewController extends AnchorPane {
         this.board = board;
         notesProperty.bindBidirectional(this.boardVM.notesProperty());
 
-        saveAll = new Button("Save all");
+        saveAll = new Button("Save all and mix");
         board.getChildren().add(saveAll);
         saveAll.setOnAction(event -> {
             saveAllNotes();
@@ -65,13 +48,12 @@ public final class BoardViewController extends AnchorPane {
 
     private void refreshNotes() {
         clearNotes();
-        for (int i=0; i<notesProperty.size(); i++){
-            addNote(notesProperty.get(i).getMetadata(),i);
+        for (int i = 0; i < notesProperty.size(); i++) {
+            addNote(notesProperty.get(i), i);
         }
     }
 
-    void addNote(NoteMetadata noteInfo, int i) {
-        controllers.add(new SimpleNoteController(noteInfo));
+    void addNote(Note note, int i) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(StartApp.class.getResource("simple-note-view.fxml"));
 
@@ -79,23 +61,21 @@ public final class BoardViewController extends AnchorPane {
             Parent root = loader.load();
             root.setStyle("-fx-background-color: transparent;");
             SimpleNoteController snc = loader.getController();
-            snc.init(noteInfo,boardVM, i);
+            snc.init(note, boardVM, i);
             board.getChildren().add(root);
-            makeDraggable(board.getChildren().get(board.getChildren().size()-1));
+            makeDraggable(board.getChildren().get(board.getChildren().size() - 1));
         } catch (IOException ioException) {
-           ioException.printStackTrace();
+            ioException.printStackTrace();
         }
-//        controllers.get(controllers.size() - 1).borderLine();
+
     }
 
-    void clearNotes(){
-        controllers.clear();
-        //board.getChildren().clear();
+    void clearNotes() {
         ObservableList<Node> children = board.getChildren();
-        children.removeIf(node -> (node != saveAll && node != mixNotes));
+        children.removeIf(node -> (node != saveAll));
     }
 
-    void makeDraggable(Node n){
+    void makeDraggable(Node n) {
         Random rand = new Random();
         double x = rand.nextDouble();
         double y = rand.nextDouble();
@@ -111,12 +91,5 @@ public final class BoardViewController extends AnchorPane {
             n.setTranslateX(e.getSceneX() - startX);
             n.setTranslateY(e.getSceneY() - startY);
         });
-    }
-
-    public ListProperty<Note> notesProperty() {
-        return notesProperty;
-    }
-    public Note getNote(int x) {
-        return boardVM.getNote(x);
     }
 }

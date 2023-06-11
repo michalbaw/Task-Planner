@@ -34,11 +34,11 @@ public class NoteListCell extends ListCell<NoteMetadata> {
             setGraphic(null);
         } else {
             titleLabel.setText(item.getTitle());
-            dateLabel.setText(ViewFunctions.daysDisplay(item.getDate()));
+            dateLabel.setText(ViewFunctions.dayNumberDisplay(item.getDate()));
 
             setGraphic(contentBox);
 
-            setStyle("-fx-background-color: " + ViewFunctions.color(ViewFunctions.days(item.getDate())));
+            setStyle("-fx-background-color: " + ViewFunctions.getColorForDate(item.getDate()));
         }
     }
 

@@ -10,14 +10,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.Iterator;
 
-import static javafx.collections.FXCollections.observableArrayList;
 
 public class NoteController implements ViewController {
 
@@ -127,7 +122,7 @@ public class NoteController implements ViewController {
     }
 
     private void setDateColor(LocalDate date) {
-        this.menuBar.setStyle("-fx-background-color: " + ViewFunctions.color(ViewFunctions.days(date)));
+        this.menuBar.setStyle("-fx-background-color: " + ViewFunctions.getColorForDate(date));
     }
 
     @FXML

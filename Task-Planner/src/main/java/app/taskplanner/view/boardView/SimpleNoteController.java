@@ -77,69 +77,37 @@ public class SimpleNoteController {
         contentPane.setBorder(new Border(new BorderStroke(Color.BLACK,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         contentPane.setBackground(new Background(new BackgroundFill(Color.LAVENDER,CornerRadii.EMPTY, Insets.EMPTY)));
-        borderLine();
+        //borderLine();
         noteContent.setWrapText(true);
     }
+
     @FXML
     void setOnDetected(MouseEvent event) {
-
     }
-
     @FXML
     void setOnDropped(DragEvent event) {
-
     }
-
     @FXML
     void setOnOver(DragEvent event) {
-
     }
     @FXML
     void openInSeparateWindow(ActionEvent event) {
-
     }
-
-    public double getWidth() {
-        return width;
-    }
-
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
-    public double getHeight() {
-        return height;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
-    public double getY() {
-        return Y;
-    }
-
-    public void setY(double y) {
-        Y = y;
-    }
-
-    public double getX() {
-        return X;
-    }
-
-    public void setX(double x) {
-        X = x;
-    }
-
     public NoteMetadata getSelfNote() {
         return selfNote;
     }
-    public void borderLine(){
+//    public void borderLine(){
 //        contentPanex.setBorder(new Border(new BorderStroke(Color.BLACK,
 //                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-    }
-    public void setSelfNote(NoteMetadata selfNote) {
-        this.selfNote = selfNote;
-    }
+//    }
+    public void setSelfNote(NoteMetadata selfNote) {this.selfNote = selfNote;}
+    public double getWidth() {return width;}
+    public void setWidth(double width) {this.width = width;}
+    public double getHeight() {return height;}
+    public void setHeight(double height) {this.height = height;}
+    public double getY() {return Y;}
+    public void setY(double y) {Y = y;}
+    public double getX() {return X;}
+    public void setX(double x) {X = x;}
 }
 

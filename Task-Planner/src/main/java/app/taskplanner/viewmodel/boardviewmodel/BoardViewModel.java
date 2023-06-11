@@ -21,35 +21,27 @@ import java.util.List;
 
 public class BoardViewModel implements ViewModel {
     private ViewHandler viewHandler;
-    private DataModel dataModel;
     private Stage stage;
-    private ObservableList<Note> notes = FXCollections.observableArrayList();
+    private DataModel dataModel;
+    private final ObservableList<Note> notes = FXCollections.observableArrayList();
     private ChangeModelService changeModelService;
     private NotificationService notificationService;
 
+    public BoardViewModel(DataModel dataModel) {
+        this.dataModel = dataModel;
+    }
+
     public ListProperty<Note> boardNotes() { return new SimpleListProperty<Note>(notes);}
-
-    public void init(Handler viewHandler, DataModel dataModel) {
-        this.viewHandler = (ViewHandler) viewHandler;
-        this.dataModel = dataModel;
-        stage = new Stage();
-    }
-
-
-    public void init(Handler viewHandler, DataModel dataModel, Stage currentView) {
-        this.viewHandler = (ViewHandler) viewHandler;
-        this.dataModel = dataModel;
-        this.stage = currentView;
-    }
 
     private void loadNotes() {
         List<NoteMetadata> notesMetadata = dataModel.getNotesMetadata();
-        System.out.println(notesMetadata.size());
+        //System.out.println(notesMetadata.size());
+        notes.clear();
         for(NoteMetadata note : notesMetadata){
             try{
                 notes.add(dataModel.getNote(note.getKey()));
             }
-            catch (IOException ioioio)
+            catch (IOException io)
             {
                 System.err.println("prosze, uwolnijcie mnie");
             }
@@ -59,10 +51,6 @@ public class BoardViewModel implements ViewModel {
     public ObservableList<Note> getNotes() {
         loadNotes();
         return notes;
-    }
-
-    public BoardViewModel(DataModel dataModel) {
-        this.dataModel = dataModel;
     }
 
 
@@ -77,14 +65,6 @@ public class BoardViewModel implements ViewModel {
         return tasks;
     }
 
-
-    public void resizeX(SimpleNoteController ctrl, double px) {
-        ctrl.setX(ctrl.getX() + px);
-    }
-
-    public void resizeY(SimpleNoteController ctrl, double px) {
-        ctrl.setY(ctrl.getY() + px);
-    }
     public Note getNote(int x) {
         try {
             return dataModel.getNote(x);
@@ -93,28 +73,25 @@ public class BoardViewModel implements ViewModel {
         }
     }
 
-    class NoteOnBoard {
-        boolean checkListMode;
-        Note note;
-        SimpleNoteController controller;
+    //class NoteOnBoard {
+    //    boolean checkListMode;
+    //    Note note;
+    //    SimpleNoteController controller;
+    //    public void setNote(SimpleNote note) {
+    //        this.note = note;
+    //    }
 
+    //    public SimpleNoteController getController() {
+    //        return controller;
+    //    }
 
-
-        public void setNote(SimpleNote note) {
-            this.note = note;
-        }
-
-        public SimpleNoteController getController() {
-            return controller;
-        }
-
-        public void setController(SimpleNoteController controller) {
-            this.controller = controller;
-        }
-    }
+    //    public void setController(SimpleNoteController controller) {
+    //        this.controller = controller;
+    //    }
+    //}
 
     public void refreshNotes() {
-        //loadNotes();
+        loadNotes();
     }
     public void init(ChangeModelService changeModelService, NotificationService notificationService) {
         this.changeModelService = changeModelService;

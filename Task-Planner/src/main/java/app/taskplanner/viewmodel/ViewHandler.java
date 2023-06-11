@@ -68,7 +68,7 @@ public class ViewHandler implements Handler {
             primaryStage.show();
 
             DeadlineAlert deadlineAlert = new DeadlineAlert(dataModel);
-            deadlineAlert.show();
+            deadlineAlert.showAlert();
 
         } catch (IOException e) {
             e.printStackTrace();

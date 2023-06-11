@@ -1,9 +1,7 @@
 package app.taskplanner.viewmodel.boardviewmodel;
 
 import app.taskplanner.model.DataModel;
-import app.taskplanner.model.notes.Note;
-import app.taskplanner.model.notes.Task;
-import app.taskplanner.model.notes.SimpleNote;
+import app.taskplanner.model.notes.*;
 import app.taskplanner.service.ChangeModelService;
 import app.taskplanner.service.NotificationService;
 import app.taskplanner.view.boardView.SimpleNoteController;
@@ -18,6 +16,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.List;
 
 public class BoardViewModel implements ViewModel {
@@ -44,7 +43,17 @@ public class BoardViewModel implements ViewModel {
     }
 
     private void loadNotes() {
-
+        List<NoteMetadata> notesMetadata = dataModel.getNotesMetadata();
+        System.out.println(notesMetadata.size());
+        for(NoteMetadata note : notesMetadata){
+            try{
+                notes.add(dataModel.getNote(note.getKey()));
+            }
+            catch (IOException ioioio)
+            {
+                System.err.println("prosze, uwolnijcie mnie");
+            }
+        }
     }
 
     public ObservableList<Note> getNotes() {
@@ -57,9 +66,14 @@ public class BoardViewModel implements ViewModel {
     }
 
 
-    public List<Task> getTasks(SimpleNoteController ctrl) {
-        List<Task> tasks = null;
-
+    public List<SimpleTask> getTasks(SimpleNoteController ctrl) {
+        List<SimpleTask> tasks = null;
+        try {
+            tasks= dataModel.getNote(ctrl.getSelfNote().getKey()).getNoteBody().getTasks();
+        }
+        catch (IOException ioioio) {
+            System.err.println("mamo, zjadlem ta srebrna kulke z termometru");
+        }
         return tasks;
     }
 
@@ -72,7 +86,11 @@ public class BoardViewModel implements ViewModel {
         ctrl.setY(ctrl.getY() + px);
     }
     public Note getNote(int x) {
-       return null;
+        try {
+            return dataModel.getNote(x);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     class NoteOnBoard {

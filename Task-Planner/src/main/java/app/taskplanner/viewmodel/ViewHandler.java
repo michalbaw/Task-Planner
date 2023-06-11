@@ -96,7 +96,7 @@ public class ViewHandler implements Handler {
     }
 
     public void closeNote(int key) {
-        singleNoteHandler.closeNote(key);
+        singleNoteHandler.closeNoteByKey(key);
     }
 
     public void closeAllNotes() {

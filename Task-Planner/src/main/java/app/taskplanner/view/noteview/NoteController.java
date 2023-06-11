@@ -106,7 +106,6 @@ public class NoteController implements ViewController {
         if (!opened) {
             taskPane.setMinWidth(160);
             taskPane.setPrefWidth(160);
-            //taskList.setCellFactory(CheckBoxListCell.forListView(NoteTask));
             noteVM.resizeX(-160);
             opened = true;
         } else {
@@ -149,7 +148,7 @@ public class NoteController implements ViewController {
         setDateColor(datePicker.getValue());
     }
 
-    public void removeTasks(ActionEvent actionEvent) {
+    public void removeFinishedTasks(ActionEvent actionEvent) {
         taskItems.removeIf(SimpleTask::getStatus);
     }
 }

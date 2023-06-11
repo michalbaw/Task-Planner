@@ -82,7 +82,7 @@
                 </HBox>
                 <VBox fx:id="rightBox" prefHeight="40.0" prefWidth="167.0">
                <children>
-                  <Button fx:id="removeTasks" mnemonicParsing="false" onAction="#removeTasks" prefHeight="36.0" prefWidth="164.0" text="Remove completed">
+                  <Button fx:id="removeTasks" mnemonicParsing="false" onAction="#removeFinishedTasks" prefHeight="36.0" prefWidth="164.0" text="Remove completed">
                      <padding>
                         <Insets left="20.0" right="20.0" />
                      </padding>

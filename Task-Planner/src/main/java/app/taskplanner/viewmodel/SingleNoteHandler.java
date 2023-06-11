@@ -43,14 +43,12 @@ public class SingleNoteHandler implements Handler {
             NoteViewModel nvm = new NoteViewModel();
             nvm.setupNote(note);
             notificationService.addNoteViewModel(nvm);
-//          nvm.resizeX(-160);
             Stage noteStage = new Stage();
             nvm.init(this, dataModel, changeModelService, notificationService,noteStage);
             nc.init(nvm);
             noteStage.setTitle(note.getMetadata().getTitle());//tytul notatki
             Scene noteScene = new Scene(root);
             noteStage.setScene(noteScene);
-//          noteStages.add(new StageDescr(noteStage, note));
             noteScene.getStylesheets().add(css);
             noteStage.show();
             StageDescr stageDescr =  new StageDescr(noteStage,note);
@@ -60,7 +58,7 @@ public class SingleNoteHandler implements Handler {
         }
     }
 
-    public void closeNote(Note note) {
+    public void closeNoteByReference(Note note) {
         System.out.println("close note");
         for (int i = 0; i < noteStages.size(); i++) {
             if (noteStages.get(i).note.equals(note)) {
@@ -70,7 +68,7 @@ public class SingleNoteHandler implements Handler {
             }
         }
     }
-    public void closeNote(int key) {
+    public void closeNoteByKey(int key) {
         System.out.println("close note");
         int i = 0;
         while (i<noteStages.size()){

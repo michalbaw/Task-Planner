@@ -75,6 +75,9 @@ public class BoardViewModel implements ViewModel {
     public void setBoardViewController(BoardViewController boardViewController) {
         this.boardViewController = boardViewController;
     }
+    public void openInSeparateWindow(int key){
+        viewHandler.openNote(key);
+    }
 /*
 
     public List<SimpleTask> getTasks(SimpleNoteController ctrl) {

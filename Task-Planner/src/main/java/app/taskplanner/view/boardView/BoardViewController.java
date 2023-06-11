@@ -79,7 +79,7 @@ public final class BoardViewController extends AnchorPane {
             Parent root = loader.load();
             root.setStyle("-fx-background-color: transparent;");
             SimpleNoteController snc = loader.getController();
-            snc.init(noteInfo,this, i);
+            snc.init(noteInfo,boardVM, i);
             board.getChildren().add(root);
             makeDraggable(board.getChildren().get(board.getChildren().size()-1));
         } catch (IOException ioException) {

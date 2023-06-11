@@ -37,11 +37,11 @@ public final class BoardViewController extends AnchorPane {
 
     public void init(ViewModel viewModel, AnchorPane board) {
         this.boardVM = (BoardViewModel) viewModel;
-        refresh();
         this.board = board;
         controllers = new ArrayList<>();
         notesOnBoardProperty = new SimpleListProperty<>();
         notesOnBoardProperty.bindBidirectional(this.boardVM.boardNotes());
+        refresh();
         setNotes();
     }
 
@@ -54,6 +54,7 @@ public final class BoardViewController extends AnchorPane {
     }
 
     void setNotes() {
+        System.out.println("ustawiam" + notesOnBoardProperty.get().size());
         for (Note note : notesOnBoardProperty) {
             this.addNote(note.getMetadata());
         }
@@ -64,11 +65,14 @@ public final class BoardViewController extends AnchorPane {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(StartApp.class.getResource("simple-note-view.fxml"));
         loader.setController(controllers.get(controllers.size() - 1));
+
         try {
             loader.load();
+            System.out.println("setup");
             Parent root = loader.getRoot();
             board.getChildren().add(root);
-        } catch (IOException ignored) {
+        } catch (IOException ioException) {
+           ioException.printStackTrace();
         }
     }
 

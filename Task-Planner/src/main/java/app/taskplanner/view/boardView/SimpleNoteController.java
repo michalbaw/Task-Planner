@@ -16,6 +16,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -57,8 +58,7 @@ public class SimpleNoteController {
     private TextField taskName;
 
     @FXML
-    private SplitPane taskPane;
-
+    private BorderPane mainBorder;
     @FXML
     private Label tasksDescriptions;
 
@@ -68,7 +68,6 @@ public class SimpleNoteController {
     SimpleNoteController(NoteMetadata noteMetadata) {
         selfNote = noteMetadata;
     }
-
 
     @FXML
     void setOnDetected(MouseEvent event) {
@@ -82,6 +81,10 @@ public class SimpleNoteController {
 
     @FXML
     void setOnOver(DragEvent event) {
+
+    }
+    @FXML
+    void openInSeparateWindow(ActionEvent event) {
 
     }
 

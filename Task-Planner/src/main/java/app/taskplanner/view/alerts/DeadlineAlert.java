@@ -45,7 +45,7 @@ public class DeadlineAlert {
         List<NoteMetadata> upcoming = new LinkedList<>();
         List<NoteMetadata> noteMetadataList = dataModel.getNotesMetadata();
         for (NoteMetadata nm : noteMetadataList){
-            if (nm.getDate() != null && ViewFunctions.getDaysToDeadline(nm.getDate())<2)
+            if (nm.getDate() != null && ViewFunctions.getDaysToDeadline(nm.getDate())<7)
                 upcoming.add(nm);
         }
         return upcoming;

@@ -3,11 +3,6 @@ body {
   background-color: #f1f1f1;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
 
 /* Header */
 .header {
@@ -61,22 +56,8 @@ body {
   background-color: #ff1744;
 }
 
-/* Card */
-.card {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  padding: 20px;
-  margin-bottom: 20px;
-}
 
-.card h2 {
-  margin-top: 0;
-}
 
-.card p {
-  margin-bottom: 0;
-}
 
 /* Footer */
 .footer {
@@ -88,4 +69,11 @@ body {
 
 .footer p {
   margin: 0;
+}
+
+.border {
+  -fx-border-width: 2px;
+  -fx-border-style: solid;
+  -fx-border-color: black;
+  -fx-border-radius: 5px;
 }

@@ -10,19 +10,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.effect.DropShadow?>
-<?import java.net.URL?>
-<BorderPane prefHeight="264.0" prefWidth="271.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" >
-    <center>
-        <AnchorPane prefHeight="242.0" prefWidth="274.0">
-            <stylesheets>
-                <URL value="@styles2.css" />
-            </stylesheets>
+<BorderPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.taskplanner.view.boardView.SimpleNoteController">
+   <center>
+        <AnchorPane fx:id="contentPane" prefHeight="242.0" prefWidth="274.0">
             <VBox fx:id="pureNote" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="252.0" prefWidth="276.0">
                 <children>
                     <HBox prefHeight="29.0" prefWidth="403.0">
                         <children>
-                            <TextField fx:id="noteTitle" maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="201.0" promptText="Note title" stylesheets="@styles.css">
+                            <TextField fx:id="noteTitle" maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="201.0" promptText="Note title" stylesheets="@styles2.css">
                                 <padding>
                                     <Insets left="20.0" right="20.0" />
                                 </padding>
@@ -32,8 +27,14 @@
                                 <opaqueInsets>
                                     <Insets />
                                 </opaqueInsets>
+                        <HBox.margin>
+                           <Insets bottom="2.0" left="4.0" top="2.0" />
+                        </HBox.margin>
                             </TextField>
-                            <Button fx:id="openButton" mnemonicParsing="false" onAction="#openInSeparateWindow" prefHeight="26.0" prefWidth="73.0" text="Details" />
+                            <Button fx:id="openButton" mnemonicParsing="false" onAction="#openInSeparateWindow" prefHeight="26.0" prefWidth="73.0" text="Details">
+                        <HBox.margin>
+                           <Insets bottom="2.0" right="4.0" top="2.0" />
+                        </HBox.margin></Button>
                         </children>
                     </HBox>
                     <HBox fx:id="textAndTasks" prefHeight="271.0" prefWidth="256.0">
@@ -48,12 +49,8 @@
                 </children>
             </VBox>
         </AnchorPane>
-    </center>
-    <top>
-        <AnchorPane prefHeight="27.0" prefWidth="421.0" BorderPane.alignment="CENTER">
-            <children>
-                <Button layoutX="14.0" layoutY="1.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="27.0" text="X" />
-            </children>
-        </AnchorPane>
-    </top>
+   </center>
+   <top>
+      <VBox prefHeight="13.0" prefWidth="276.0" BorderPane.alignment="CENTER" />
+   </top>
 </BorderPane>

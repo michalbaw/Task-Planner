@@ -1,26 +1,22 @@
 package app.taskplanner.view.boardView;
 
 import app.taskplanner.model.notes.NoteMetadata;
-import app.taskplanner.model.notes.Task;
 //import app.taskplanner.viewmodel.NoteTasks;
 import app.taskplanner.viewmodel.boardviewmodel.BoardViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-
-import java.util.List;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 public class SimpleNoteController {
     private boolean opened = false;
@@ -32,6 +28,9 @@ public class SimpleNoteController {
     private BoardViewModel boardVM;
     @FXML
     private Button addButton;
+
+    @FXML
+    private AnchorPane contentPane;
 
     @FXML
     private MenuItem closeNoSave;
@@ -66,9 +65,21 @@ public class SimpleNoteController {
     private HBox textAndTasks;
 
     SimpleNoteController(NoteMetadata noteMetadata) {
-        selfNote = noteMetadata;
-    }
 
+    }
+    public SimpleNoteController(){};
+
+    public void init(NoteMetadata noteMetadata,BoardViewModel boardVM){
+        this.boardVM = boardVM;
+        selfNote = noteMetadata;
+        noteTitle.setText(selfNote.getTitle());
+        noteContent.setText(boardVM.getNote(selfNote.getKey()).getNoteBody().getContent());
+        contentPane.setBorder(new Border(new BorderStroke(Color.BLACK,
+                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        contentPane.setBackground(new Background(new BackgroundFill(Color.LAVENDER,CornerRadii.EMPTY, Insets.EMPTY)));
+        System.out.println("elotutaja");
+        borderLine();
+    }
     @FXML
     void setOnDetected(MouseEvent event) {
 
@@ -123,7 +134,13 @@ public class SimpleNoteController {
     public NoteMetadata getSelfNote() {
         return selfNote;
     }
-
+    public void initialize(){
+        System.out.println("eloo");
+    }
+    public void borderLine(){
+//        contentPanex.setBorder(new Border(new BorderStroke(Color.BLACK,
+//                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+    }
     public void setSelfNote(NoteMetadata selfNote) {
         this.selfNote = selfNote;
     }

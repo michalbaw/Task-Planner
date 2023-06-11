@@ -18,12 +18,6 @@ public class SimpleNoteController {
     private BoardViewModel boardVM;
 
     @FXML
-    private Button openButton;
-
-    private TextArea textArea;
-    private Object vmObject;
-
-    @FXML
     private AnchorPane contentPane;
 
     @FXML
@@ -39,22 +33,18 @@ public class SimpleNoteController {
         this.boardVM = boardVM;
         selfNote = noteMetadata;
         noteTitle.setText(selfNote.getTitle());
-        //noteTitle.textProperty().bindBidirectional((Property<String>) boardVC.notesProperty().get(i));
+        //noteTitle.textProperty().bindBidirectional((Property<String>) boardVM.notesProperty().get(i));
         noteContent.setText(boardVM.getNote(selfNote.getKey()).getNoteBody().getContent());
         contentPane.setBorder(new Border(new BorderStroke(Color.BLACK,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         contentPane.setBackground(new Background(new BackgroundFill(Color.LAVENDER,CornerRadii.EMPTY, Insets.EMPTY)));
-        //note.bindBidirectional(this.boardVM.notesProperty());
-        //borderLine();
+
         noteContent.setWrapText(true);
     }
 
     @FXML
     void openInSeparateWindow(ActionEvent event) {
         boardVM.openInSeparateWindow(selfNote.getKey());
-    }
-    public NoteMetadata getSelfNote() {
-        return selfNote;
     }
 
 }

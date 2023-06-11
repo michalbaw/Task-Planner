@@ -42,7 +42,7 @@ public class ViewHandler implements Handler {
         boardVM = new BoardViewModel(dataModel,this);
         calendarVM = new CalendarViewModel(dataModel,this);
         NotificationService notificationService = new NotificationService();
-        notificationService.init(listVM,boardVM);
+        notificationService.init(listVM,boardVM,calendarVM);
         ChangeModelService changeModelService = new ChangeModelService();
         changeModelService.init(dataModel);
 

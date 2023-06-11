@@ -1,6 +1,7 @@
 package app.taskplanner.service;
 
 import app.taskplanner.viewmodel.boardviewmodel.BoardViewModel;
+import app.taskplanner.viewmodel.calendarviewmodel.CalendarViewModel;
 import app.taskplanner.viewmodel.listviewmodel.ListViewModel;
 import app.taskplanner.viewmodel.noteviewmodel.NoteViewModel;
 
@@ -10,11 +11,13 @@ import java.util.List;
 public class NotificationService {
     ListViewModel listViewModel;
     BoardViewModel boardViewModel;
+    CalendarViewModel calendarViewModel;
     List<NoteViewModel> noteViewModels;
 
-    public void init(ListViewModel listViewModel, BoardViewModel boardViewModel) {
+    public void init(ListViewModel listViewModel, BoardViewModel boardViewModel, CalendarViewModel calendarViewModel) {
         this.listViewModel = listViewModel;
         this.boardViewModel = boardViewModel;
+        this.calendarViewModel = calendarViewModel;
         noteViewModels = new LinkedList<>();
     }
 
@@ -29,11 +32,13 @@ public class NotificationService {
     public void notifyViewModels() {
         listViewModel.refreshNotes();
         boardViewModel.refreshNotes();
+        calendarViewModel.refreshCalendar();
     }
 
     public void notifyViewModels(int key) {
         listViewModel.refreshNotes();
         boardViewModel.refreshNotes();
+        calendarViewModel.refreshCalendar();
         for (NoteViewModel nvm : noteViewModels) {
             if (nvm.getKey() == key) {
                 try {
@@ -49,6 +54,7 @@ public class NotificationService {
     public void notifyAllViewModels() {
         listViewModel.refreshNotes();
         boardViewModel.refreshNotes();
+        calendarViewModel.refreshCalendar();
         for (NoteViewModel nvm : noteViewModels) {
             try {
                 nvm.refresh();

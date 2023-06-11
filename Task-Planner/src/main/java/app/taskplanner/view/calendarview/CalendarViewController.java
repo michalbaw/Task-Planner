@@ -41,6 +41,7 @@ public class CalendarViewController {
     public void init(CalendarViewModel calendarVM,AnchorPane anchorPane) {
         css = Objects.requireNonNull(StartApp.class.getResource("styles.css")).toExternalForm();
         this.calendarVM = calendarVM;
+        calendarVM.feelCalendarViewController(this);
         dateFocus = ZonedDateTime.now();
         today = ZonedDateTime.now();
         noteLibrary = new HashMap<>();
@@ -150,7 +151,10 @@ public class CalendarViewController {
         dayUnitBox.setStyle("-fx-background-color:PINK");
         stackPane.getChildren().add(dayUnitBox);
     }
-
+    public void refresh(){
+        calendar.getChildren().clear();
+        displayMonth();
+    }
 
 
 

@@ -4,6 +4,7 @@ import app.taskplanner.StartApp;
 import app.taskplanner.model.notes.NoteMetadata;
 import app.taskplanner.view.ViewController;
 import app.taskplanner.view.alerts.SelectionAlert;
+import app.taskplanner.view.alerts.WrongSelectionAlert;
 import app.taskplanner.viewmodel.ViewModel;
 import app.taskplanner.viewmodel.listviewmodel.ListViewModel;
 import javafx.event.ActionEvent;
@@ -108,7 +109,12 @@ public class ListViewController implements ViewController {
         Button openNote = new Button("Open");
         Button deleteNote = new Button("Delete");
         VBox vbox = new VBox(openNote, deleteNote);
+        if(item.intValue() >= listOfNotes.getItems().size() || item.intValue() < 0){
+            new WrongSelectionAlert().show();
+            return;
+        }
         int key = listOfNotes.getItems().get(item).getKey();
+
         openNote.setOnAction(click -> {
             listVM.openNote(key);
         });

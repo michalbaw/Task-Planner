@@ -2,8 +2,6 @@ package app.taskplanner.viewmodel;
 
 import app.taskplanner.StartApp;
 import app.taskplanner.model.notes.Note;
-import app.taskplanner.model.notes.SimpleNote;
-import app.taskplanner.model.notes.NoteMetadata;
 import app.taskplanner.model.DataModel;
 import app.taskplanner.service.ChangeModelService;
 import app.taskplanner.service.NotificationService;
@@ -12,8 +10,6 @@ import app.taskplanner.view.alerts.DeadlineAlert;
 import app.taskplanner.viewmodel.boardviewmodel.BoardViewModel;
 import app.taskplanner.viewmodel.calendarviewmodel.CalendarViewModel;
 import app.taskplanner.viewmodel.listviewmodel.ListViewModel;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -48,7 +44,7 @@ public class ViewHandler implements Handler {
 
         listVM.init(changeModelService, notificationService);
         boardVM.init(changeModelService, notificationService);
-        calendarVM.init(changeModelService,notificationService);
+        //calendarVM.init(changeModelService,notificationService);
 
         css = Objects.requireNonNull(StartApp.class.getResource("styles.css")).toExternalForm();
         singleNoteHandler.init(dataModel, notificationService, changeModelService, css);
@@ -73,13 +69,7 @@ public class ViewHandler implements Handler {
             Image icon = new Image(Objects.requireNonNull(StartApp.class.getResourceAsStream("main.png")));
             primaryStage.getIcons().add(icon);
             primaryStage.show();
-            //for the presentation's sake
-            //SimpleNote s = new SimpleNote();
-            //s.getMetadata().setTitle("siemson");
-            //ObservableList<NoteMetadata> l = FXCollections.observableArrayList();
-            //l.add(s.getMetadata());
 
-            //todo update to note structure
             DeadlineAlert deadlineAlert = new DeadlineAlert(dataModel);
             deadlineAlert.showAlert();
 

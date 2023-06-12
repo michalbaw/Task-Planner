@@ -32,19 +32,9 @@ public class NoteViewModel implements ViewModel {
     private final ObservableList<SimpleTask> tasks = FXCollections.observableArrayList();
 
 
-    public LocalDate getNoteDate() {
-        return noteDate.get();
-    }
-
-    public void setNoteDate(LocalDate date) {
-        noteDate.set(date);
-    }
-
     public ObjectProperty<LocalDate> noteDateProperty() {
         return noteDate;
     }
-
-
     public ObservableList<SimpleTask> getTasks() {
         return tasks;
     }
@@ -115,9 +105,6 @@ public class NoteViewModel implements ViewModel {
     }
     public void resizeX(double X) {
         noteStage.setWidth(noteStage.getWidth() + X);
-    }
-    public void resizeY(double Y) {
-        noteStage.setHeight(noteStage.getHeight() + Y);
     }
     public void init(SingleNoteHandler singleNoteHandler, DataModel dataModel, ChangeModelService cms, NotificationService ns, Stage noteStage) {
         this.dataModel = dataModel;

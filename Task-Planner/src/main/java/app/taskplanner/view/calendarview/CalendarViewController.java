@@ -4,7 +4,6 @@ import app.taskplanner.StartApp;
 import app.taskplanner.model.notes.Note;
 import app.taskplanner.view.alerts.SelectionAlert;
 import app.taskplanner.viewmodel.calendarviewmodel.CalendarViewModel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.*;
@@ -45,14 +44,14 @@ public class CalendarViewController {
     }
 
     @FXML
-    void prevMonth(ActionEvent event) {
+    void prevMonth() {
         dateFocus = dateFocus.minusMonths(1);
         calendar.getChildren().clear();
         displayMonth();
     }
 
     @FXML
-    void nextMonth(ActionEvent event) {
+    void nextMonth() {
         dateFocus = dateFocus.plusMonths(1);
         calendar.getChildren().clear();
         displayMonth();
@@ -123,9 +122,7 @@ public class CalendarViewController {
                 TextArea moreNotes = new TextArea("Too many notes to display on this day.");
                 moreNotes.setWrapText(true);
                 dayUnitBox.getChildren().add(moreNotes);
-                moreNotes.setOnMouseClicked(mouseEvent -> {
-                    new SelectionAlert("  App is unable to decide which note to open. Use List instead").show();
-                });
+                moreNotes.setOnMouseClicked(mouseEvent -> new SelectionAlert("  App is unable to decide which note to open. Use List instead").show());
                 break;
             }
             else {

@@ -7,7 +7,6 @@ import app.taskplanner.view.alerts.SelectionAlert;
 import app.taskplanner.view.alerts.WrongSelectionAlert;
 import app.taskplanner.viewmodel.ViewModel;
 import app.taskplanner.viewmodel.listviewmodel.ListViewModel;
-import javafx.event.ActionEvent;
 import javafx.scene.control.ListView;
 
 import javafx.fxml.FXML;
@@ -30,36 +29,27 @@ public class ListViewController implements ViewController {
     private ListView<NoteMetadata> listOfNotes = new ListView<>();
 
     @FXML
-    private Button newNoteButton;
-
-    @FXML
     private TextField newTitle;
-
-    @FXML
-    private Button removeButton;
-
-    @FXML
-    private Button closeAllButton;
 
     @FXML
     private Button plusButton;
 
 
     @FXML
-    void createAndOpenNote(ActionEvent event) {
+    void createAndOpenNote() {
         listVM.addNoteWithTitle("Your new note " + counter++);
         listVM.openNote(listOfNotes.getItems().get(listOfNotes.getItems().size()-1).getKey());
     }
 
     @FXML
-    void createNewNote(MouseEvent event) {
+    void createNewNote() {
         String title = newTitle.getText();
         listVM.addNoteWithTitle(title);
         newTitle.clear();
     }
 
     @FXML
-    void deleteSelectedNote(MouseEvent event) {
+    void deleteSelectedNote() {
         int selectedIndex = listOfNotes.getSelectionModel().getSelectedIndex();
         if(selectedIndex != -1) {
             listVM.removeNoteAt(selectedIndex);
@@ -70,12 +60,12 @@ public class ListViewController implements ViewController {
     }
 
     @FXML
-    void closeAllNotes(MouseEvent event) {
+    void closeAllNotes() {
         listVM.closeAllNotes();
     }
 
     @FXML
-    void openSelectedNote(MouseEvent event) {
+    void openSelectedNote() {
         NoteMetadata selectedNoteInfo = listOfNotes.getSelectionModel().getSelectedItem();
         if(selectedNoteInfo != null) {
             listVM.openNote(selectedNoteInfo.getKey());
@@ -86,7 +76,7 @@ public class ListViewController implements ViewController {
         }
     }
 
-    @Override
+    //@Override
     public void init(ViewModel listVM) {
         this.listVM = (ListViewModel) listVM;
         listOfNotes.itemsProperty().bindBidirectional(this.listVM.notesProperty());
@@ -109,15 +99,13 @@ public class ListViewController implements ViewController {
         Button openNote = new Button("Open");
         Button deleteNote = new Button("Delete");
         VBox vbox = new VBox(openNote, deleteNote);
-        if(item.intValue() >= listOfNotes.getItems().size() || item.intValue() < 0){
+        if(item >= listOfNotes.getItems().size() || item < 0){
             new WrongSelectionAlert().show();
             return;
         }
         int key = listOfNotes.getItems().get(item).getKey();
 
-        openNote.setOnAction(click -> {
-            listVM.openNote(key);
-        });
+        openNote.setOnAction(click -> listVM.openNote(key));
         deleteNote.setOnAction(click -> {
             listVM.removeNoteAt(item);
             popup.hide();
@@ -128,7 +116,7 @@ public class ListViewController implements ViewController {
         popup.hide();
     }
 
-    public void chronoSort(MouseEvent mouseEvent) {
+    public void chronoSort() {
         Comparator<NoteMetadata> comparator = Comparator.comparing(NoteMetadata::getDate, Comparator.nullsLast(Comparator.naturalOrder()));
         listOfNotes.getItems().sort(comparator);
     }

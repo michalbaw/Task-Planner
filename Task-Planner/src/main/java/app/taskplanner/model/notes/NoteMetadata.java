@@ -1,6 +1,4 @@
 package app.taskplanner.model.notes;
-
-import java.io.Serializable;
 import java.time.LocalDate;
 
 public interface NoteMetadata {

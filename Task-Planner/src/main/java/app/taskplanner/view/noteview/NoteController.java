@@ -6,7 +6,6 @@ import app.taskplanner.view.ViewFunctions;
 import app.taskplanner.viewmodel.ViewModel;
 import app.taskplanner.viewmodel.noteviewmodel.NoteViewModel;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
@@ -48,7 +47,7 @@ public class NoteController implements ViewController {
     private Label statusMessage;
     private ObservableList<SimpleTask> taskItems;
 
-    @Override
+    //@Override
     public void init(ViewModel noteVM) {
         this.noteVM = (NoteViewModel) noteVM;
         noteContent.textProperty().bindBidirectional(((NoteViewModel) noteVM).noteContentProperty());
@@ -63,49 +62,18 @@ public class NoteController implements ViewController {
         noteTitle.textProperty().addListener(observable -> changeStatusMessage(true));
     }
 
-    @FXML
-    void listOtherNotes(ActionEvent event) {
-
-    }
 
     @FXML
     void setOnDetected(MouseEvent event) {
         Dragboard dragboard = taskList.startDragAndDrop(TransferMode.MOVE);
         ClipboardContent content = new ClipboardContent();
-        int selectedId = taskList.getSelectionModel().getSelectedIndex();
-//        content.put(task, taskList.getItems().get(selectedId).getTaskTitle());
         dragboard.setContent(content);
         event.consume();
     }
 
-    @FXML
-    void setOnOver(DragEvent event) {
-//        if (event.getGestureSource() != taskList && event.getDragboard().hasContent(task)) {
-//            event.acceptTransferModes(TransferMode.MOVE);
-//        }
-//        event.consume();
-    }
 
     @FXML
-    void setOnDropped(DragEvent event) {
-//        Dragboard dragboard = event.getDragboard();
-//        boolean done = false;
-//        if (dragboard.hasContent(task)) {
-//            int selectedId = taskList.getSelectionModel().getSelectedIndex();
-//            NoteTask noteTask = (NoteTask) dragboard.getContent(task);
-//            taskList.getItems().remove(noteTask);
-//            noteTask.setStatus(true);
-//            taskList.getItems().remove(noteTask);
-//            noteTask.setStatus(false);
-//            taskList.getItems().add(selectedId, noteTask);
-//            done = true;
-//        }
-//        event.setDropCompleted(done);
-//        event.consume();
-    }
-
-    @FXML
-    void openTaskPage(ActionEvent event) {
+    void openTaskPage() {
         if (!opened) {
             taskPane.setMinWidth(185);
             taskPane.setPrefWidth(185);
@@ -129,30 +97,30 @@ public class NoteController implements ViewController {
     }
 
     @FXML
-    void closeNote(ActionEvent event) {
+    void closeNote() {
         noteVM.close();
     }
 
     @FXML
-    void saveAndClose(ActionEvent event) {
+    void saveAndClose() {
         saveNote();
         noteVM.close();
     }
 
     @FXML
-    void addTask(ActionEvent event) {
+    void addTask() {
         String newTaskName = taskName.getText();
         SimpleTask task = new SimpleTask(newTaskName, false);
         taskItems.add(task);
         taskName.clear();
     }
 
-    public void resetDate(ActionEvent actionEvent) {
+    public void resetDate() {
         datePicker.setValue(null);
         setDateColor(datePicker.getValue());
     }
 
-    public void removeFinishedTasks(ActionEvent actionEvent) {
+    public void removeFinishedTasks() {
         taskItems.removeIf(SimpleTask::getStatus);
     }
     public void changeStatusMessage(boolean changed){

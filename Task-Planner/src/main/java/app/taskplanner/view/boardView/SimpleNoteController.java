@@ -2,7 +2,6 @@ package app.taskplanner.view.boardView;
 
 import app.taskplanner.model.notes.Note;
 import app.taskplanner.viewmodel.boardviewmodel.BoardViewModel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.TextArea;
@@ -26,7 +25,7 @@ public class SimpleNoteController {
 
     public SimpleNoteController(){}
 
-    public void init(Note note, BoardViewModel boardVM, int i){
+    public void init(Note note, BoardViewModel boardVM){
         this.boardVM = boardVM;
         selfNote = note;
 
@@ -41,7 +40,7 @@ public class SimpleNoteController {
     }
 
     @FXML
-    void openInSeparateWindow(ActionEvent event) {
+    void openInSeparateWindow() {
         boardVM.openInSeparateWindow(selfNote.getMetadata().getKey());
     }
 

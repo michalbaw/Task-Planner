@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class StartApp extends Application {
     @Override
-    public void start(Stage primarystage) throws IOException, ClassNotFoundException {
+    public void start(Stage primarystage) throws IOException {
         ModelFactory mf = new ModelFactory();
         ViewModelFactory vf = new ViewModelFactory(mf.getDataModel(), primarystage);
     }

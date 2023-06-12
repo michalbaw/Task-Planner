@@ -1,21 +1,15 @@
 package app.taskplanner.viewmodel.listviewmodel;
 
 import app.taskplanner.model.DataModel;
-import app.taskplanner.model.notes.Note;
 import app.taskplanner.model.notes.NoteMetadata;
-import app.taskplanner.model.notes.SimpleNote;
 import app.taskplanner.service.ChangeModelService;
 import app.taskplanner.service.NotificationService;
-import app.taskplanner.viewmodel.Handler;
 import app.taskplanner.viewmodel.ViewHandler;
 import app.taskplanner.viewmodel.ViewModel;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.stage.Stage;
-
-import java.io.IOException;
 import java.util.List;
 
 public class ListViewModel implements ViewModel {

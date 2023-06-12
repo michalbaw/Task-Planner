@@ -3,8 +3,6 @@ package app.taskplanner.viewmodel.calendarviewmodel;
 import app.taskplanner.model.DataModel;
 import app.taskplanner.model.notes.Note;
 import app.taskplanner.model.notes.NoteMetadata;
-import app.taskplanner.service.ChangeModelService;
-import app.taskplanner.service.NotificationService;
 import app.taskplanner.view.calendarview.CalendarViewController;
 import app.taskplanner.viewmodel.ViewHandler;
 
@@ -13,19 +11,13 @@ import java.time.ZonedDateTime;
 import java.util.*;
 
 public class CalendarViewModel {
-    private DataModel dataModel;
-    private ViewHandler viewHandler;
-    private ChangeModelService changeModelService;
-    private NotificationService notificationService;
+    private final DataModel dataModel;
+    private final ViewHandler viewHandler;
     private CalendarViewController calendarViewController;
 
     public CalendarViewModel(DataModel dataModel,ViewHandler viewHandler){
         this.dataModel = dataModel;
         this.viewHandler = viewHandler;
-    }
-    public void init(ChangeModelService changeModelService, NotificationService notificationService) {
-        this.changeModelService = changeModelService;
-        this.notificationService = notificationService;
     }
     public void feelCalendarViewController(CalendarViewController calendarViewController){
         this.calendarViewController = calendarViewController;

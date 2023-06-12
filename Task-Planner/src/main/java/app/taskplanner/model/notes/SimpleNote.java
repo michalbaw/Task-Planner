@@ -1,10 +1,5 @@
 package app.taskplanner.model.notes;
 
-import app.taskplanner.model.fileOperations.FileHandler;
-
-import java.io.IOException;
-import java.util.List;
-
 public class SimpleNote implements Note {
     private NoteBody body;
     private NoteMetadata metadata;

@@ -32,9 +32,7 @@ public final class BoardViewController extends AnchorPane {
 
         saveAll = new Button("Save all and mix");
         board.getChildren().add(saveAll);
-        saveAll.setOnAction(event -> {
-            saveAllNotes();
-        });
+        saveAll.setOnAction(event -> saveAllNotes());
         refreshNotes();
     }
 
@@ -48,12 +46,12 @@ public final class BoardViewController extends AnchorPane {
 
     private void refreshNotes() {
         clearNotes();
-        for (int i = 0; i < notesProperty.size(); i++) {
-            addNote(notesProperty.get(i), i);
+        for (Note note : notesProperty) {
+            addNote(note);
         }
     }
 
-    void addNote(Note note, int i) {
+    void addNote(Note note) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(StartApp.class.getResource("simple-note-view.fxml"));
 
@@ -61,7 +59,7 @@ public final class BoardViewController extends AnchorPane {
             Parent root = loader.load();
             root.setStyle("-fx-background-color: transparent;");
             SimpleNoteController snc = loader.getController();
-            snc.init(note, boardVM, i);
+            snc.init(note, boardVM);
             board.getChildren().add(root);
             makeDraggable(board.getChildren().get(board.getChildren().size() - 1));
         } catch (IOException ioException) {

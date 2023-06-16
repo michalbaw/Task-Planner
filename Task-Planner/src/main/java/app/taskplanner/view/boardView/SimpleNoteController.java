@@ -44,5 +44,11 @@ public class SimpleNoteController {
         boardVM.openInSeparateWindow(selfNote.getMetadata().getKey());
     }
 
+    public void saveNote() {
+        selfNote.getMetadata().setTitle(noteTitle.getText());
+        selfNote.getNoteBody().setContent(noteContent.getText());
+        System.out.println("saveNote SimpleNoteController " + selfNote.getMetadata().getTitle());
+        BoardViewModel.saveNote(selfNote);
+    }
 }
 

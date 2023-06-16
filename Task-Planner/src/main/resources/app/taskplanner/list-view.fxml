@@ -6,13 +6,13 @@
 <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.taskplanner.view.listview.ListViewController">
 <children>
       <ListView fx:id="listOfNotes" layoutX="587.0" prefHeight="548.0" prefWidth="412.0" />
-      <Button fx:id="newNoteButton" layoutX="52.0" layoutY="68.0" mnemonicParsing="false" onMouseClicked="#createNewNote" prefHeight="27.0" prefWidth="76.0" text="Add" />
+      <Button fx:id="newNoteButton" layoutX="196.0" layoutY="32.0" mnemonicParsing="false" onMouseClicked="#createNewNote" prefHeight="40.0" prefWidth="76.0" text="Add" />
       <Button fx:id="removeButton" layoutX="472.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#deleteSelectedNote" prefHeight="40.0" prefWidth="82.0" text="Remove" />
       <Button fx:id="closeAllButton" layoutX="472.0" layoutY="136.0" mnemonicParsing="false" onMouseClicked="#closeAllNotes" prefHeight="40.0" prefWidth="82.0" text="Close All" />
       <Button fx:id="chronoSort" layoutX="472.0" layoutY="185.0" mnemonicParsing="false" onMouseClicked="#chronoSort" prefHeight="40.0" prefWidth="82.0" text="Sort" />
-      <TextField fx:id="newTitle" layoutX="47.0" layoutY="28.0" promptText="New note title" />
+      <TextField fx:id="newTitle" layoutX="47.0" layoutY="35.0" prefHeight="33.0" prefWidth="149.0" promptText="New note title" />
       <Button fx:id="openNoteButton" layoutX="472.0" layoutY="40.0" mnemonicParsing="false" onMouseClicked="#openSelectedNote" prefHeight="40.0" prefWidth="82.0" text="Open" />
-      <Button fx:id="plusButton" layoutX="52.0" layoutY="176.0" mnemonicParsing="false" onAction="#createAndOpenNote" prefHeight="25.0" prefWidth="89.0" />
-      <Label layoutX="52.0" layoutY="147.0" text="Add empty note:" />
+      <Button fx:id="plusButton" layoutX="47.0" layoutY="128.0" mnemonicParsing="false" onAction="#createAndOpenNote" prefHeight="40.0" prefWidth="82.0" />
+      <Label layoutX="48.0" layoutY="99.0" prefHeight="26.0" prefWidth="100.0" text="Add empty note:" />
 </children>
 </AnchorPane>

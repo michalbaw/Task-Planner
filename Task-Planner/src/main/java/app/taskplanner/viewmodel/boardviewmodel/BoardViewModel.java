@@ -21,7 +21,7 @@ public class BoardViewModel implements ViewModel {
     private final ListProperty<Note> notesProperty = new SimpleListProperty<>(FXCollections.observableArrayList());
     private final DataModel dataModel;
     private final ViewHandler viewHandler;
-    private ChangeModelService changeModelService;
+    private static ChangeModelService changeModelService;
     private NotificationService notificationService;
     private BoardViewController boardViewController;
 
@@ -51,15 +51,12 @@ public class BoardViewModel implements ViewModel {
         boardViewController.refresh();
     }
 
-    public void saveAllNotes() {
-        for (Note n : notesProperty) {
-            changeModelService.saveNote(n);
-        }
-        notificationService.notifyAllViewModels();
+    public static void saveNote(Note note) {
+        changeModelService.saveNote(note);
     }
 
     public void init(ChangeModelService changeModelService, NotificationService notificationService) {
-        this.changeModelService = changeModelService;
+        BoardViewModel.changeModelService = changeModelService;
         this.notificationService = notificationService;
     }
 
@@ -71,4 +68,7 @@ public class BoardViewModel implements ViewModel {
         viewHandler.openNote(key);
     }
 
+    public void useNotification() {
+        notificationService.notifyAllViewModels();
+    }
 }

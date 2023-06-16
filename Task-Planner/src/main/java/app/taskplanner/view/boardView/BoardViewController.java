@@ -2,6 +2,7 @@ package app.taskplanner.view.boardView;
 
 import app.taskplanner.StartApp;
 import app.taskplanner.model.notes.Note;
+import app.taskplanner.model.notes.SimpleNote;
 import app.taskplanner.viewmodel.boardviewmodel.BoardViewModel;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -18,6 +19,7 @@ import java.util.*;
 public final class BoardViewController extends AnchorPane {
 
     private final ListProperty<Note> notesProperty = new SimpleListProperty<>(FXCollections.observableArrayList());
+    private final List<SimpleNoteController> controllers = new LinkedList<>();
     private BoardViewModel boardVM;
     private AnchorPane board;
     private double startX;
@@ -37,7 +39,10 @@ public final class BoardViewController extends AnchorPane {
     }
 
     private void saveAllNotes() {
-        boardVM.saveAllNotes();
+        for (SimpleNoteController snc : controllers) {
+            snc.saveNote();
+        }
+        boardVM.useNotification();
     }
 
     public void refresh() {
@@ -60,6 +65,7 @@ public final class BoardViewController extends AnchorPane {
             root.setStyle("-fx-background-color: transparent;");
             SimpleNoteController snc = loader.getController();
             snc.init(note, boardVM);
+            controllers.add(snc);
             board.getChildren().add(root);
             makeDraggable(board.getChildren().get(board.getChildren().size() - 1));
         } catch (IOException ioException) {
@@ -71,6 +77,7 @@ public final class BoardViewController extends AnchorPane {
     void clearNotes() {
         ObservableList<Node> children = board.getChildren();
         children.removeIf(node -> (node != saveAll));
+        controllers.clear();
     }
 
     void makeDraggable(Node n) {

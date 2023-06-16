@@ -12,6 +12,11 @@
     -fx-border-insets: 1;
     -fx-background-insets: 1;
 }
+
+.button{
+    -fx-font-size: 14px;
+}
+
 .button:hover{
     -fx-background-color: linear-gradient(#fdffe5, #fdffcf); /*linear-gradient(#fdffe5, #fdffcf)*/;
     -fx-border-style: solid;
@@ -138,6 +143,10 @@
     -fx-tab-min-width: 35px;
 }
 
+.tab {
+    -fx-font-size: 16px;
+}
+
 .tab-pane .tab-header-area {
     -fx-padding: 0.5em 0.5em 0 0.5em;
 }
@@ -228,7 +237,7 @@
 }
 
 .list-view .list-cell {
-    -fx-background-color: #ffaaaa; /* Dimmed red cell background color */
+    -fx-background-color: #ffdddd; /* Dimmed red cell background color */
     -fx-border-color: #000000; /* Border color */
     -fx-border-width: 1px; /* Border width */
     -fx-font-size: 20px; /* Increased text size */
